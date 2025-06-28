@@ -6,6 +6,9 @@
   <title>Akshay | Portfolio</title>
   <link rel="stylesheet" href="./style.css" />
   <link href="https://fonts.googleapis.com/css2?family=Fira+Code&display=swap" rel="stylesheet">
+  <!-- AOS CSS -->
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+
 
 
   <!-- tsParticles CDN -->
@@ -96,47 +99,43 @@
         </div>
 
       </div>
-      <div class="timeline">
-        <div class="timeline-entry">
-          <div class="timeline-dot"></div>
-          <div class="timeline-content">
-            <h4>2020</h4>
-            <p>Learnt Photoshop</p>
+      <div class="timeline-wrapper">
+        <div class="timeline">
+          <div class="timeline-entry" data-aos="fade-right">
+            <div class="timeline-content">
+              <h4>2020</h4>
+              <p>Learnt Photoshop</p>
+            </div>
           </div>
-        </div>
-        <div class="timeline-entry">
-          <div class="timeline-dot"></div>
-          <div class="timeline-content">
-            <h4>2021</h4>
-            <p>Learnt to code Discord bots</p>
+          <div class="timeline-entry" data-aos="fade-left">
+            <div class="timeline-content">
+              <h4>2021</h4>
+              <p>Learnt to code Discord bots</p>
+            </div>
           </div>
-        </div>
-        <div class="timeline-entry">
-          <div class="timeline-dot"></div>
-          <div class="timeline-content">
-            <h4>2022</h4>
-            <p>Learnt After Effects</p>
+          <div class="timeline-entry" data-aos="zoom-in">
+            <div class="timeline-content">
+              <h4>2022</h4>
+              <p>Learnt After Effects</p>
+            </div>
           </div>
-        </div>
-        <div class="timeline-entry">
-          <div class="timeline-dot"></div>
-          <div class="timeline-content">
-            <h4>2023</h4>
-            <p>Started making websites</p>
+          <div class="timeline-entry" data-aos="fade-right">
+            <div class="timeline-content">
+              <h4>2023</h4>
+              <p>Started making websites</p>
+            </div>
           </div>
-        </div>
-        <div class="timeline-entry">
-          <div class="timeline-dot"></div>
-          <div class="timeline-content">
-            <h4>2024</h4>
-            <p>Learnt Python and SQL</p>
+          <div class="timeline-entry" data-aos="fade-left">
+            <div class="timeline-content">
+              <h4>2024</h4>
+              <p>Learnt Python and SQL</p>
+            </div>
           </div>
-        </div>
-        <div class="timeline-entry">
-          <div class="timeline-dot"></div>
-          <div class="timeline-content">
-            <h4>2025</h4>
-            <p>Creating advanced projects from all previous skills</p>
+          <div class="timeline-entry" data-aos="zoom-in-up">
+            <div class="timeline-content">
+              <h4>2025</h4>
+              <p>Creating advanced projects from all previous skills</p>
+            </div>
           </div>
         </div>
       </div>
@@ -195,6 +194,16 @@
         shape: { type: "circle" }
       },
       detectRetina: true
+    });
+  </script>
+    <!-- AOS JS -->
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+  <script>
+    AOS.init({
+      duration: 800,
+      offset: 120,
+      easing: 'ease-in-out',
+      once: true
     });
   </script>
 

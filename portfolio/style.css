@@ -404,38 +404,64 @@ body {
   text-shadow: 0 0 8px rgba(92, 158, 255, 0.4);
 }
 
+.timeline-wrapper {
+  position: relative;
+  width: 100%;
+  margin-top: 80px;
+  padding-left: 40px;
+}
+
 .timeline {
   position: relative;
-  margin-top: 80px;
-  padding-left: 30px;
-  border-left: 2px dashed rgba(92, 158, 255, 0.6);
-  display: flex;
-  flex-direction: column;
-  gap: 40px;
-  animation: fadeInUp 1s ease-in-out both;
+  margin-left: 20px;
+  border-left: 2px dashed transparent; /* hide default line */
 }
 
+.timeline::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -1px;
+  width: 4px;
+  height: 0%;
+  background: linear-gradient(to bottom, #5c9eff, #a1cfff);
+  border-radius: 4px;
+  transition: height 0.3s ease;
+  z-index: 0;
+}
+
+
+@keyframes growComet {
+  from {
+    height: 0;
+  }
+  to {
+    height: 100%;
+  }
+}
+
+
+/* Timeline entry position relative to comet line */
 .timeline-entry {
   position: relative;
-  padding-left: 20px;
+  margin-bottom: 60px;
+  padding-left: 40px;
 }
 
-.timeline-dot {
+/* Add arrow pointing from comet line to content */
+.timeline-entry::before {
+  content: '';
   position: absolute;
-  left: -12px;
-  top: 4px;
-  width: 14px;
-  height: 14px;
-  background-color: #5c9eff;
-  border: 3px solid #ffffff;
-  border-radius: 50%;
-  z-index: 1;
-  transition: transform 0.3s ease;
+  left: -15px;
+  top: 12px;
+  width: 0;
+  height: 0;
+  border-top: 6px solid transparent;
+  border-bottom: 6px solid transparent;
+  border-left: 10px solid #5c9eff;
 }
 
-.timeline-entry:hover .timeline-dot {
-  transform: scale(1.4);
-}
+
 
 .timeline-content h4 {
   font-size: 18px;
