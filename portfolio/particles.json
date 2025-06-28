@@ -1,0 +1,49 @@
+{
+  "particles": {
+    "number": { "value": 70 },
+    "color": { "value": "#0c2f3c" },
+    "shape": { "type": "circle" },
+    "opacity": { "value": 0.6 },
+    "size": { "value": 3 },
+    "line_linked": {
+      "enable": true,
+      "distance": 120,
+      "color": "#0c2f3c",
+      "opacity": 0.4,
+      "width": 1
+    },
+    "move": {
+      "enable": true,
+      "speed": 1.5,
+      "direction": "none",
+      "random": false,
+      "straight": false,
+      "out_mode": "out",
+      "bounce": false
+    }
+  },
+  "interactivity": {
+    "detect_on": "canvas",
+    "events": {
+      "onhover": {
+        "enable": true,
+        "mode": "repulse"
+      },
+      "onclick": {
+        "enable": true,
+        "mode": "push"
+      },
+      "resize": true
+    },
+    "modes": {
+      "repulse": {
+        "distance": 100,
+        "duration": 0.4
+      },
+      "push": {
+        "particles_nb": 4
+      }
+    }
+  },
+  "retina_detect": true
+}

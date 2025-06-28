@@ -3,14 +3,11 @@
   font-family: 'AkiraExpanded-SuperBold';
   src: url('./fonts/AkiraExpanded-SuperBold.ttf') format('truetype');
   font-weight: 400;
-  font-style: normal;
 }
-
 @font-face {
   font-family: 'MonumentExtended-Regular';
   src: url('./fonts/MonumentExtended-Regular.ttf') format('truetype');
   font-weight: 400;
-  font-style: normal;
 }
 
 /* === RESET === */
@@ -28,35 +25,38 @@ body {
   overflow-x: hidden;
 }
 
-/* === MAIN CONTAINER === */
-.portfolio,
-.portfolio * {
-  box-sizing: border-box;
-}
-.portfolio {
-  background: #d3f3f3;
-  min-height: 100vh;
+/* === PARTICLE BACKGROUND === */
+#tsparticles {
+  position: fixed;
   width: 100%;
-  position: relative;
-  overflow-x: hidden;
-  overflow-y: auto;
+  height: 100%;
+  z-index: 0;
+  top: 0;
+  left: 0;
 }
 
-/* === TOP BAR === */
+/* === PORTFOLIO CONTAINER === */
+.portfolio {
+  position: relative;
+  z-index: 2;
+  min-height: 100vh;
+  width: 100%;
+  background: transparent;
+  
+}
+
+/* === NAVIGATION === */
 .rectangle-1 {
   background: rgba(133, 171, 227, 0.22);
   width: 100%;
   height: 100px;
   position: absolute;
   top: 0;
-  box-shadow: 0px 6px 18px 6px rgba(0, 0, 0, 0.25);
+  box-shadow: 0 6px 18px 6px rgba(0, 0, 0, 0.25);
+  z-index: 1;
 }
 
-/* === NAVIGATION ITEMS === */
-.frame-1,
-.frame-2,
-.frame-3,
-.frame-4 {
+.frame-1, .frame-2, .frame-3, .frame-4 {
   padding: 10px;
   display: flex;
   align-items: center;
@@ -64,16 +64,12 @@ body {
   position: absolute;
   top: 14px;
 }
-
 .frame-1 { left: 33px; }
 .frame-2 { left: 658px; }
 .frame-3 { left: 908px; }
 .frame-4 { left: 1126px; }
 
-.axon,
-.about,
-.work,
-.contact {
+.axon, .about, .work, .contact {
   color: #0c2f3c;
   font-family: 'AkiraExpanded-SuperBold', sans-serif;
   font-size: 24px;
@@ -81,19 +77,18 @@ body {
   cursor: pointer;
 }
 
-/* === HERO TEXT === */
+/* === HERO === */
 .hero-content {
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding: 350px 60px 100px;
+  flex-wrap: wrap;
   position: relative;
   z-index: 3;
-  flex-wrap: wrap;
 }
 
-.left-hero,
-.right-hero {
+.left-hero, .right-hero {
   display: flex;
   flex-direction: column;
   gap: 10px;
@@ -111,74 +106,6 @@ body {
   color: #000;
 }
 
-/* === DESIGNER / DEVELOPER SLIDE ANIMATION === */
-.right-hero {
-  position: relative;
-  width: 490px;
-  height: 70px;
-  overflow: hidden;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.role-swap {
-  position: relative;
-  width: 100%;
-  height: 100%;
-}
-
-.role {
-  position: absolute;
-  width: 100%;
-  left: 0;
-  font-size: 64px;
-  font-family: 'AkiraExpanded-SuperBold', sans-serif;
-  color: #000;
-  text-align: center;
-  transition: transform 0.5s ease-in-out;
-  pointer-events: none;
-}
-
-.designer {
-  transform: translateY(0%);
-  z-index: 2;
-}
-
-.developer {
-  transform: translateY(100%) translateX(-8px);
-  z-index: 1;
-}
-
-.right-hero:hover .designer {
-  transform: translateY(-100%);
-  z-index: 1;
-}
-
-.right-hero:hover .developer {
-  transform: translateY(0%) translateX(-8px);
-  z-index: 2;
-}
-
-
-
-
-@keyframes slideText {
-  0% {
-    transform: translateY(0%);
-  }
-  45% {
-    transform: translateY(0%);
-  }
-  55% {
-    transform: translateY(-100%);
-  }
-  100% {
-    transform: translateY(-100%);
-  }
-}
-
-/* === STAR AND BLOB === */
 .star-container {
   position: relative;
   display: flex;
@@ -193,9 +120,12 @@ body {
   width: 200px;
   z-index: 4;
   animation: glowPulse 2s ease-in-out infinite;
+  transition: transform 0.3s ease;
+  transform-style: preserve-3d;
+}
 
-  /* 👇 ADD THIS */
-  pointer-events: auto;
+.top-star:hover {
+  transform: rotateX(30deg) rotateY(20deg) scale(1.55);
 }
 
 .hero-blob {
@@ -204,36 +134,48 @@ body {
   top: 60%;
   transform: translate(-50%, -50%);
   width: 320px;
-  max-width: 80vw;
   z-index: 1;
   pointer-events: none;
   animation: blobWiggle 4s ease-in-out infinite;
+  transition: transform 0.3s ease;
 }
 
-/* === RESPONSIVE === */
-@media (max-width: 768px) {
-  .hero-content {
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-    gap: 20px;
-  }
+/* === DESIGNER/DEVELOPER ROLE === */
+.right-hero {
+  position: relative;
+  width: 490px;
+  height: 70px;
+  overflow: hidden;
+  justify-content: center;
+  align-items: center;
+}
+.right-hero:hover .role-swap {
+  animation: swapRoles 1s forwards;
+}
 
-  .left-hero,
-  .right-hero {
-    align-items: center;
-  }
+.role-swap {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+.role {
+  position: absolute;
+  width: 100%;
+  left: 0;
+  font-size: 64px;
+  font-family: 'AkiraExpanded-SuperBold', sans-serif;
+  color: #000;
+  text-align: center;
+  transition: transform 0.5s ease-in-out;
+}
+.designer { transform: translateY(0%); z-index: 2; }
+.developer { transform: translateY(100%); z-index: 1; }
 
-  .role {
-    font-size: 48px;
-    height: 48px;
-    line-height: 48px;
-  }
-
-  .hello-i-am,
-  .akshay {
-    font-size: 32px;
-  }
+.right-hero:hover .designer {
+  transform: translateY(-100%);
+}
+.right-hero:hover .developer {
+  transform: translateY(0%);
 }
 
 /* === SCROLL SECTIONS === */
@@ -242,68 +184,205 @@ body {
   padding: 100px 60px;
   background-color: #ffffff;
   color: #0c2f3c;
+  z-index: 3;
+  position: relative;
 }
-
 .section h2 {
   font-size: 48px;
   margin-bottom: 20px;
 }
-
 .section p {
   font-size: 20px;
   max-width: 600px;
 }
 
-/* === FADE-IN ANIMATION === */
-.fade-in {
-  opacity: 0;
-  transform: translateY(30px);
-  transition: all 0.6s ease-out;
-}
-
-.fade-in.visible {
-  opacity: 1;
-  transform: translateY(0);
-}
-
-/* === GLOBAL HOVER EFFECTS === */
-.hover-effect {
-  transition: transform 0.3s ease, color 0.3s ease;
-  cursor: pointer;
-}
-
-.hover-effect:hover {
-  transform: scale(1.05);
-  color: #007bff; /* or any highlight color */
-}
-.hover-img {
-  transition: transform 0.3s ease, filter 0.3s ease;
-  cursor: pointer;
-}
-
-.hover-img:hover {
-  transform: scale(1.1) rotate(3deg);
-  filter: brightness(1.2);
-}
-
-
-/* === WIGGLE + GLOW === */
+/* === ANIMATIONS === */
 @keyframes blobWiggle {
-  0%   { transform: translate(-50%, -50%) scale(1) rotate(0deg); }
-  25%  { transform: translate(-50%, -48%) scale(1.03, 0.97) rotate(1deg); }
-  50%  { transform: translate(-50%, -50%) scale(0.97, 1.03) rotate(-1deg); }
-  75%  { transform: translate(-50%, -52%) scale(1.02, 0.98) rotate(0.5deg); }
+  0% { transform: translate(-50%, -50%) scale(1) rotate(0deg); }
+  25% { transform: translate(-50%, -48%) scale(1.03, 0.97) rotate(1deg); }
+  50% { transform: translate(-50%, -50%) scale(0.97, 1.03) rotate(-1deg); }
+  75% { transform: translate(-50%, -52%) scale(1.02, 0.98) rotate(0.5deg); }
   100% { transform: translate(-50%, -50%) scale(1) rotate(0deg); }
 }
 
 @keyframes glowPulse {
-  0% {
-    filter: drop-shadow(0 0 0px rgba(255, 255, 255, 0.4));
+  0% { filter: drop-shadow(0 0 0px rgba(255, 255, 255, 0.4)); }
+  50% { filter: drop-shadow(0 0 20px rgba(255, 255, 255, 0.8)); }
+  100% { filter: drop-shadow(0 0 0px rgba(255, 255, 255, 0.4)); }
+}
+
+/* === HOVER ANIMATIONS === */
+.hover-animate {
+  transition: transform 0.3s ease, filter 0.3s ease;
+}
+.hover-animate:hover {
+  transform: scale(1.06);
+  filter: brightness(1.2);
+}
+
+/* === RESPONSIVE === */
+@media (max-width: 768px) {
+  .hero-content {
+    flex-direction: column;
+    text-align: center;
+    gap: 20px;
   }
-  50% {
-    filter: drop-shadow(0 0 20px rgba(255, 255, 255, 0.8));
+
+  .role {
+    font-size: 48px;
   }
-  100% {
-    filter: drop-shadow(0 0 0px rgba(255, 255, 255, 0.4));
+
+  .hello-i-am, .akshay {
+    font-size: 32px;
   }
+}
+
+/* === ABOUT SECTION === */
+.about-section {
+  background-color: #e4f2fc;
+  padding: 120px 60px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  color: #0a2540;
+  position: relative;
+  z-index: 2;
+}
+
+.about-title h2 {
+  font-size: 48px;
+  font-family: 'AkiraExpanded-SuperBold', sans-serif;
+  margin-bottom: 60px;
+}
+
+.white-text {
+  color: #000;
+}
+
+.blue-text {
+  color: #5c9eff;
+}
+
+.about-content {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 60px;
+  justify-content: center;
+  align-items: center;
+}
+
+.about-image img {
+  max-width: 400px;
+  height: auto;
+  border-radius: 20px;
+}
+
+.about-cards {
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+  max-width: 500px;
+}
+
+.about-card {
+  background: #ffffff;
+  padding: 30px;
+  border-left: 5px solid #5c9eff;
+  border-radius: 12px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease;
+}
+
+.about-card:hover {
+  transform: scale(1.03);
+}
+
+.about-card h3 {
+  font-size: 28px;
+  font-family: 'AkiraExpanded-SuperBold', sans-serif;
+  margin-bottom: 10px;
+}
+
+.about-card .desc {
+  font-size: 16px;
+  font-family: 'MonumentExtended-Regular', sans-serif;
+  color: #333;
+  line-height: 1.6;
+}
+
+/* === UNIVERSAL TEXT HOVER EFFECT === */
+.text-hover {
+  display: inline-block;
+  transition: transform 0.3s ease, color 0.3s ease, text-shadow 0.3s ease;
+}
+
+.text-hover:hover {
+  transform: scale(1.05);
+  color: #1d3f70;
+  text-shadow: 0 0 8px rgba(92, 158, 255, 0.4);
+}
+
+/* === STYLIZED STICKY NAVBAR === */
+.navbar {
+  position: fixed;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: auto;
+  padding: 14px 98px; /* increased horizontal padding */
+  background: rgba(92, 158, 255, 0.2); /* light transparent blue */
+  border: 1.5px solid rgba(92, 158, 255, 0.4);
+  border-radius: 60px;
+  backdrop-filter: blur(10px);
+  box-shadow: 0 6px 24px rgba(0, 0, 0, 0.1);
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 64px; /* more space between logo and links */
+}
+
+
+/* Logo */
+.navbar .logo {
+  font-family: 'AkiraExpanded-SuperBold', sans-serif;
+  font-size: 20px;
+  color: #0a2540;
+  cursor: pointer;
+}
+
+/* Nav Links */
+.navbar .nav-links {
+  display: flex;
+  gap: 36px;
+}
+
+.navbar .nav-link {
+  font-family: 'AkiraExpanded-SuperBold', sans-serif;
+  font-size: 16px;
+  color: #0a2540;
+  text-decoration: none;
+  position: relative;
+  transition: all 0.3s ease;
+}
+
+.navbar .nav-link:hover::after,
+.navbar .nav-link:focus::after {
+  width: 100%;
+}
+
+.navbar .nav-link::after {
+  content: '';
+  position: absolute;
+  width: 0%;
+  height: 2px;
+  left: 0;
+  bottom: -5px;
+  background-color: #0a2540;
+  transition: width 0.3s ease;
+}
+
+.navbar .nav-link:focus-visible {
+  outline: 2px dashed #0a2540;
+  outline-offset: 4px;
 }

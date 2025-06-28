@@ -5,64 +5,124 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Akshay | Portfolio</title>
   <link rel="stylesheet" href="./style.css" />
+
+  <!-- tsParticles CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/tsparticles@2.11.1/tsparticles.bundle.min.js"></script>
 </head>
 <body>
 
-  <div class="portfolio">
-    <div class="rectangle-1"></div>
+  <!-- Bubble Background -->
+  <div id="tsparticles"></div>
 
-    <!-- Navigation -->
-    <div class="frame-1">
-      <div class="axon hover-effect">AXON</div>
-    </div>
-    <div class="frame-2">
-      <a class="about hover-effect" href="#about">ABOUT</a>
-    </div>
-    <div class="frame-3">
-      <a class="work hover-effect" href="#work">WORK</a>
-    </div>
-    <div class="frame-4">
-      <a class="contact hover-effect" href="#contact">CONTACT</a>
-    </div>
+  <!-- Portfolio Content -->
+  <div class="portfolio">
+    <!-- Sticky Navbar -->
+    <header class="navbar">
+    <div class="logo">AXON</div>
+        <nav class="nav-links">
+            <a href="#about" class="nav-link">ABOUT</a>
+            <a href="#work" class="nav-link">WORK</a>
+            <a href="#contact" class="nav-link">CONTACT</a>
+        </nav>
+    </header>
+
+
+
 
     <!-- Hero Section -->
     <div class="hero-content">
       <div class="left-hero">
         <div class="star-container">
-          <img src="./assets/star.png" alt="Star" class="top-star hover-img scroll-fade" />
-          <div class="hello-i-am hover-effect">Hello, I am</div>
-          <div class="akshay hover-effect">AKSHAY</div>
+          <img src="./assets/star.png" alt="Star" class="top-star" />
+          <div class="hello-i-am text-hover">Hello, I am</div>
+          <div class="akshay text-hover">AKSHAY</div>
         </div>
       </div>
 
-      <img src="./assets/lava-blob.png" alt="3D Blob" class="hero-blob hover-img" />
+      <img src="./assets/lava-blob.png" alt="Blob" class="hero-blob" />
 
-      <div class="right-hero">
+      <div class="right-hero hover-swap">
         <div class="role-swap">
-          <div class="role designer hover-effect">DESIGNER</div>
-          <div class="role developer hover-effect">DEVELOPER</div>
+          <div class="role designer">DESIGNER</div>
+          <div class="role developer">DEVELOPER</div>
         </div>
       </div>
     </div>
   </div>
 
-  <!-- Sections -->
-  <section id="about" class="section fade-in">
-    <h2 class="hover-effect">About Me</h2>
-    <p>I am a passionate designer and developer building experiences for the web.</p>
+  <!-- REPLACED About Section -->
+  <section id="about" class="about-section">
+    <h2 class="about-heading">WHAT <span class="highlight">I DO</span></h2>
+    <div class="about-grid">
+      <div class="about-image">
+        <img src="./assets/developer.png" alt="Developer Illustration" />
+      </div>
+      <div class="about-cards">
+        <div class="about-card">
+          <h3>DEVELOP</h3>
+          <p class="desc">Started building websites with JavaScript and PHP, now I craft them with TypeScript, React, Express, Node, ... and a little bit of magic!</p>
+        </div>
+        <div class="about-card">
+          <h3>DESIGN</h3>
+          <p class="desc">I started designing as my hobby, but like all good hobbies, it slowly crept into my career—now it won't leave me alone!</p>
+        </div>
+      </div>
+    </div>
   </section>
 
+  <!-- Work Section -->
   <section id="work" class="section fade-in">
-    <h2 class="hover-effect">My Work</h2>
+    <h2>My Work</h2>
     <p>Here you’ll find a showcase of my latest projects and case studies.</p>
   </section>
 
+  <!-- Contact Section -->
   <section id="contact" class="section fade-in">
-    <h2 class="hover-effect">Contact</h2>
+    <h2>Contact</h2>
     <p>Let's get in touch! Email me at <a href="mailto:akshay@example.com">akshay@example.com</a></p>
   </section>
 
-  <script src="./script.js" defer></script>
-  <script src="./tilt.js" defer></script>
+  <!-- Bubbles Particle JS -->
+  <script>
+    tsParticles.load("tsparticles", {
+      background: {
+        color: { value: "#d3f3f3" }
+      },
+      fpsLimit: 60,
+      interactivity: {
+        events: {
+          onHover: { enable: true, mode: "bubble" },
+          resize: true
+        },
+        modes: {
+          bubble: {
+            distance: 150,
+            size: 8,
+            duration: 2,
+            opacity: 0.8,
+            speed: 3
+          }
+        }
+      },
+      particles: {
+        color: { value: "#0c2f3c" },
+        opacity: { value: 0.4, random: true },
+        size: { value: 6, random: true },
+        move: {
+          enable: true,
+          speed: 1,
+          direction: "none",
+          outModes: { default: "out" }
+        },
+        number: {
+          value: 50,
+          density: { enable: true, area: 800 }
+        },
+        shape: { type: "circle" }
+      },
+      detectRetina: true
+    });
+  </script>
+
 </body>
 </html>
