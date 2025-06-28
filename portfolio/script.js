@@ -37,30 +37,29 @@ if (tiltElements.length > 0) {
   });
 }
 
-document.addEventListener('DOMContentLoaded', () => {
-  const styleEl = document.createElement('style');
-  document.head.appendChild(styleEl);
+document.addEventListener("DOMContentLoaded", () => {
+  const comet = document.querySelector(".comet");
+  const fireball = comet.querySelector(".fireball");
+  const timeline = document.querySelector(".timeline");
+  const entries = document.querySelectorAll(".timeline-entry");
 
-  function updateCometHeight() {
-    const section = document.querySelector('.timeline-wrapper');
-    if (!section) return;
+  window.addEventListener("scroll", () => {
+    const timelineRect = timeline.getBoundingClientRect();
+    const scrollY = window.scrollY + window.innerHeight / 2;
+    const timelineTop = timeline.offsetTop;
+    const timelineHeight = timeline.offsetHeight;
 
-    const rect = section.getBoundingClientRect();
-    const windowHeight = window.innerHeight;
+    // Animate comet height
+    const progress = Math.min(Math.max((scrollY - timelineTop) / timelineHeight, 0), 1);
+    comet.style.height = `${progress * 100}%`;
+    fireball.style.top = `calc(${progress * 100}% - 10px)`;
 
-    // Compute how far the section has scrolled into view
-    let progress = 1 - Math.max(0, Math.min(1, rect.bottom / (rect.height + windowHeight)));
-    const heightPercent = Math.floor(progress * 100);
-
-    // Inject style to animate the comet height
-    styleEl.innerHTML = `
-      .timeline::before {
-        height: ${heightPercent}%;
+    // Animate timeline entries as fireball crosses
+    entries.forEach(entry => {
+      const entryTop = entry.offsetTop + timeline.offsetTop;
+      if (scrollY > entryTop - 100) {
+        entry.classList.add("animated");
       }
-    `;
-  }
-
-  window.addEventListener('scroll', updateCometHeight);
-  window.addEventListener('resize', updateCometHeight);
-  updateCometHeight(); // Trigger once on load
+    });
+  });
 });

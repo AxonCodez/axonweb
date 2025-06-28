@@ -8,6 +8,9 @@
   <link href="https://fonts.googleapis.com/css2?family=Fira+Code&display=swap" rel="stylesheet">
   <!-- AOS CSS -->
   <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+
 
 
 
@@ -99,39 +102,40 @@
         </div>
 
       </div>
-      <div class="timeline-wrapper">
-        <div class="timeline">
-          <div class="timeline-entry" data-aos="fade-right">
+      <div class="timeline">
+        <div class="comet-track" id="cometTrack"></div>
+        <div class="fireball" id="fireball"></div>
+          <div class="timeline-entry">
             <div class="timeline-content">
               <h4>2020</h4>
               <p>Learnt Photoshop</p>
             </div>
           </div>
-          <div class="timeline-entry" data-aos="fade-left">
+          <div class="timeline-entry">
             <div class="timeline-content">
               <h4>2021</h4>
               <p>Learnt to code Discord bots</p>
             </div>
           </div>
-          <div class="timeline-entry" data-aos="zoom-in">
-            <div class="timeline-content">
+          <div class="timeline-entry">
+            <div class="timeline-content">            
               <h4>2022</h4>
               <p>Learnt After Effects</p>
             </div>
           </div>
-          <div class="timeline-entry" data-aos="fade-right">
+          <div class="timeline-entry">
             <div class="timeline-content">
               <h4>2023</h4>
               <p>Started making websites</p>
             </div>
           </div>
-          <div class="timeline-entry" data-aos="fade-left">
+          <div class="timeline-entry">
             <div class="timeline-content">
               <h4>2024</h4>
               <p>Learnt Python and SQL</p>
             </div>
           </div>
-          <div class="timeline-entry" data-aos="zoom-in-up">
+          <div class="timeline-entry">
             <div class="timeline-content">
               <h4>2025</h4>
               <p>Creating advanced projects from all previous skills</p>
@@ -139,6 +143,7 @@
           </div>
         </div>
       </div>
+
 
     </div>
   </section>
@@ -206,6 +211,42 @@
       once: true
     });
   </script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+  <script>
+  const cometTrack = document.getElementById("cometTrack");
+  const fireball = document.getElementById("fireball");
+  const entries = document.querySelectorAll(".timeline-entry");
+
+  function updateComet() {
+    const timeline = document.querySelector(".timeline");
+    const rect = timeline.getBoundingClientRect();
+    const scrollTop = window.scrollY || window.pageYOffset;
+    const visibleHeight = window.innerHeight;
+
+    const topOffset = rect.top + scrollTop - visibleHeight / 2;
+    const scrollPos = scrollTop - topOffset;
+
+    const totalHeight = timeline.scrollHeight;
+    const maxCometHeight = timeline.offsetHeight;
+
+    const cometHeight = Math.min(Math.max(scrollPos, 0), maxCometHeight);
+    cometTrack.style.height = `${cometHeight}px`;
+    fireball.style.transform = `translateY(${cometHeight}px)`;
+
+    entries.forEach(entry => {
+      const entryTop = entry.getBoundingClientRect().top;
+      if (entryTop < window.innerHeight * 0.75) {
+        entry.classList.add("visible");
+      } else {
+        entry.classList.remove("visible");
+      }
+    });
+  }
+
+  window.addEventListener("scroll", updateComet);
+  window.addEventListener("load", updateComet);
+</script>
 
 </body>
 </html>
