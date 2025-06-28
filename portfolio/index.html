@@ -10,50 +10,59 @@
 
   <div class="portfolio">
     <div class="rectangle-1"></div>
+
+    <!-- Navigation -->
     <div class="frame-1">
-      <div class="axon">AXON</div>
+      <div class="axon hover-effect">AXON</div>
     </div>
     <div class="frame-2">
-      <a class="about" href="#about">ABOUT</a>
+      <a class="about hover-effect" href="#about">ABOUT</a>
     </div>
     <div class="frame-3">
-      <a class="work" href="#work">WORK</a>
+      <a class="work hover-effect" href="#work">WORK</a>
     </div>
     <div class="frame-4">
-      <a class="contact" href="#contact">CONTACT</a>
+      <a class="contact hover-effect" href="#contact">CONTACT</a>
     </div>
-    <div class="hero-content">
-        <div class="left-hero">
-            <div class="star-container">
-                <img src="./assets/star.png" alt="Star Glow" class="top-star" />
-                <div class="hello-i-am">Hello, I am</div>
-                <div class="akshay">AKSHAY</div>
-            </div>
-        </div>
 
-        <img src="./assets/lava-blob.png" alt="3D Blob" class="hero-blob" />
-        <div class="right-hero">
-            <div class="designer">DESIGNER</div>
-            <div class="developer">DEVELOPER</div>
+    <!-- Hero Section -->
+    <div class="hero-content">
+      <div class="left-hero">
+        <div class="star-container">
+          <img src="./assets/star.png" alt="Star" class="top-star hover-img scroll-fade" />
+          <div class="hello-i-am hover-effect">Hello, I am</div>
+          <div class="akshay hover-effect">AKSHAY</div>
         </div>
-</div>
+      </div>
+
+      <img src="./assets/lava-blob.png" alt="3D Blob" class="hero-blob hover-img" />
+
+      <div class="right-hero">
+        <div class="role-swap">
+          <div class="role designer hover-effect">DESIGNER</div>
+          <div class="role developer hover-effect">DEVELOPER</div>
+        </div>
+      </div>
+    </div>
   </div>
 
+  <!-- Sections -->
   <section id="about" class="section fade-in">
-    <h2>About Me</h2>
+    <h2 class="hover-effect">About Me</h2>
     <p>I am a passionate designer and developer building experiences for the web.</p>
   </section>
 
   <section id="work" class="section fade-in">
-    <h2>My Work</h2>
+    <h2 class="hover-effect">My Work</h2>
     <p>Here you’ll find a showcase of my latest projects and case studies.</p>
   </section>
 
   <section id="contact" class="section fade-in">
-    <h2>Contact</h2>
+    <h2 class="hover-effect">Contact</h2>
     <p>Let's get in touch! Email me at <a href="mailto:akshay@example.com">akshay@example.com</a></p>
   </section>
 
-  <script src="./script.js"></script>
+  <script src="./script.js" defer></script>
+  <script src="./tilt.js" defer></script>
 </body>
 </html>
