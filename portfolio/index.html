@@ -163,25 +163,35 @@
         </div>
       </div>
 
-      <div class="work-card expandable">
+      <!-- === GRAPHICS DESIGN CARD === -->
+      <div class="graphics-card">
         <h3>Graphics and Designing</h3>
-        <p class="desc">Posters, reels, animations — everything I love creating.</p>
-        <div class="work-dropdown-toggle">▼</div>
-        <div class="work-dropdown-content">
-          <iframe
-            src="https://www.behance.net/gallery/167155879/Discord-Profile-Banners/modules/942693977"
-            height="316"
-            width="404"
-            allowfullscreen
-            loading="lazy"
-            frameborder="0"
-            allow="clipboard-write"
-            referrerpolicy="strict-origin-when-cross-origin"
-            class="behance-frame"
-          ></iframe>
+        <p class="desc">Browse my creative work categorized below.</p>
+
+        <!-- Dropdown menu -->
+        <div class="graphics-dropdown">
+          <div class="dropdown-toggle">Choose Category ⌄</div>
+          <div class="dropdown-menu">
+            <div class="dropdown-item" data-category="discord">Discord Profile Banners</div>
+            <div class="dropdown-item" data-category="twitter">Twitter Headers</div>
+            <div class="dropdown-item" data-category="youtube">YouTube Banners</div>
+            <div class="dropdown-item" data-category="server">Discord Server Banners</div>
+            <div class="dropdown-item" data-category="logo">Logos and PFPs</div>
+            <!-- Add more as needed -->
+          </div>
         </div>
-</div>
-    </div>
+
+        <!-- Carousel Display Area -->
+        <div id="graphics-carousel-container">
+          <div class="graphics-carousel">
+            <button class="carousel-btn left-btn">&#10094;</button>
+            <div id="graphics-carousel"></div>
+            <button class="carousel-btn right-btn">&#10095;</button>
+          </div>
+          </div>
+        </div>
+      </div>
+
   </section>
   <!-- Contact Section -->
   <section id="contact" class="section fade-in">
@@ -288,7 +298,138 @@
       });
     });
   </script>
+  <script>
+    const imageData = {
+      discord: [
+        "https://mir-s3-cdn-cf.behance.net/project_modules/max_1200/f1a572167155879.6424473db3dc3.gif",
+        "https://mir-s3-cdn-cf.behance.net/project_modules/max_1200/12783c167155879.646b52f36e28d.png",
+        "https://mir-s3-cdn-cf.behance.net/project_modules/disp_webp/9adf44167155879.64244656e768f.png",
+        "https://mir-s3-cdn-cf.behance.net/project_modules/disp_webp/4c5996167155879.64244656e815f.png",
+        "https://mir-s3-cdn-cf.behance.net/project_modules/disp_webp/9f1989167155879.64244656e5d67.png",
+        "https://mir-s3-cdn-cf.behance.net/project_modules/disp_webp/3f7ad2167155879.64244656e6b91.png",
+        "https://mir-s3-cdn-cf.behance.net/project_modules/disp_webp/ef6d14167155879.64244656e4fad.png"
+      ],
+      twitter: [
+        "https://mir-s3-cdn-cf.behance.net/project_modules/1400/15588c130021965.6177990f6d253.png",
+        "https://mir-s3-cdn-cf.behance.net/project_modules/1400/7b99cd130021965.61784375a5d86.png",
+        "https://mir-s3-cdn-cf.behance.net/project_modules/1400/a61246130021965.618b403e8a04d.png",
+        "https://mir-s3-cdn-cf.behance.net/project_modules/1400/e0d295130021965.618c09a4c2cd5.png",
+        "https://mir-s3-cdn-cf.behance.net/project_modules/1400/021449130021965.61822f4dad892.png",
+        "https://mir-s3-cdn-cf.behance.net/project_modules/1400/48d612130021965.618b9f910cd85.png",
+        "https://mir-s3-cdn-cf.behance.net/project_modules/1400/19ba43130021965.6178249aa658a.png",
+        "https://mir-s3-cdn-cf.behance.net/project_modules/1400/0c195b130021965.618ccddf3392a.png",
+        "https://mir-s3-cdn-cf.behance.net/project_modules/1400/72afe8130021965.64720720e33ee.png",
+        "https://mir-s3-cdn-cf.behance.net/project_modules/1400/a135e7130021965.61b3784fe7fee.png",
+        "https://mir-s3-cdn-cf.behance.net/project_modules/1400/9860b1130021965.64720720e27ca.png",
+        "https://mir-s3-cdn-cf.behance.net/project_modules/1400/9cf6d3130021965.61b3784fe888b.png",
+        "https://mir-s3-cdn-cf.behance.net/project_modules/max_1200/a36875130021965.6177d35f47f0a.png",
+        "https://mir-s3-cdn-cf.behance.net/project_modules/1400/11c56d130021965.64107524b3b00.png",
+        "https://mir-s3-cdn-cf.behance.net/project_modules/1400/26b191130021965.6177990f6bede.png",
+        "https://mir-s3-cdn-cf.behance.net/project_modules/1400/e0d295130021965.618c09a4c2cd5.png",
+        "https://mir-s3-cdn-cf.behance.net/project_modules/1400/a61246130021965.618b403e8a04d.png",
+        "https://mir-s3-cdn-cf.behance.net/project_modules/1400/7b99cd130021965.61784375a5d86.png"
+      ],
+      youtube: [
+        "https://mir-s3-cdn-cf.behance.net/project_modules/1400/3e68de133973091.6432bdd6010f4.png",
+        "https://mir-s3-cdn-cf.behance.net/project_modules/1400/e9dddf133973091.6432bdd5f1c01.png",
+        "https://mir-s3-cdn-cf.behance.net/project_modules/1400/17b1ec133973091.6432bdd5ed4f5.png",
+        "https://mir-s3-cdn-cf.behance.net/project_modules/1400/cc7749133973091.6432bdd5ec29c.png",
+        "https://mir-s3-cdn-cf.behance.net/project_modules/1400/e0bc11133973091.6432bdd603eff.png",
+        "https://mir-s3-cdn-cf.behance.net/project_modules/1400/f2676b133973091.6432bdd5efd73.png",
+        "https://mir-s3-cdn-cf.behance.net/project_modules/1400/50f5b4133973091.6432bdd6021fe.png",
+        "https://mir-s3-cdn-cf.behance.net/project_modules/1400/3735ff133973091.646b538835caa.png",
+        "https://mir-s3-cdn-cf.behance.net/project_modules/1400/d5c9a4133973091.6432bdd5f0c94.png",
+        "https://mir-s3-cdn-cf.behance.net/project_modules/1400/2886ec133973091.6432bdd5ee969.png",
+        "https://mir-s3-cdn-cf.behance.net/project_modules/1400/ac693e133973091.6432bdd5f2df3.png",
+        "https://mir-s3-cdn-cf.behance.net/project_modules/1400/1d7057133973091.6432bdd5f3fe5.png"
+      ],
+      server: [
+        "https://mir-s3-cdn-cf.behance.net/project_modules/1400/c3a238167154267.6424404b32647.png",
+        "https://mir-s3-cdn-cf.behance.net/project_modules/max_1200/9e982a167154267.6424404b2a588.png"
+      ],
+      logo: [   ]
+    };
 
+    const dropdownItems = document.querySelectorAll('.dropdown-item');
+    const carousel = document.getElementById('graphics-carousel');
+    const carouselContainer = document.querySelector(".graphics-carousel");
+    const leftBtn = document.querySelector('.left-btn');
+    const rightBtn = document.querySelector('.right-btn');
+
+    let currentIndex = 0;
+    let currentCategory = [];
+
+    function renderImages(images) {
+      carousel.innerHTML = '';
+      images.forEach((src, index) => {
+        const img = document.createElement('img');
+        img.src = src;
+
+        // Class logic
+        if (index === currentIndex) {
+          img.className = 'active';
+        } else if (index === (currentIndex + 1) % images.length) {
+          img.className = 'next';
+        } else if (index === (currentIndex - 1 + images.length) % images.length) {
+          img.className = 'behind';
+        }
+
+        carousel.appendChild(img);
+      });
+    }
+
+    function updateCarousel(direction) {
+      if (!currentCategory.length) return;
+      if (direction === 'next') {
+        currentIndex = (currentIndex + 1) % currentCategory.length;
+      } else if (direction === 'prev') {
+        currentIndex = (currentIndex - 1 + currentCategory.length) % currentCategory.length;
+      }
+      renderImages(currentCategory);
+    }
+
+    // Handle dropdown category click
+    dropdownItems.forEach(item => {
+      item.addEventListener('click', () => {
+        const category = item.dataset.category;
+        currentCategory = imageData[category];
+        currentIndex = 0;
+        renderImages(currentCategory);
+      });
+    });
+
+    // Image click zoom (toggle class)
+    carouselContainer.addEventListener("click", (e) => {
+      const rect = carousel.getBoundingClientRect();
+      const x = e.clientX - rect.left;
+      const isLeft = x < rect.width / 2;
+
+      const activeImg = carouselContainer.querySelector("img.active");
+      if (!activeImg) return;
+
+      // Zoom if clicked on active image
+      if (e.target === activeImg) {
+        activeImg.classList.toggle("zoomed");
+      } else {
+        updateCarousel(isLeft ? 'prev' : 'next');
+      }
+    });
+
+    // Arrow buttons
+    leftBtn?.addEventListener("click", (e) => {
+      e.stopPropagation();
+      updateCarousel('prev');
+    });
+
+    rightBtn?.addEventListener("click", (e) => {
+      e.stopPropagation();
+      updateCarousel('next');
+    });
+
+    // Default to discord on load
+    currentCategory = imageData.discord;
+    renderImages(currentCategory);
+  </script>
 
 </body>
 </html>

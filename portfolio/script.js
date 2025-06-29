@@ -74,3 +74,23 @@ document.addEventListener("DOMContentLoaded", () => {
       });
     });
   });
+
+  const reorderStack = (carouselId) => {
+    const carousel = document.getElementById(carouselId);
+    const first = carousel.children[0];
+    carousel.appendChild(first);
+    
+    // Reset styles to reapply z-index stacking
+    Array.from(carousel.children).forEach((img, idx) => {
+      img.style.zIndex = carousel.children.length - idx;
+      img.style.transform = `translateY(${idx * 10}px) scale(${1 - idx * 0.03})`;
+    });
+  };
+
+  document.addEventListener("DOMContentLoaded", () => {
+    const stacks = document.querySelectorAll(".graphics-stack-carousel");
+
+    stacks.forEach(stack => {
+      stack.addEventListener("click", () => reorderStack(stack.id));
+    });
+  });
