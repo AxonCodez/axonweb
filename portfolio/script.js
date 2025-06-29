@@ -63,3 +63,14 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   });
 });
+
+ window.addEventListener('DOMContentLoaded', () => {
+    document.querySelectorAll('.work-dropdown-toggle').forEach(toggle => {
+      toggle.addEventListener('click', () => {
+        const parent = toggle.closest('.work-card');
+        const dropdown = parent.querySelector('.work-dropdown-content');
+        toggle.classList.toggle('open');
+        dropdown.classList.toggle('show');
+      });
+    });
+  });
