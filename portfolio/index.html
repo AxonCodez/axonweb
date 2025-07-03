@@ -153,7 +153,7 @@
     <h2 class="about-heading text-hover">MY <span class="highlight text-hover">WORK</span></h2>
     <div class="work-grid">
       <div class="work-card expandable">
-        <h3>Code and Development</h3>
+        <h3>CODE AND DEVELOPMENT</h3>
         <p class="desc">Some cool repositories I've built using web tech and Python.</p>
         <div class="work-dropdown-toggle">▼</div>
         <div class="work-dropdown-content">
@@ -167,7 +167,7 @@
 
       <!-- === GRAPHICS DESIGN CARD === -->
       <div class="graphics-card">
-        <h3>Graphics and Designing</h3>
+        <h3>GRAPHICS DESIGNING</h3>
         <p class="desc">Browse my creative work categorized below.</p>
 
         <!-- Dropdown menu -->
@@ -195,7 +195,7 @@
       </div>
       <!-- Skill Stack Bowl -->
       <div class="skill-bowl-container">
-        <h3 class="about-heading text-hover">Skill Stack Bowl</h3>
+        <h3 class="about-heading text-hover">SKILL STACK</h3>
       </div>
 
 
@@ -466,136 +466,133 @@
     renderImages(currentCategory);
   </script>
   <script>
-    const canvas = document.getElementById('bowlCanvas');
-    const ctx = canvas.getContext('2d');
+  const skillLogos = [
+    'https://img.icons8.com/?size=100&id=NeNPFdj7MzXi&format=png&color=000000', // Photoshop
+    'https://img.icons8.com/?size=100&id=108784&format=png&color=000000', //Javascript
+    'https://cdn-icons-png.flaticon.com/512/174/174854.png',   // HTML
+    'https://cdn-icons-png.flaticon.com/512/732/732190.png',   // CSS
+    'https://img.icons8.com/?size=100&id=13441&format=png&color=000000',   // Python
+    'https://img.icons8.com/?size=100&id=asWSSTBrDlTW&format=png&color=000000', // React
+    'https://img.icons8.com/?size=100&id=hsPbhkOH4FMe&format=png&color=000000', // Node js
+    'https://img.icons8.com/?size=100&id=108781&format=png&color=000000', //after effects
+    'https://img.icons8.com/?size=100&id=uJM6fQYqDaZK&format=png&color=000000', // typescript
+    'https://img.icons8.com/?size=100&id=zfHRZ6i1Wg0U&format=png&color=000000', // figma
+    'https://img.icons8.com/?size=100&id=G7NMjcZM9R01&format=png&color=000000', // framer
+    'https://img.icons8.com/?size=100&id=ytC17YjDcKHo&format=png&color=000000', // djs
+    'https://img.icons8.com/?size=100&id=9MJf0ngDwS8z&format=png&color=000000', //bash
+    'https://img.icons8.com/?size=100&id=e57Y1CnsOasB&format=png&color=000000', //prem pro
+    'https://img.icons8.com/?size=100&id=65231&format=png&color=000000', //blender
+    'https://img.icons8.com/?size=100&id=J6KcaRLsTgpZ&format=png&color=000000', //sql
+    'https://img.icons8.com/?size=100&id=bosfpvRzNOG8&format=png&color=000000', //mongodb
+    'https://img.icons8.com/?size=100&id=UFXRpPFebwa2&format=png&color=000000', //mysql
+    'https://img.icons8.com/?size=100&id=MHcMYTljfKOr&format=png&color=000000', //flask
+    'https://img.icons8.com/?size=100&id=2xFS7aynbwiR&format=png&color=000000', //vercel
+    'https://img.icons8.com/?size=100&id=62856&format=png&color=000000', // github
 
-    canvas.width = canvas.offsetWidth;
-    canvas.height = canvas.offsetHeight;
+    
+  ];
 
-    const mouse = { x: canvas.width / 2, y: canvas.height / 2 };
-    const balls = [];
-    const radius = 35;
-    const spring = 0.05;
-    const friction = 0.9;
+  const bowl = document.querySelector('.skill-bowl-container');
+  const bowlRect = bowl.getBoundingClientRect();
+  const center = { x: bowlRect.width / 2, y: bowlRect.height / 2 };
 
-    const logos = [
-      'https://cdn-icons-png.flaticon.com/512/5968/5968350.png', // Photoshop
-      'https://cdn-icons-png.flaticon.com/512/5968/5968358.png', // Python
-      'https://cdn-icons-png.flaticon.com/512/174/174854.png',   // HTML
-      'https://cdn-icons-png.flaticon.com/512/732/732190.png',   // CSS
-      'https://cdn-icons-png.flaticon.com/512/919/919828.png',   // JS
-      'https://cdn-icons-png.flaticon.com/512/5968/5968322.png', // React
-      'https://cdn-icons-png.flaticon.com/512/5968/5968672.png'  // Node.js
-    ];
+  const balls = skillLogos.map(src => {
+    const el = document.createElement('div');
+    el.className = 'ball';
+    const img = document.createElement('img');
+    img.src = src;
+    el.appendChild(img);
+    bowl.appendChild(el);
 
-    class Ball {
-      constructor(x, y, imgSrc) {
-        this.x = x;
-        this.y = y;
-        this.vx = Math.random() * 2 - 1;
-        this.vy = Math.random() * 2 - 1;
-        this.img = new Image();
-        this.img.src = imgSrc;
+    return {
+      el,
+      x: Math.random() * bowlRect.width,
+      y: Math.random() * bowlRect.height,
+      vx: (Math.random() - 0.5) * 2,
+      vy: (Math.random() - 0.5) * 2,
+      radius: 27
+    };
+  });
+
+  let mouse = { x: center.x, y: center.y };
+
+  bowl.addEventListener('mousemove', e => {
+    const rect = bowl.getBoundingClientRect();
+    mouse.x = e.clientX - rect.left;
+    mouse.y = e.clientY - rect.top;
+  });
+
+  function animateBowl() {
+    const rect = bowl.getBoundingClientRect();
+    const padding = 120; // match your .skill-bowl-container padding
+
+    balls.forEach((b1, i) => {
+      // Mouse attraction
+      const dxMouse = mouse.x - b1.x;
+      const dyMouse = mouse.y - b1.y;
+      b1.vx += dxMouse * 0.0055;
+      b1.vy += dyMouse * 0.0055;
+
+      // Update position
+      b1.x += b1.vx;
+      b1.y += b1.vy;
+
+      // Wall collisions — adjusted for padding
+      const leftLimit = b1.radius - 80;
+      const rightLimit = rect.width - 130 - b1.radius;
+      const topLimit = b1.radius - 250;
+      const bottomLimit = rect.height - 225 - b1.radius;
+
+      if (b1.x < leftLimit) {
+        b1.x = leftLimit;
+        b1.vx *= -1;
+      } else if (b1.x > rightLimit) {
+        b1.x = rightLimit;
+        b1.vx *= -1;
       }
 
-      draw() {
-        ctx.beginPath();
-        ctx.fillStyle = 'white';
-        ctx.arc(this.x, this.y, radius, 0, Math.PI * 2);
-        ctx.fill();
-        ctx.drawImage(this.img, this.x - radius * 0.4, this.y - radius * 0.4, radius * 0.8, radius * 0.8);
+      if (b1.y < topLimit) {
+        b1.y = topLimit;
+        b1.vy *= -1;
+      } else if (b1.y > bottomLimit) {
+        b1.y = bottomLimit;
+        b1.vy *= -1;
       }
 
-      update() {
-        // Mouse attraction
-        const dx = mouse.x - this.x;
-        const dy = mouse.y - this.y;
-        this.vx += dx * 0.0005;
-        this.vy += dy * 0.0005;
+      // Collision between balls (unchanged)
+      for (let j = i + 1; j < balls.length; j++) {
+        const b2 = balls[j];
+        const dx = b2.x - b1.x;
+        const dy = b2.y - b1.y;
+        const dist = Math.hypot(dx, dy);
+        const minDist = b1.radius + b2.radius;
+        if (dist < minDist) {
+          const angle = Math.atan2(dy, dx);
+          const overlap = minDist - dist - 1;
+          const moveX = overlap * Math.cos(angle) * 0.15;
+          const moveY = overlap * Math.sin(angle) * 0.15;
+          b1.x -= moveX;
+          b1.y -= moveY;
+          b2.x += moveX;
+          b2.y += moveY;
 
-        // Friction
-        this.vx *= friction;
-        this.vy *= friction;
-
-        // Position update
-        this.x += this.vx;
-        this.y += this.vy;
-
-        // Bounce off edges
-        if (this.x + radius > canvas.width || this.x - radius < 0) {
-          this.vx *= -1;
-          this.x = Math.max(radius, Math.min(canvas.width - radius, this.x));
+          [b1.vx, b2.vx] = [b2.vx, b1.vx];
+          [b1.vy, b2.vy] = [b2.vy, b1.vy];
         }
-        if (this.y + radius > canvas.height || this.y - radius < 0) {
-          this.vy *= -1;
-          this.y = Math.max(radius, Math.min(canvas.height - radius, this.y));
-        }
       }
-    }
 
-    // Collision response
-    function handleCollisions() {
-      for (let i = 0; i < balls.length; i++) {
-        for (let j = i + 1; j < balls.length; j++) {
-          const b1 = balls[i];
-          const b2 = balls[j];
-          const dx = b2.x - b1.x;
-          const dy = b2.y - b1.y;
-          const dist = Math.sqrt(dx * dx + dy * dy);
-          const minDist = radius * 2;
+      // Damping
+      b1.vx *= 0.85;
+      b1.vy *= 0.85;
 
-          if (dist < minDist) {
-            const angle = Math.atan2(dy, dx);
-            const targetX = b1.x + Math.cos(angle) * minDist;
-            const targetY = b1.y + Math.sin(angle) * minDist;
-            const ax = (targetX - b2.x) * spring;
-            const ay = (targetY - b2.y) * spring;
-
-            b1.vx -= ax;
-            b1.vy -= ay;
-            b2.vx += ax;
-            b2.vy += ay;
-          }
-        }
-      }
-    }
-
-    // Create balls
-    logos.forEach((src, i) => {
-      const angle = (i / logos.length) * Math.PI * 2;
-      const x = canvas.width / 2 + Math.cos(angle) * 100;
-      const y = canvas.height / 2 + Math.sin(angle) * 100;
-      balls.push(new Ball(x, y, src));
+      // Move ball
+      b1.el.style.transform = `translate(${b1.x - b1.radius}px, ${b1.y - b1.radius}px)`;
     });
 
-    function animate() {
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-      handleCollisions();
-
-      balls.forEach(ball => {
-        ball.update();
-        ball.draw();
-      });
-
-      requestAnimationFrame(animate);
-    }
-
-    canvas.addEventListener('mousemove', e => {
-      const rect = canvas.getBoundingClientRect();
-      mouse.x = e.clientX - rect.left;
-      mouse.y = e.clientY - rect.top;
-    });
-
-    animate();
-
-    // Resize handler
-    window.addEventListener('resize', () => {
-      canvas.width = canvas.offsetWidth;
-      canvas.height = canvas.offsetHeight;
-    });
+    requestAnimationFrame(animateBowl);
+  }
+  animateBowl();
   </script>
-
 
 
 </body>

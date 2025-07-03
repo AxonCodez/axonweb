@@ -583,6 +583,7 @@ body {
 .work-card h3 {
   font-size: 24px;
   font-family: 'AkiraExpanded-SuperBold';
+  letter-spacing: 0.5px;
   margin-bottom: 8px;
 }
 
@@ -660,6 +661,7 @@ body {
 .graphics-card h3 {
   font-size: 24px;
   font-family: 'AkiraExpanded-SuperBold';
+  letter-spacing: 0.5px;
   margin-bottom: 8px;
 }
 
@@ -737,6 +739,7 @@ body {
   justify-content: center;
   align-items: center;
   overflow: visible;
+  
 }
 
 .graphics-carousel img {
@@ -817,8 +820,9 @@ body {
 }
 
 .skill-bowl-container {
-  margin-top: 80px;
-  padding: 80px;
+  margin-top: 40px;
+  padding: 100px;
+  height: 500px;
   background: rgba(255, 255, 255, 0.05); /* translucent white */
   border: 2px dashed rgba(92, 158, 255, 0.6);
   border-radius: 16px;
@@ -827,13 +831,18 @@ body {
   overflow: hidden;
 }
 
+.skill-bowl-container h3 {
+  font-size: 54px;
+  font-family: 'AkiraExpanded-SuperBold';
+  margin-top: -100px; 
+}
 
 .ball {
   position: absolute;
-  width: 70px;
-  height: 70px;
+  width: 60px;
+  height: 60px;
   border-radius: 50%;
-  background: white;
+  background: rgba(169, 203, 255, 0.75);
   box-shadow: 0 8px 15px rgba(0, 0, 0, 0.4);
   display: flex;
   align-items: center;
