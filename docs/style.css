@@ -910,3 +910,45 @@ body {
   align-items: center;
   gap: 14px;
 }
+
+.right-side-label {
+  position: fixed;
+  top: 90%;
+  right: 30px;
+  transform: translateY(-50%) rotate(90deg);
+  transform-origin: center right;
+  background-size: 200% auto;
+  border: 1.5px solid rgba(92, 158, 255, 0.4);
+  backdrop-filter: blur(10px);
+  padding: 10px 20px;
+  font-family: 'Fira Code', monospace;
+  font-size: 14px;
+  color: #0a2540;
+  box-shadow: 0 6px 24px rgba(0, 0, 0, 0.1);
+  border-radius: 999px;
+  z-index: 999;
+  white-space: nowrap;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* Hover Effects */
+.right-side-label:hover {
+  transform: translateY(-52%) rotate(90deg) scale(1.1);
+}
+
+/* Pulsating text */
+.right-side-label:hover span {
+  animation: pulseText 1.2s infinite ease-in-out;
+}
+
+/* Text should be wrapped in a span inside the label */
+
+
+@keyframes pulseText {
+  0%, 100% {
+    text-shadow: 0 0 0 rgba(51, 51, 51, 0.9);
+  }
+  50% {
+    text-shadow: 0 0 18px rgba(0, 0, 0, 0.9);
+  }
+}
