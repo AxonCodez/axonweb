@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Skill Stack Bowl</title>
+  <style>
+    body {
+      margin: 0;
+      overflow: hidden;
+      background: radial-gradient(ellipse at center, #0f2027, #203a43, #2c5364);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+    }
+
+    .container {
+      position: relative;
+      width: 500px;
+      height: 500px;
+      border-radius: 50%;
+      overflow: hidden;
+      background: rgba(255, 255, 255, 0.06);
+      box-shadow: inset 0 0 15px rgba(255,255,255,0.1), 0 10px 30px rgba(0,0,0,0.3);
+    }
+
+    .ball {
+      position: absolute;
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      background: white;
+      box-shadow: 0 8px 15px rgba(0, 0, 0, 0.4);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      pointer-events: none;
+      transition: transform 0.25s ease;
+    }
+
+    .ball img {
+      width: 50%;
+      height: 50%;
+      object-fit: contain;
+    }
+  </style>
+</head>
+<body>
+
+<div class="container" id="bowlContainer"></div>
+
+<script>
+  const logos = [
+    { src: 'https://cdn-icons-png.flaticon.com/512/5968/5968350.png', name: 'Photoshop' },
+    { src: 'https://cdn-icons-png.flaticon.com/512/5968/5968358.png', name: 'Python' },
+    { src: 'https://cdn-icons-png.flaticon.com/512/174/174854.png', name: 'HTML' },
+    { src: 'https://cdn-icons-png.flaticon.com/512/732/732190.png', name: 'CSS' },
+    { src: 'https://cdn-icons-png.flaticon.com/512/919/919828.png', name: 'JavaScript' },
+    { src: 'https://cdn-icons-png.flaticon.com/512/5968/5968322.png', name: 'React' },
+    { src: 'https://cdn-icons-png.flaticon.com/512/5968/5968672.png', name: 'Node.js' }
+  ];
+
+  const container = document.getElementById("bowlContainer");
+  const center = { x: 250, y: 250 };
+  const RADIUS = 250;
+
+  const balls = [];
+  let mouse = { x: center.x, y: center.y };
+
+  const BALL_RADIUS = 40;
+
+  logos.forEach(logo => {
+    const el = document.createElement("div");
+    el.classList.add("ball");
+
+    const img = document.createElement("img");
+    img.src = logo.src;
+    img.alt = logo.name;
+    el.appendChild(img);
+    container.appendChild(el);
+
+    balls.push({
+      el,
+      x: center.x + (Math.random() - 0.5) * 200,
+      y: center.y + (Math.random() - 0.5) * 200,
+      vx: (Math.random() - 0.5) * 2,
+      vy: (Math.random() - 0.5) * 2,
+      r: BALL_RADIUS
+    });
+  });
+
+  function resolveBallCollision(b1, b2) {
+    const dx = b2.x - b1.x;
+    const dy = b2.y - b1.y;
+    const dist = Math.sqrt(dx * dx + dy * dy);
+    const minDist = b1.r + b2.r;
+
+    if (dist < minDist) {
+      const angle = Math.atan2(dy, dx);
+      const overlap = 0.5 * (minDist - dist);
+
+      // Push balls apart
+      b1.x -= overlap * Math.cos(angle);
+      b1.y -= overlap * Math.sin(angle);
+      b2.x += overlap * Math.cos(angle);
+      b2.y += overlap * Math.sin(angle);
+
+      // Swap velocities (elastic collision)
+      const vxTotal = b1.vx - b2.vx;
+      const vyTotal = b1.vy - b2.vy;
+
+      b1.vx = b2.vx;
+      b1.vy = b2.vy;
+      b2.vx = b2.vx + vxTotal;
+      b2.vy = b2.vy + vyTotal;
+    }
+  }
+
+  function animate() {
+    balls.forEach((ball, i) => {
+      // Subtle mouse attraction
+      const dxMouse = mouse.x - ball.x;
+      const dyMouse = mouse.y - ball.y;
+      const attraction = 0.002;
+      ball.vx += dxMouse * attraction;
+      ball.vy += dyMouse * attraction;
+
+      // Update position
+      ball.x += ball.vx;
+      ball.y += ball.vy;
+
+      // Wall bounce
+      const dx = ball.x - center.x;
+      const dy = ball.y - center.y;
+      const dist = Math.sqrt(dx * dx + dy * dy);
+
+      if (dist + ball.r > RADIUS) {
+        const nx = dx / dist;
+        const ny = dy / dist;
+        const dot = ball.vx * nx + ball.vy * ny;
+        ball.vx -= 2 * dot * nx;
+        ball.vy -= 2 * dot * ny;
+
+        const overlap = dist + ball.r - RADIUS;
+        ball.x -= nx * overlap;
+        ball.y -= ny * overlap;
+      }
+
+      // Ball-ball collision
+      for (let j = i + 1; j < balls.length; j++) {
+        resolveBallCollision(ball, balls[j]);
+      }
+
+      // Friction
+      ball.vx *= 0.98;
+      ball.vy *= 0.98;
+
+      // Apply transform
+      ball.el.style.transform = `translate(${ball.x - ball.r}px, ${ball.y - ball.r}px)`;
+    });
+
+    requestAnimationFrame(animate);
+  }
+
+  animate();
+
+  container.addEventListener('mousemove', e => {
+    const rect = container.getBoundingClientRect();
+    mouse.x = e.clientX - rect.left;
+    mouse.y = e.clientY - rect.top;
+  });
+
+  container.addEventListener('mouseleave', () => {
+    mouse.x = center.x;
+    mouse.y = center.y;
+  });
+</script>
+
+</body>
+</html>

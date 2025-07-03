@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r148/three.min.js"></script>
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
@@ -159,6 +160,7 @@
           <a href="https://github.com/AxonCodez/relativault" target="_blank" class="work-btn">Relativault</a>
           <a href="https://github.com/AxonCodez/tool" target="_blank" class="work-btn">Question Picker</a>
           <a href="https://github.com/AxonCodez/FeeDB" target="_blank" class="work-btn">FeeDB</a>
+          <a href="https://knowify.onrender.com" target="_blank" class="work-btn">Knowify</a>
           <a href="https://github.com/AxonCodez/axonweb" target="_blank" class="work-btn">Portfolio Website</a>
         </div>
       </div>
@@ -191,8 +193,15 @@
           </div>
         </div>
       </div>
+      <!-- Skill Stack Bowl -->
+      <div class="skill-bowl-container">
+        <h3 class="about-heading text-hover">Skill Stack Bowl</h3>
+      </div>
+
 
   </section>
+  
+
   <!-- Contact Section -->
   <section id="contact" class="section fade-in">
     <h2>Contact</h2>
@@ -456,6 +465,138 @@
     currentCategory = imageData.discord;
     renderImages(currentCategory);
   </script>
+  <script>
+    const canvas = document.getElementById('bowlCanvas');
+    const ctx = canvas.getContext('2d');
+
+    canvas.width = canvas.offsetWidth;
+    canvas.height = canvas.offsetHeight;
+
+    const mouse = { x: canvas.width / 2, y: canvas.height / 2 };
+    const balls = [];
+    const radius = 35;
+    const spring = 0.05;
+    const friction = 0.9;
+
+    const logos = [
+      'https://cdn-icons-png.flaticon.com/512/5968/5968350.png', // Photoshop
+      'https://cdn-icons-png.flaticon.com/512/5968/5968358.png', // Python
+      'https://cdn-icons-png.flaticon.com/512/174/174854.png',   // HTML
+      'https://cdn-icons-png.flaticon.com/512/732/732190.png',   // CSS
+      'https://cdn-icons-png.flaticon.com/512/919/919828.png',   // JS
+      'https://cdn-icons-png.flaticon.com/512/5968/5968322.png', // React
+      'https://cdn-icons-png.flaticon.com/512/5968/5968672.png'  // Node.js
+    ];
+
+    class Ball {
+      constructor(x, y, imgSrc) {
+        this.x = x;
+        this.y = y;
+        this.vx = Math.random() * 2 - 1;
+        this.vy = Math.random() * 2 - 1;
+        this.img = new Image();
+        this.img.src = imgSrc;
+      }
+
+      draw() {
+        ctx.beginPath();
+        ctx.fillStyle = 'white';
+        ctx.arc(this.x, this.y, radius, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.drawImage(this.img, this.x - radius * 0.4, this.y - radius * 0.4, radius * 0.8, radius * 0.8);
+      }
+
+      update() {
+        // Mouse attraction
+        const dx = mouse.x - this.x;
+        const dy = mouse.y - this.y;
+        this.vx += dx * 0.0005;
+        this.vy += dy * 0.0005;
+
+        // Friction
+        this.vx *= friction;
+        this.vy *= friction;
+
+        // Position update
+        this.x += this.vx;
+        this.y += this.vy;
+
+        // Bounce off edges
+        if (this.x + radius > canvas.width || this.x - radius < 0) {
+          this.vx *= -1;
+          this.x = Math.max(radius, Math.min(canvas.width - radius, this.x));
+        }
+        if (this.y + radius > canvas.height || this.y - radius < 0) {
+          this.vy *= -1;
+          this.y = Math.max(radius, Math.min(canvas.height - radius, this.y));
+        }
+      }
+    }
+
+    // Collision response
+    function handleCollisions() {
+      for (let i = 0; i < balls.length; i++) {
+        for (let j = i + 1; j < balls.length; j++) {
+          const b1 = balls[i];
+          const b2 = balls[j];
+          const dx = b2.x - b1.x;
+          const dy = b2.y - b1.y;
+          const dist = Math.sqrt(dx * dx + dy * dy);
+          const minDist = radius * 2;
+
+          if (dist < minDist) {
+            const angle = Math.atan2(dy, dx);
+            const targetX = b1.x + Math.cos(angle) * minDist;
+            const targetY = b1.y + Math.sin(angle) * minDist;
+            const ax = (targetX - b2.x) * spring;
+            const ay = (targetY - b2.y) * spring;
+
+            b1.vx -= ax;
+            b1.vy -= ay;
+            b2.vx += ax;
+            b2.vy += ay;
+          }
+        }
+      }
+    }
+
+    // Create balls
+    logos.forEach((src, i) => {
+      const angle = (i / logos.length) * Math.PI * 2;
+      const x = canvas.width / 2 + Math.cos(angle) * 100;
+      const y = canvas.height / 2 + Math.sin(angle) * 100;
+      balls.push(new Ball(x, y, src));
+    });
+
+    function animate() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+      handleCollisions();
+
+      balls.forEach(ball => {
+        ball.update();
+        ball.draw();
+      });
+
+      requestAnimationFrame(animate);
+    }
+
+    canvas.addEventListener('mousemove', e => {
+      const rect = canvas.getBoundingClientRect();
+      mouse.x = e.clientX - rect.left;
+      mouse.y = e.clientY - rect.top;
+    });
+
+    animate();
+
+    // Resize handler
+    window.addEventListener('resize', () => {
+      canvas.width = canvas.offsetWidth;
+      canvas.height = canvas.offsetHeight;
+    });
+  </script>
+
+
 
 </body>
 </html>
