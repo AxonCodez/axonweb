@@ -5,6 +5,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Akshay | Portfolio</title>
+  <link rel="icon" type="image/x-icon" href="favicon.ico">
   <link rel="stylesheet" href="./style.css" />
   <link href="https://fonts.googleapis.com/css2?family=Fira+Code&display=swap" rel="stylesheet">
   <!-- AOS CSS -->
@@ -243,6 +244,28 @@
   <div class="right-side-label">
     <span>Based in Coimbatore</span>
   </div>
+
+  <div class="music-player collapsed" id="musicPlayer" onmouseenter="expandPlayer()" onmouseleave="collapsePlayer()">
+    <div class="music-header">
+      <img src="./assets/music-icon.svg" alt="Music" />
+    </div>
+
+    <div class="music-controls">
+      <div class="music-info">
+        <span id="currentSong">Loading...</span>
+      </div>
+      <div class="buttons">
+        <button onclick="prevSong()">⏮</button>
+        <button onclick="togglePlayPause()" id="playPauseBtn">▶️</button>
+        <button onclick="nextSong()">⏭</button>
+      </div>
+      <input type="range" id="seekBar" value="0" step="1" />
+    </div>
+
+    <audio id="audioPlayer" preload="metadata"></audio>
+  </div>
+
+
 
   <!-- Bubbles Particle JS -->
   <script>
@@ -524,6 +547,7 @@
     'https://img.icons8.com/?size=100&id=MHcMYTljfKOr&format=png&color=000000', //flask
     'https://img.icons8.com/?size=100&id=2xFS7aynbwiR&format=png&color=000000', //vercel
     'https://img.icons8.com/?size=100&id=62856&format=png&color=000000', // github
+    'https://img.icons8.com/?size=100&id=9OGIyU8hrxW5&format=png&color=000000', // vs code
 
     
   ];
@@ -629,7 +653,85 @@
   }
   animateBowl();
   </script>
+  <script>
+    const songs = [
+      { title: "Snooze by SZA", src: "./assets/music/track1.mp3" },
+      { title: "Cry for Me by The Weeknd", src: "./assets/music/track2.mp3" },
+      { title: "NOKIA By Drake", src: "./assets/music/track3.mp3" }
+    ];
 
+    let currentSongIndex = 0;
+    const audio = document.getElementById("audioPlayer");
+    const playPauseBtn = document.getElementById("playPauseBtn");
+    const currentSongLabel = document.getElementById("currentSong");
+    const seekBar = document.getElementById("seekBar");
+    
+
+    function loadSong(index) {
+      const song = songs[index];
+      audio.src = song.src;
+      currentSongLabel.textContent = song.title;
+      audio.load();
+    }
+
+    function togglePlayPause() {
+      if (audio.paused) {
+        audio.play();
+        playPauseBtn.textContent = "⏸";
+      } else {
+        audio.pause();
+        playPauseBtn.textContent = "▶️";
+      }
+    }
+
+    function nextSong() {
+      currentSongIndex = (currentSongIndex + 1) % songs.length;
+      loadSong(currentSongIndex);
+      audio.play();
+      playPauseBtn.textContent = "⏸";
+    }
+
+    function prevSong() {
+      currentSongIndex = (currentSongIndex - 1 + songs.length) % songs.length;
+      loadSong(currentSongIndex);
+      audio.play();
+      playPauseBtn.textContent = "⏸";
+    }
+
+    function toggleMusicPlayer() {
+      const player = document.getElementById("musicPlayer");
+      player.classList.toggle("collapsed");
+    }
+
+    function expandPlayer() {
+      const player = document.getElementById("musicPlayer");
+      player.classList.remove("collapsed");
+    }
+
+    function collapsePlayer() {
+      const player = document.getElementById("musicPlayer");
+      player.classList.add("collapsed");
+    }
+
+
+    // Seekbar Sync
+    audio.addEventListener("timeupdate", () => {
+      seekBar.max = Math.floor(audio.duration);
+      seekBar.value = Math.floor(audio.currentTime);
+    });
+
+    seekBar.addEventListener("input", () => {
+      audio.currentTime = seekBar.value;
+    });
+
+    // Autoplay next
+    audio.addEventListener("ended", nextSong);
+
+    // Load first song on init
+    window.addEventListener("DOMContentLoaded", () => {
+      loadSong(currentSongIndex);
+    });
+  </script>
 
 </body>
 </html>

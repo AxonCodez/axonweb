@@ -94,3 +94,69 @@ document.addEventListener("DOMContentLoaded", () => {
       stack.addEventListener("click", () => reorderStack(stack.id));
     });
   });
+
+  const songs = [
+  { title: "Dreams", src: "./assets/music/track1.mp3" },
+  { title: "Reflections", src: "./assets/music/track2.mp3" },
+  { title: "Into the Light", src: "./assets/music/track3.mp3" }
+];
+
+let currentSongIndex = 0;
+const audio = document.getElementById("audioPlayer");
+const playPauseBtn = document.getElementById("playPauseBtn");
+const currentSongLabel = document.getElementById("currentSong");
+const seekBar = document.getElementById("seekBar");
+
+function loadSong(index) {
+  const song = songs[index];
+  audio.src = song.src;
+  currentSongLabel.textContent = song.title;
+  audio.load();
+}
+
+function togglePlayPause() {
+  if (audio.paused) {
+    audio.play();
+    playPauseBtn.textContent = "⏸";
+  } else {
+    audio.pause();
+    playPauseBtn.textContent = "▶️";
+  }
+}
+
+function nextSong() {
+  currentSongIndex = (currentSongIndex + 1) % songs.length;
+  loadSong(currentSongIndex);
+  audio.play();
+  playPauseBtn.textContent = "⏸";
+}
+
+function prevSong() {
+  currentSongIndex = (currentSongIndex - 1 + songs.length) % songs.length;
+  loadSong(currentSongIndex);
+  audio.play();
+  playPauseBtn.textContent = "⏸";
+}
+
+function toggleMusicPlayer() {
+  const player = document.getElementById("musicPlayer");
+  player.classList.toggle("collapsed");
+}
+
+// Seekbar Sync
+audio.addEventListener("timeupdate", () => {
+  seekBar.max = Math.floor(audio.duration);
+  seekBar.value = Math.floor(audio.currentTime);
+});
+
+seekBar.addEventListener("input", () => {
+  audio.currentTime = seekBar.value;
+});
+
+// Autoplay next
+audio.addEventListener("ended", nextSong);
+
+// Load first song on init
+window.addEventListener("DOMContentLoaded", () => {
+  loadSong(currentSongIndex);
+});

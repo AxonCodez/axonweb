@@ -952,3 +952,101 @@ body {
     text-shadow: 0 0 18px rgba(0, 0, 0, 0.9);
   }
 }
+
+.music-player {
+  position: fixed;
+  top: 30px;
+  right: 30px;
+  width: 300px;
+  padding: 16px;
+  background: rgba(92, 158, 255, 0.2);
+  border: 1.5px solid rgba(92, 158, 255, 0.4);
+  backdrop-filter: blur(12px);
+  border-radius: 20px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+  font-family: 'Fira Code', monospace;
+  color: #0a2540;
+  z-index: 1000;
+  transition: all 0.3s ease;
+}
+
+.music-player.collapsed {
+  width: 52px;
+  height: 52px;
+  overflow: hidden;
+  padding: 8px;
+  cursor: pointer;
+}
+
+.music-header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.music-header img {
+  width: 28px;
+  height: 28px;
+  transition: transform 0.3s ease;
+}
+
+.music-player:hover .music-header img {
+  transform: scale(1.1);
+}
+
+.music-controls {
+  margin-top: 12px;
+}
+
+.music-info {
+  font-size: 14px;
+  margin-bottom: 8px;
+  text-align: center;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.buttons {
+  display: flex;
+  justify-content: center;
+  gap: 16px;
+  margin-bottom: 8px;
+}
+
+.buttons button {
+  background: none;
+  border: none;
+  font-size: 20px;
+  cursor: pointer;
+  color: #0a2540;
+  transition: transform 0.2s ease;
+}
+
+.buttons button:hover {
+  transform: scale(1.2);
+}
+
+#seekBar {
+  width: 100%;
+}
+
+.timer {
+  display: flex;
+  justify-content: space-between;
+  font-size: 12px;
+  margin: 4px 0 6px;
+  color: #0a2540;
+}
+
+.volume {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 6px;
+}
+
+.volume input {
+  width: 100px;
+}
+
