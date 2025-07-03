@@ -856,3 +856,57 @@ body {
   object-fit: contain;
 }
 
+.floating-sidebar {
+  position: fixed;
+  bottom: 30px;
+  left: 30px;
+  background: rgba(92, 158, 255, 0.2);
+  border: 1.5px solid rgba(92, 158, 255, 0.4);
+  border-radius: 30px;
+  backdrop-filter: blur(10px);
+  box-shadow: 0 6px 24px rgba(0, 0, 0, 0.1);
+  z-index: 1000;
+  width: 60px;
+  height: 60px;
+  overflow: hidden;
+  transition: height 0.4s ease;
+}
+
+.floating-sidebar:hover {
+  height: 440px; /* Enough to fit all icons */
+}
+
+.sidebar-icons {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 10px 0;
+  gap: 14px;
+}
+
+.sidebar-icon {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 40px;
+  height: 40px;
+  transition: transform 0.3s ease;
+}
+
+.sidebar-icon img {
+  width: 24px;
+  height: 24px;
+  transition: transform 0.3s ease;
+  filter: drop-shadow(0 0 2px rgba(0,0,0,0.2));
+}
+
+.sidebar-icon:hover img {
+  transform: scale(1.4);
+}
+
+.sidebar-hidden-icons {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
+}
