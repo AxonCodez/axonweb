@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r148/three.min.js"></script>
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
@@ -15,10 +14,6 @@
   <!-- FullCalendar CDN -->
   <link href='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.8/main.min.css' rel='stylesheet' />
   <script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.8/main.min.js'></script>
-
-
-
-
 
   <!-- tsParticles CDN -->
   <script src="https://cdn.jsdelivr.net/npm/tsparticles@2.11.1/tsparticles.bundle.min.js"></script>
@@ -210,15 +205,22 @@
   <section id="contact" class="contact-section">
     <h2 class="section-title text-hover">CONTACT ME</h2>
     <p class="contact-description">Fill out the form and I'll get back to you soon.</p>
+    <div class="contact-wrapper">
+      <!-- Left: Snake Game -->
+      <div class="snake-game-container">
+        <iframe src="./snake/index.html" width="450" height="520" style="border: none; border-radius: 12px;"></iframe>
+      </div>
 
-    <form id="contactForm" class="contact-form">
-      <input type="text" name="user_name" placeholder="Your Name" required />
-      <input type="email" name="user_email" placeholder="Your Email" required />
-      <textarea name="message" rows="5" placeholder="Your Message" required></textarea>
-      <button type="submit">Send Message</button>
-      <input type="hidden" name="time" />
-      <p id="formStatus" class="form-status"></p>
-    </form>
+      <!-- Right: Contact Form -->
+      <form id="contactForm" class="contact-form">
+        <input type="text" name="user_name" placeholder="Your Name" required />
+        <input type="email" name="user_email" placeholder="Your Email" required />
+        <textarea name="message" rows="5" placeholder="Your Message" required></textarea>
+        <button type="submit">Send Message</button>
+        <input type="hidden" name="time" />
+        <p id="formStatus" class="form-status"></p>
+      </form>
+    </div>
   </section>
 
   <!-- EmailJS Script -->

@@ -1061,6 +1061,7 @@ body {
   scroll-margin-top: 160px;
   position: relative;
   z-index: 1;
+  overflow: visible; /* important */
 }
 
 /* Section Title */
@@ -1097,7 +1098,9 @@ body {
   padding: 40px;
   box-shadow: 0 6px 24px rgba(0, 0, 0, 0.1);
   backdrop-filter: blur(14px);
-  margin-left: -480px; /* Slight shift to the left */
+  margin-right: auto;
+  flex: 1;
+  min-width: 300px;
 }
 
 /* Form Fields */
@@ -1156,3 +1159,32 @@ body {
     width: 90%;
   }
 }
+
+.contact-container {
+  position: relative;
+}
+
+.contact-wrapper {
+  display: flex;
+  justify-content: flex-start; /* Align to the left */
+  align-items: flex-start;
+  gap: 40px;
+  flex-wrap: wrap;
+  padding: 0 40px; /* Optional: adds left-right padding */
+}
+
+.snake-game-container {
+  flex: 1;
+  min-width: 300px;
+  max-width: 400px;
+  padding-right: 500px;
+}
+
+.snake-game-iframe {
+  border: 2px dashed #0077ff;
+  border-radius: 12px;
+  height: 300px;
+  width: 100%;
+  background: white;
+}
+
