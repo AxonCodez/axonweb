@@ -19,6 +19,11 @@
   <script src="https://cdn.jsdelivr.net/npm/tsparticles@2.11.1/tsparticles.bundle.min.js"></script>
 </head>
 <body>
+  <div id="loader">
+    <div class="loader-spinner"></div>
+    <p class="loader-text">Loading Portfolio...</p>
+  </div>
+
 
   <!-- Bubble Background -->
   <div id="tsparticles"></div>
@@ -777,5 +782,17 @@
       loadSong(currentSongIndex);
     });
   </script>
+  <script>
+    window.addEventListener('load', () => {
+      setTimeout(() => {
+        const loader = document.getElementById('loader');
+        loader.style.opacity = '0';
+        setTimeout(() => {
+          loader.style.display = 'none';
+        }, 600); // Matches the transition
+      }, 5000); // 5 seconds
+    });
+  </script>
+
 </body>
 </html>
