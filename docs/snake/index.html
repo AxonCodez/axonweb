@@ -5,138 +5,193 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Snake Game</title>
   <style>
-    @import url('https://fonts.googleapis.com/css2?family=Fira+Code&display=swap');
-
-    * {
-      box-sizing: border-box;
-    }
-
     body {
       margin: 0;
-      background: transparent;
+      padding: 1px;
+      background: #d3f3f3;
       font-family: 'Fira Code', monospace;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      height: 100vh;
-      overflow: hidden;
-    }
-
-    .game-container {
-      padding: 20px;
-      border: 2.5px dashed rgba(92, 158, 255, 0.6);
-      border-radius: 24px;
-      backdrop-filter: blur(10px);
-      background: rgba(255, 255, 255, 0.05);
       display: flex;
       flex-direction: column;
       align-items: center;
+      justify-content: center;
     }
 
-    #instruction {
-      font-size: 12px;
-      color: #0a2540;
-      padding-bottom: 5px;
-      animation: blink 1.5s infinite;
-      text-align: center;
+    body.noscroll {
+        overflow: hidden;
     }
 
     canvas {
-      background: #a5ced8;
-      border-radius: 12px;
+      background: rgba(255, 255, 255, 0.4);
+      border: 2px dashed rgba(92, 158, 255, 0.6);
+      backdrop-filter: blur(10px);
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+      border-radius: 10px;
     }
 
-    @keyframes blink {
-      0%, 100% { opacity: 1; }
-      50% { opacity: 0.3; }
+    #restart-btn {
+      margin-top: 20px;
+      padding: 12px 24px;
+      font-family: 'Fira Code', monospace;
+      font-size: 14px;
+      border: 2px dashed #5c9eff;
+      background: rgba(255, 255, 255, 0.8);
+      border-radius: 12px;
+      color: #0a2540;
+      cursor: pointer;
+      display: none;
+      transition: transform 0.2s ease, background 0.3s ease;
     }
+
+    #restart-btn:hover {
+      background: rgba(92, 158, 255, 0.2);
+      transform: scale(1.05);
+    }
+
+    .wasd-container {
+      display: grid;
+      grid-template-areas:
+        ".    w    ."
+        "a    s    d";
+      gap: 12px;
+      margin-top: 30px;
+    }
+
+    .key {
+      width: 50px;
+      height: 50px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+      font-weight: bold;
+      color: #0a2540;
+      border: 1.5px solid rgba(92, 158, 255, 0.4);
+      background: rgba(255, 255, 255, 0.4);
+      backdrop-filter: blur(10px);
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+      font-family: 'Fira Code', monospace;
+    }
+
+    .key.active {
+      background: rgba(92, 158, 255, 0.4);
+      transform: scale(1.1);
+      transition: all 0.2s ease;
+    }
+
+    .key.w { grid-area: w; }
+    .key.a { grid-area: a; }
+    .key.s { grid-area: s; }
+    .key.d { grid-area: d; }
   </style>
 </head>
 <body>
-  <div class="game-container">
-    <div id="instruction">🎮 Click the Panel and Use <b>W A S D</b> to move the Snake!</div>
-    <canvas id="game" width="400" height="400"></canvas>
+
+  <canvas id="game" width="300" height="300"></canvas>
+  <button id="restart-btn">Restart Game</button>
+
+  <div class="wasd-container">
+    <div class="key w">W</div>
+    <div class="key a">A</div>
+    <div class="key s">S</div>
+    <div class="key d">D</div>
   </div>
 
   <script>
-    const canvas = document.getElementById("game");
-    const ctx = canvas.getContext("2d");
+    // When opening snake game
+    
 
-    const gridSize = 20;
-    let snake = [{ x: 10, y: 10 }];
-    let apple = { x: 15, y: 15 };
-    let velocity = { x: 0, y: 0 };
-    let gameInterval;
-    let hasStarted = false;
+    // When closing snake game
+    document.body.classList.remove('noscroll');
 
-    function gameLoop() {
-      const head = { x: snake[0].x + velocity.x, y: snake[0].y + velocity.y };
+    const canvas = document.getElementById('game');
+    const ctx = canvas.getContext('2d');
+    const box = 20;
+    let snake = [{ x: 200, y: 200 }];
+    let direction = 'RIGHT';
+    let food = generateFood();
+    let score = 0;
+    let gameLoop = setInterval(draw, 100);
 
-      if (head.x < 0 || head.y < 0 || head.x >= canvas.width / gridSize || head.y >= canvas.height / gridSize) {
-        gameOver();
-        return;
+    const keys = {
+      w: document.querySelector('.key.w'),
+      a: document.querySelector('.key.a'),
+      s: document.querySelector('.key.s'),
+      d: document.querySelector('.key.d')
+    };
+
+    document.addEventListener('keydown', changeDirection);
+    document.getElementById('restart-btn').addEventListener('click', restartGame);
+
+    function generateFood() {
+      return {
+        x: Math.floor(Math.random() * (canvas.width / box)) * box,
+        y: Math.floor(Math.random() * (canvas.height / box)) * box
+      };
+    }
+
+    function draw() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+      // Draw snake
+      ctx.fillStyle = '#0a2540';
+      for (let segment of snake) {
+        ctx.fillRect(segment.x, segment.y, box, box);
       }
 
-      if (snake.some(seg => seg.x === head.x && seg.y === head.y)) {
-        gameOver();
+      // Draw food
+      ctx.fillStyle = '#5c9eff';
+      ctx.fillRect(food.x, food.y, box, box);
+
+      let head = { ...snake[0] };
+      if (direction === 'LEFT') head.x -= box;
+      if (direction === 'RIGHT') head.x += box;
+      if (direction === 'UP') head.y -= box;
+      if (direction === 'DOWN') head.y += box;
+
+      if (
+        head.x < 0 || head.x >= canvas.width ||
+        head.y < 0 || head.y >= canvas.height ||
+        snake.some(seg => seg.x === head.x && seg.y === head.y)
+      ) {
+        clearInterval(gameLoop);
+        document.getElementById('restart-btn').style.display = 'block';
         return;
       }
 
       snake.unshift(head);
-
-      if (head.x === apple.x && head.y === apple.y) {
-        apple = {
-          x: Math.floor(Math.random() * (canvas.width / gridSize)),
-          y: Math.floor(Math.random() * (canvas.height / gridSize))
-        };
+      if (head.x === food.x && head.y === food.y) {
+        food = generateFood();
+        score++;
       } else {
         snake.pop();
       }
-
-      draw();
     }
 
-    function draw() {
-      ctx.fillStyle = "#a5ced8";
-      ctx.fillRect(0, 0, canvas.width, canvas.height);
+    function changeDirection(e) {
+      const key = e.key.toLowerCase();
 
-      ctx.fillStyle = "#0064ff";
-      snake.forEach(seg => {
-        ctx.fillRect(seg.x * gridSize, seg.y * gridSize, gridSize - 2, gridSize - 2);
-      });
+      // Reset active state on all
+      Object.values(keys).forEach(k => k.classList.remove('active'));
 
-      ctx.fillStyle = "#00ffa0";
-      ctx.fillRect(apple.x * gridSize, apple.y * gridSize, gridSize - 2, gridSize - 2);
+      if ((key === 'w' || key === 'arrowup') && direction !== 'DOWN') direction = 'UP';
+      else if ((key === 's' || key === 'arrowdown') && direction !== 'UP') direction = 'DOWN';
+      else if ((key === 'a' || key === 'arrowleft') && direction !== 'RIGHT') direction = 'LEFT';
+      else if ((key === 'd' || key === 'arrowright') && direction !== 'LEFT') direction = 'RIGHT';
+
+      if (keys[key]) keys[key].classList.add('active');
     }
 
-    function gameOver() {
-      clearInterval(gameInterval);
-      alert("💀 Game Over! Score: " + (snake.length - 1));
-      location.reload();
+    function restartGame() {
+      snake = [{ x: 200, y: 200 }];
+      direction = 'RIGHT';
+      food = generateFood();
+      score = 0;
+      document.getElementById('restart-btn').style.display = 'none';
+      clearInterval(gameLoop);
+      gameLoop = setInterval(draw, 100);
     }
-
-    document.addEventListener("keydown", (e) => {
-      if (!hasStarted && ["w", "a", "s", "d"].includes(e.key.toLowerCase())) {
-        hasStarted = true;
-        document.getElementById("instruction").style.display = "none";
-        gameInterval = setInterval(gameLoop, 120);
-      }
-
-      switch (e.key.toLowerCase()) {
-        case "w":
-          if (velocity.y === 0) velocity = { x: 0, y: -1 };
-          break;
-        case "s":
-          if (velocity.y === 0) velocity = { x: 0, y: 1 };
-          break;
-        case "a":
-          if (velocity.x === 0) velocity = { x: -1, y: 0 };
-          break;
-        case "d":
-          if (velocity.x === 0) velocity = { x: 1, y: 0 };
-          break;
-      }
-    });
   </script>
+
 </body>
 </html>

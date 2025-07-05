@@ -1178,6 +1178,7 @@ body {
   min-width: 300px;
   max-width: 400px;
   padding-right: 500px;
+  padding-top: -150px;
 }
 
 .snake-game-iframe {
@@ -1187,4 +1188,20 @@ body {
   width: 100%;
   background: white;
 }
+
+.snake-frame {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 420px;  /* or 100vw for full width */
+  height: 500px; /* adjust as needed */
+  border: none;
+  z-index: 999;
+  box-shadow: 0 0 40px rgba(0, 0, 0, 0.15);
+  border-radius: 20px;
+  overflow: hidden;
+  pointer-events: auto;
+}
+
 
