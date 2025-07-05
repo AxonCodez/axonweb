@@ -17,7 +17,7 @@
     }
 
     body.noscroll {
-        overflow: hidden;
+      overflow: hidden;
     }
 
     canvas {
@@ -26,6 +26,14 @@
       backdrop-filter: blur(10px);
       box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
       border-radius: 10px;
+      max-width: 100%;
+      height: auto;
+    }
+
+    #score-display {
+      margin: 16px 0 8px;
+      font-size: 18px;
+      color: #0a2540;
     }
 
     #restart-btn {
@@ -47,61 +55,87 @@
       transform: scale(1.05);
     }
 
-    .wasd-container {
-      display: grid;
-      grid-template-areas:
-        ".    w    ."
-        "a    s    d";
-      gap: 12px;
-      margin-top: 30px;
-    }
-
-    .key {
-      width: 50px;
-      height: 50px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 20px;
-      font-weight: bold;
+    .instructions {
+      margin-top: 16px;
+      font-size: 14px;
       color: #0a2540;
-      border: 1.5px solid rgba(92, 158, 255, 0.4);
-      background: rgba(255, 255, 255, 0.4);
-      backdrop-filter: blur(10px);
-      border-radius: 12px;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-      font-family: 'Fira Code', monospace;
+      background: rgba(255, 255, 255, 0.5);
+      padding: 8px 16px;
+      border-radius: 10px;
+      border: 1px dashed rgba(92, 158, 255, 0.6);
+      backdrop-filter: blur(8px);
+      text-align: center;
     }
 
-    .key.active {
-      background: rgba(92, 158, 255, 0.4);
-      transform: scale(1.1);
-      transition: all 0.2s ease;
+    .mobile-controls {
+      display: none;
+      margin-top: 20px;
+      gap: 12px;
+      flex-wrap: wrap;
+      justify-content: center;
     }
 
-    .key.w { grid-area: w; }
-    .key.a { grid-area: a; }
-    .key.s { grid-area: s; }
-    .key.d { grid-area: d; }
+    .mobile-controls button {
+      padding: 10px 14px;
+      font-size: 18px;
+      border-radius: 10px;
+      background: rgba(255, 255, 255, 0.5);
+      border: 1.5px dashed #5c9eff;
+      backdrop-filter: blur(8px);
+      color: #0a2540;
+      cursor: pointer;
+      margin: 4px;
+    }
+
+    @media (max-width: 600px) {
+      canvas {
+        width: 90vw;
+        height: 90vw;
+      }
+
+      #restart-btn {
+        padding: 10px 20px;
+        font-size: 13px;
+      }
+
+      body {
+        padding: 8px;
+      }
+
+      #score-display {
+        font-size: 16px;
+        margin-bottom: 12px;
+      }
+
+      .instructions {
+        font-size: 13px;
+        margin-top: 12px;
+      }
+
+      .mobile-controls {
+        display: flex;
+      }
+    }
   </style>
 </head>
 <body>
 
+  <h2 id="score-display">Score: 0</h2>
   <canvas id="game" width="300" height="300"></canvas>
   <button id="restart-btn">Restart Game</button>
 
-  <div class="wasd-container">
-    <div class="key w">W</div>
-    <div class="key a">A</div>
-    <div class="key s">S</div>
-    <div class="key d">D</div>
+  <div class="instructions">
+    Use <strong>W A S D</strong> or Arrow Keys to Control the Snake
+  </div>
+
+  <div class="mobile-controls">
+    <button onclick="setDir('UP')">↑</button>
+    <button onclick="setDir('LEFT')">←</button>
+    <button onclick="setDir('DOWN')">↓</button>
+    <button onclick="setDir('RIGHT')">→</button>
   </div>
 
   <script>
-    // When opening snake game
-    
-
-    // When closing snake game
     document.body.classList.remove('noscroll');
 
     const canvas = document.getElementById('game');
@@ -112,13 +146,6 @@
     let food = generateFood();
     let score = 0;
     let gameLoop = setInterval(draw, 100);
-
-    const keys = {
-      w: document.querySelector('.key.w'),
-      a: document.querySelector('.key.a'),
-      s: document.querySelector('.key.s'),
-      d: document.querySelector('.key.d')
-    };
 
     document.addEventListener('keydown', changeDirection);
     document.getElementById('restart-btn').addEventListener('click', restartGame);
@@ -133,13 +160,11 @@
     function draw() {
       ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-      // Draw snake
       ctx.fillStyle = '#0a2540';
       for (let segment of snake) {
         ctx.fillRect(segment.x, segment.y, box, box);
       }
 
-      // Draw food
       ctx.fillStyle = '#5c9eff';
       ctx.fillRect(food.x, food.y, box, box);
 
@@ -166,20 +191,17 @@
       } else {
         snake.pop();
       }
+
+      document.getElementById('score-display').innerText = `Score: ${score}`;
     }
 
     function changeDirection(e) {
       const key = e.key.toLowerCase();
 
-      // Reset active state on all
-      Object.values(keys).forEach(k => k.classList.remove('active'));
-
       if ((key === 'w' || key === 'arrowup') && direction !== 'DOWN') direction = 'UP';
       else if ((key === 's' || key === 'arrowdown') && direction !== 'UP') direction = 'DOWN';
       else if ((key === 'a' || key === 'arrowleft') && direction !== 'RIGHT') direction = 'LEFT';
       else if ((key === 'd' || key === 'arrowright') && direction !== 'LEFT') direction = 'RIGHT';
-
-      if (keys[key]) keys[key].classList.add('active');
     }
 
     function restartGame() {
@@ -190,6 +212,13 @@
       document.getElementById('restart-btn').style.display = 'none';
       clearInterval(gameLoop);
       gameLoop = setInterval(draw, 100);
+    }
+
+    function setDir(dir) {
+      if (dir === 'UP' && direction !== 'DOWN') direction = 'UP';
+      if (dir === 'DOWN' && direction !== 'UP') direction = 'DOWN';
+      if (dir === 'LEFT' && direction !== 'RIGHT') direction = 'LEFT';
+      if (dir === 'RIGHT' && direction !== 'LEFT') direction = 'RIGHT';
     }
   </script>
 
