@@ -1,0 +1,1655 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+  <title>Akshay | Axon</title>
+  <meta name="title" content="Akshay | Axon">
+  <meta name="description" content="Creative Developer & Designer Portfolio | Explore my work in Web Dev, Frontend, and Graphic Design.">
+  <link rel="icon" type="image/png" href="./assets/designer_developer_icon.png">
+  <link rel="stylesheet" href="./style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Fira+Code&display=swap" rel="stylesheet">
+  <!-- AOS CSS -->
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+  <!-- FullCalendar CDN -->
+  <link href='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.8/main.min.css' rel='stylesheet' />
+  <script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.8/main.min.js'></script>
+
+  <!-- tsParticles CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/tsparticles@2.11.1/tsparticles.bundle.min.js"></script>
+</head>
+<body>
+  <!-- Custom Mouse Cursor elements -->
+  <div class="custom-cursor-dot"></div>
+  <div class="custom-cursor-ring"></div>
+
+  <!-- Scroll Progress Bar -->
+  <div class="scroll-progress-bar" id="scrollProgressBar"></div>
+
+  <div id="loader">
+    <div class="loader-content">
+      <div class="loader-visual">
+        <img src="./assets/designer_developer_icon.png" alt="Axon Studio Icon" class="loader-icon" width="90" height="90" style="object-fit: contain; filter: drop-shadow(0 0 16px rgba(var(--accent-color-rgb), 0.35));" />
+      </div>
+      <h2 class="loader-title">ENTERING <span class="highlight">AXON'S STUDIO</span></h2>
+      
+      <div class="console-box">
+        <div class="console-header">
+          <span class="console-dot red"></span>
+          <span class="console-dot yellow"></span>
+          <span class="console-dot green"></span>
+          <span class="console-title">axon_compiler.js</span>
+        </div>
+        <div class="console-body" id="loader-console">
+          <div class="console-line">> Initializing Axon Portfolio...</div>
+        </div>
+      </div>
+
+      <div class="progress-bar-container">
+        <div class="progress-bar-fill" id="loaderProgressBar"></div>
+      </div>
+      <div class="loader-status" id="loaderStatusText">Compiling modules...</div>
+    </div>
+  </div>
+
+
+  <!-- Bubble Background -->
+  <div id="tsparticles"></div>
+
+  <!-- Portfolio Content -->
+  <div class="portfolio">
+    <!-- Sticky Navbar -->
+    <header class="navbar">
+    <div class="logo">AXON</div>
+        <nav class="nav-links">
+            <a href="#about" class="nav-link">ABOUT</a>
+            <a href="#work" class="nav-link">WORK</a>
+            <a href="#contact" class="nav-link">CONTACT</a>
+        </nav>
+    </header>
+
+
+
+
+    <!-- Interactive Creative Canvas Hero Section -->
+    <section class="creative-hero-section">
+      <!-- Background Chalkboard SVGs -->
+      <div class="chalkboard-sketches">
+        <svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg" style="position:absolute; top:0; left:0; width:100%; height:100%;">
+          <!-- Starburst vector sketch -->
+          <path d="M 150 150 L 170 160 L 150 170 L 130 160 Z M 150 130 L 150 190 M 120 160 L 180 160" stroke="rgba(255, 255, 255, 0.45)" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" style="stroke-dasharray: 200; stroke-dashoffset: 200; animation: drawStroke 2s forwards ease-in-out;" />
+          <path d="M 1150 180 L 1170 190 L 1150 200 L 1130 190 Z M 1150 160 L 1150 220 M 1120 190 L 1180 190" stroke="var(--accent-color)" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" style="stroke-dasharray: 200; stroke-dashoffset: 200; animation: drawStroke 2.2s forwards ease-in-out 0.4s;" />
+          <!-- Swirly pencil arrow -->
+          <path d="M 280 480 Q 230 430 250 380 T 320 330" stroke="rgba(255,255,255,0.3)" stroke-width="2.5" fill="none" stroke-dasharray="10 6" style="stroke-dasharray: 300; stroke-dashoffset: 300; animation: drawStroke 2.5s forwards ease-in-out 0.6s;" />
+        </svg>
+      </div>
+
+      <div class="studio-workspace">
+        <!-- Top Menu Bar -->
+        <div class="menu-bar">
+          <div class="menu-left">
+            <div class="window-dots">
+              <span class="window-dot red"></span>
+              <span class="window-dot yellow"></span>
+              <span class="window-dot green"></span>
+            </div>
+            <div class="menu-items">
+              <span class="menu-item">File</span>
+              <span class="menu-item">Edit</span>
+              <span class="menu-item">Image</span>
+              <span class="menu-item">Layer</span>
+              <span class="menu-item">Select</span>
+              <span class="menu-item">View</span>
+              <span class="menu-item">Window</span>
+              <span class="menu-item">Help</span>
+            </div>
+          </div>
+          <div class="menu-center">Akshay_v2.psd @ 100% (RGB/8)*</div>
+          <div class="menu-right">Zoom: 100%</div>
+        </div>
+
+        <!-- Left floating Toolbar -->
+        <div class="left-toolbar">
+          <button class="tool-btn active" id="tool-select" title="Move Tool (V)">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M3 3l7.07 16.97 2.51-7.39 7.39-2.51L3 3z"/></svg>
+          </button>
+          <button class="tool-btn" id="tool-brush" title="Paintbrush Tool (B)">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z"/><path d="M12 8v8M8 12h8"/></svg>
+          </button>
+          <button class="tool-btn" id="tool-eyedropper" title="Eyedropper Tool (I)">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+          </button>
+          <button class="tool-btn" id="tool-text" title="Horizontal Text Tool (T)">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M4 7V4h16v3M9 20h6M12 4v16"/></svg>
+          </button>
+          <button class="tool-btn" id="tool-pen" title="Pen Tool (P)">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9z"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+          </button>
+          <button class="tool-btn" id="tool-eraser" title="Eraser Tool (E)">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 20H7L3 16c-1.5-1.5-1.5-4 0-5.5L13 2l9 9-4.5 4.5L20 20z"/></svg>
+          </button>
+        </div>
+
+        <!-- Center Active Canvas Frame -->
+        <div class="active-canvas">
+          <div class="canvas-content">
+            <div class="canvas-bg-grid"></div>
+
+            <!-- Layer 0: Grid Background Sketches -->
+            <div class="canvas-layer" id="layer-grid">
+              <svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg" style="position:absolute; top:0; left:0; width:100%; height:100%; opacity:0.18;">
+                <circle cx="50%" cy="50%" r="280" stroke="rgba(255,255,255,0.4)" stroke-width="1.5" fill="none" stroke-dasharray="10 10" />
+                <circle cx="50%" cy="50%" r="180" stroke="rgba(255,255,255,0.3)" stroke-width="1" fill="none" />
+                <line x1="10%" y1="50%" x2="90%" y2="50%" stroke="rgba(255,255,255,0.15)" stroke-width="1" stroke-dasharray="5 5" />
+                <line x1="50%" y1="10%" x2="50%" y2="90%" stroke="rgba(255,255,255,0.15)" stroke-width="1" stroke-dasharray="5 5" />
+              </svg>
+            </div>
+
+            <!-- Layer 1: Hand-sketched doodles -->
+            <div class="canvas-layer" id="layer-doodles">
+              <!-- Starburst sketch -->
+              <svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg" style="position:absolute; top:0; left:0; width:100%; height:100%;">
+                <path d="M 680 180 C 700 160, 720 180, 740 170" stroke="var(--accent-color)" stroke-width="2" fill="none" stroke-linecap="round" />
+              </svg>
+              <div class="doodle-developer">Developer</div>
+              <div class="doodle-designer">Graphics Designer</div>
+            </div>
+
+            <!-- Layer 2: Typography -->
+            <div class="canvas-layer" id="layer-type">
+              <div class="typography-layer">
+                <div class="canvas-title-wrapper">
+                  <span class="hello-badge">HELLO, I AM</span>
+                  <h1 class="canvas-main-title">AKSHAY</h1>
+                </div>
+                <span class="floating-subline left-side">a.k.a</span>
+                <span class="floating-subline right-side">Axon</span>
+              </div>
+            </div>
+
+            <!-- Layer 3: 3D Developer-Designer Stylus Icon overlay -->
+            <div class="canvas-layer" id="layer-character">
+              <div class="character-wrapper">
+                <div class="character-shadow"></div>
+                <img src="./assets/designer_developer_icon.png" alt="3D Developer-Designer Stylus Icon" class="character-img" id="character-canvas" />
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- Right Sidebars Panels -->
+        <div class="right-sidebar">
+          <!-- Photoshop-like Color Picker Panel -->
+          <div class="panel-box color-picker-panel">
+            <div class="panel-header">
+              <span>Color</span>
+              <span class="panel-header-dot"></span>
+            </div>
+            <div class="color-picker-container">
+              <div class="color-swatch-overlap">
+                <div class="color-swatch-box bg-swatch" title="Background Color (White)"></div>
+                <div class="color-swatch-box fg-swatch" id="fgColorSwatch" title="Foreground Color (Accent)"></div>
+              </div>
+              <div class="gradient-picker-area" id="gradientPicker">
+                <div class="gradient-picker-pointer" id="gradientPointer"></div>
+              </div>
+              <div class="hue-slider-container">
+                <input type="range" id="hueSlider" min="0" max="360" value="190" class="hue-slider-input" title="Hue Slider" />
+              </div>
+            </div>
+          </div>
+
+
+
+          <!-- Layers Panel -->
+          <div class="panel-box">
+            <div class="panel-header">
+              <span>Layers</span>
+              <span class="panel-header-dot"></span>
+            </div>
+            <div class="layers-list">
+              <div class="layer-item active-layer" data-layer="layer-character">
+                <div class="layer-left">
+                  <span class="layer-eye">👁️</span>
+                  <span>3D Studio Icon</span>
+                </div>
+                <span style="opacity: 0.5;">[Layer 3]</span>
+              </div>
+              <div class="layer-item active-layer" data-layer="layer-type">
+                <div class="layer-left">
+                  <span class="layer-eye">👁️</span>
+                  <span>Typography</span>
+                </div>
+                <span style="opacity: 0.5;">[Layer 2]</span>
+              </div>
+              <div class="layer-item active-layer" data-layer="layer-doodles">
+                <div class="layer-left">
+                  <span class="layer-eye">👁️</span>
+                  <span>Vector Doodles</span>
+                </div>
+                <span style="opacity: 0.5;">[Layer 1]</span>
+              </div>
+              <div class="layer-item active-layer" data-layer="layer-grid">
+                <div class="layer-left">
+                  <span class="layer-eye">👁️</span>
+                  <span>Background Grid</span>
+                </div>
+                <span style="opacity: 0.5;">[Layer 0]</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+  </div>
+
+  <!-- REPLACED About Section -->
+  <section id="about" class="about-section">
+    <h2 class="about-heading text-hover scroll-reveal" >ABOUT <span class="highlight text-hover">ME</span></h2>
+    <div class="about-grid">
+      <div class="about-image scroll-reveal">
+        <img src="./assets/developer.png" alt="Developer Illustration" />
+      </div>
+      <div class="about-cards">
+        <div class="about-card scroll-reveal">
+          <h3>DEVELOP</h3>
+          <p class="desc">Started building websites with HTML and CSS, now I craft them with  JavaScript, React, Express, Node, ... and a little bit of magic!</p>
+
+          <div class="dropdown-toggle">▼</div>
+          <div class="dropdown-content">
+            <h4>Skillset & Tools</h4>
+            <div class="tags">
+              <span class="tag">HTML</span>
+              <span class="tag">CSS</span>
+              <span class="tag">JavaScript</span>
+              <span class="tag">React</span>
+              <span class="tag">Node.js</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="about-card scroll-reveal">
+          <h3>DESIGN</h3>
+          <p class="desc">I started designing as my hobby, but like all good hobbies, it slowly crept into my career—now it won't leave me alone!</p>
+
+          <div class="dropdown-toggle">▼</div>
+          <div class="dropdown-content">
+            <h4>Tools</h4>
+            <div class="tags">
+              <span class="tag">Photoshop</span>
+              <span class="tag">Figma</span>
+              <span class="tag">Lightroom</span>
+              <span class="tag">Premiere Pro</span>
+              <span class="tag">After Effects</span>
+              <span class="tag">CapCut</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+      <div class="timeline">
+        <div class="comet-track" id="cometTrack"></div>
+        <div class="fireball" id="fireball"></div>
+          <div class="timeline-entry scroll-reveal">
+            <div class="timeline-content">
+              <h4>2020</h4>
+              <p>Learnt Photoshop</p>
+            </div>
+          </div>
+          <div class="timeline-entry scroll-reveal">
+            <div class="timeline-content">
+              <h4>2021</h4>
+              <p>Learnt to code Discord bots</p>
+            </div>
+          </div>
+          <div class="timeline-entry scroll-reveal">
+            <div class="timeline-content">            
+              <h4>2022</h4>
+              <p>Learnt After Effects</p>
+            </div>
+          </div>
+          <div class="timeline-entry scroll-reveal">
+            <div class="timeline-content">
+              <h4>2023</h4>
+              <p>Started making websites</p>
+            </div>
+          </div>
+          <div class="timeline-entry scroll-reveal">
+            <div class="timeline-content">
+              <h4>2024</h4>
+              <p>Learnt Python and SQL</p>
+            </div>
+          </div>
+          <div class="timeline-entry scroll-reveal">
+            <div class="timeline-content">
+              <h4>2025</h4>
+              <p>Creating advanced projects from all previous skills</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+    </div>
+  </section>
+
+  <section id="work" class="section work-section">
+    <h2 class="about-heading text-hover scroll-reveal">MY <span class="highlight text-hover">WORK</span></h2>
+
+    <!-- Code & Development — Full width on top -->
+    <div class="work-stack">
+      <div class="work-card-full scroll-reveal">
+        <div class="work-card-header">
+          <div class="work-card-icon">⌨️</div>
+          <div>
+            <h3>CODE AND DEVELOPMENT</h3>
+            <p class="desc">Some of my recent projects and their repositories</p>
+          </div>
+        </div>
+        <div class="projects-grid" id="projectLinks">
+          <!-- Dynamically loaded from API -->
+        </div>
+      </div>
+
+      <!-- Graphics Designing — Full width below -->
+      <div class="graphics-card-full scroll-reveal">
+        <div class="work-card-header">
+          <div class="work-card-icon">🎨</div>
+          <div>
+            <h3>GRAPHICS DESIGNING</h3>
+            <p class="desc">Browse my creative work categorized below.</p>
+          </div>
+        </div>
+
+        <!-- Category pill selector -->
+        <div class="category-pills" id="categoryPills">
+          <!-- Dynamically loaded from API -->
+        </div>
+
+        <!-- Active category label -->
+        <div class="active-category-label" id="activeCategoryLabel">Discord Profile Banners</div>
+
+        <!-- Carousel Display Area -->
+        <div class="carousel-wrapper" id="carouselWrapper">
+          <button class="carousel-nav-btn carousel-prev" id="carouselPrev">‹</button>
+          <div class="carousel-viewport" id="carouselViewport">
+            <div class="carousel-track" id="graphics-carousel"></div>
+          </div>
+          <button class="carousel-nav-btn carousel-next" id="carouselNext">›</button>
+        </div>
+
+        <!-- Image counter -->
+        <div class="carousel-counter" id="carouselCounter">1 / 7</div>
+
+        <!-- Dot indicators -->
+        <div class="carousel-dots" id="carouselDots"></div>
+      </div>
+
+      <!-- Skill Stack Bowl -->
+      <div class="skill-bowl-container" id="skillBowlContainer">
+        <h3 class="about-heading text-hover">SKILL STACK</h3>
+        <div class="skill-bowl-controls">
+          <button class="skill-btn" id="btn-scatter" title="Scatter Balls">
+            <span>💥</span> Scatter
+          </button>
+        </div>
+      </div>
+
+
+  </section>
+  
+
+  <section id="contact" class="contact-section">
+    <h2 class="section-title text-hover scroll-reveal">CONTACT ME</h2>
+    <p class="contact-description scroll-reveal">Fill out the form and I'll get back to you soon.</p>
+    <div class="contact-wrapper">
+      <!-- Contact Form -->
+      <form id="contactForm" class="contact-form scroll-reveal">
+        <input type="text" name="user_name" placeholder="Your Name" required />
+        <input type="email" name="user_email" placeholder="Your Email" required />
+        <textarea name="message" rows="5" placeholder="Your Message" required></textarea>
+        <button type="submit">Send Message</button>
+        <input type="hidden" name="time" />
+        <p id="formStatus" class="form-status"></p>
+      </form>
+    </div>
+  </section>
+
+  <!-- EmailJS Script -->
+  <script src="https://cdn.emailjs.com/dist/email.min.js"></script>
+  <script>
+    (function () {
+      emailjs.init("seQNZAgU_l0NB4p7c"); // Replace with your EmailJS Public Key
+    })();
+
+    document.getElementById("contactForm").addEventListener("submit", function (e) {
+      e.preventDefault();
+      document.getElementById("formStatus").textContent = "Sending...";
+      document.querySelector('input[name="time"]').value = new Date().toLocaleString();
+
+
+      emailjs.sendForm("service_4q9wdyk", "template_mjb4sc3", this)
+        .then(() => {
+          document.getElementById("formStatus").textContent = "Message sent successfully!";
+          this.reset();
+        }, (error) => {
+          document.getElementById("formStatus").textContent = "Failed to send. Try again.";
+          console.error("EmailJS Error:", error);
+        });
+    });
+  </script>
+
+
+
+
+
+  <!-- Bottom-Left Floating Sidebar -->
+  <div class="floating-sidebar">
+    <div class="sidebar-icons">
+      <!-- Main visible icon -->
+      <a href="#" class="sidebar-icon contact-thumb">
+        <img src="./assets/contact.svg" alt="Contact" />
+      </a>
+
+      <!-- Hidden icons appear on hover -->
+      <div class="sidebar-hidden-icons">
+        <a href="https://github.com/axoncodez" target="_blank" class="sidebar-icon">
+          <img src="./assets/github.svg" alt="GitHub" />
+        </a>
+        <a href="https://x.com/axon_dzn" target="_blank" class="sidebar-icon">
+          <img src="./assets/twitter.svg" alt="Twitter" />
+        </a>
+        <a href="https://www.linkedin.com/in/akshay-k-70a7282a4/" target="_blank" class="sidebar-icon">
+          <img src="./assets/linkedin.svg" alt="LinkedIn" />
+        </a>
+        <a href="mailto:axongfx.help@gmail.com" target="_blank" class="sidebar-icon">
+          <img src="./assets/email.svg" alt="Email" />
+        </a>
+        <a href="https://discord.gg/VvgfVSCb" target="_blank" class="sidebar-icon">
+          <img src="./assets/discord.svg" alt="Discord" />
+        </a>
+        <a href="https://instagram.com/_.akshayyyyyyyy._" target="_blank" class="sidebar-icon">
+          <img src="./assets/insta.svg" alt="Instagram" />
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <div class="right-side-label">
+    <span>Based in Coimbatore</span>
+  </div>
+
+
+
+  <!-- Calendly Script -->
+  <script type="text/javascript" src="https://assets.calendly.com/assets/external/widget.js" async></script>
+
+
+
+  <!-- Bubbles Particle JS -->
+  <script>
+    tsParticles.load("tsparticles", {
+      background: {
+        color: { value: "transparent" }
+      },
+      fpsLimit: 60,
+      interactivity: {
+        events: {
+          onHover: { enable: true, mode: "bubble" },
+          resize: true
+        },
+        modes: {
+          bubble: {
+            distance: 150,
+            size: 8,
+            duration: 2,
+            opacity: 0.8,
+            speed: 3
+          }
+        }
+      },
+      particles: {
+        color: { value: "#0c2f3c" },
+        opacity: { value: 0.4, random: true },
+        size: { value: 6, random: true },
+        move: {
+          enable: true,
+          speed: 1,
+          direction: "none",
+          outModes: { default: "out" }
+        },
+        number: {
+          value: 50,
+          density: { enable: true, area: 800 }
+        },
+        shape: { type: "circle" }
+      },
+      detectRetina: true
+    });
+  </script>
+    <!-- AOS JS -->
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+  <script>
+    AOS.init({
+      duration: 800,
+      offset: 120,
+      easing: 'ease-in-out',
+      once: true
+    });
+  </script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+  <script>
+  const cometTrack = document.getElementById("cometTrack");
+  const fireball = document.getElementById("fireball");
+  const entries = document.querySelectorAll(".timeline-entry");
+
+  function updateComet() {
+    const timeline = document.querySelector(".timeline");
+    const rect = timeline.getBoundingClientRect();
+    const scrollTop = window.scrollY || window.pageYOffset;
+    const visibleHeight = window.innerHeight;
+
+    const topOffset = rect.top + scrollTop - visibleHeight / 2;
+    const scrollPos = scrollTop - topOffset;
+
+    const totalHeight = timeline.scrollHeight;
+    const maxCometHeight = timeline.offsetHeight;
+
+    const cometHeight = Math.min(Math.max(scrollPos, 0), maxCometHeight);
+    cometTrack.style.height = `${cometHeight}px`;
+    fireball.style.transform = `translateY(${cometHeight}px)`;
+
+    entries.forEach(entry => {
+      const entryTop = entry.getBoundingClientRect().top;
+      if (entryTop < window.innerHeight * 0.75) {
+        entry.classList.add("visible");
+      } else {
+        entry.classList.remove("visible");
+      }
+    });
+  }
+
+  window.addEventListener("scroll", updateComet);
+  window.addEventListener("load", updateComet);
+  </script>
+  <script>
+  // Creative Studio Canvas Interactions
+  window.addEventListener('DOMContentLoaded', () => {
+    const canvas = document.querySelector('.active-canvas');
+    const content = document.querySelector('.canvas-content');
+
+    // 1. 3D Parallax Tilt Effect
+    if (canvas && content) {
+      canvas.addEventListener('mousemove', e => {
+        const rect = canvas.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+        const xc = rect.width / 2;
+        const yc = rect.height / 2;
+        const dx = x - xc;
+        const dy = y - yc;
+
+        // Subtle realistic rotation angles
+        const rx = -(dy / yc) * 14;
+        const ry = (dx / xc) * 14;
+
+        content.style.transform = `rotateX(${rx}deg) rotateY(${ry}deg) translateZ(10px)`;
+      });
+
+      canvas.addEventListener('mouseleave', () => {
+        content.style.transform = 'rotateX(0deg) rotateY(0deg) translateZ(0)';
+      });
+    }
+
+    // 2. Left Toolbar Selections
+    const toolBtns = document.querySelectorAll('.tool-btn');
+    const activeCanvas = document.querySelector('.active-canvas');
+    
+    toolBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        toolBtns.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+
+        const toolId = btn.id;
+        if (activeCanvas) {
+          if (toolId === 'tool-select') activeCanvas.style.cursor = 'default';
+          else if (toolId === 'tool-brush') activeCanvas.style.cursor = 'crosshair';
+          else if (toolId === 'tool-eyedropper') activeCanvas.style.cursor = 'copy';
+          else if (toolId === 'tool-text') activeCanvas.style.cursor = 'text';
+          else if (toolId === 'tool-eraser') activeCanvas.style.cursor = 'cell';
+          else if (toolId === 'tool-pen') activeCanvas.style.cursor = 'pointer';
+        }
+      });
+    });
+
+    // 3. Photoshop Color Picker Dragging logic
+    const gradientPicker = document.getElementById('gradientPicker');
+    const gradientPointer = document.getElementById('gradientPointer');
+    const hueSlider = document.getElementById('hueSlider');
+    const fgColorSwatch = document.getElementById('fgColorSwatch');
+
+    let currentHue = 190;
+    let currentSaturation = 15;
+    let currentBrightness = 70;
+    let isDraggingColor = false;
+
+    // Convert HSB/HSV to HSL safely (no division-by-zero errors at edges!)
+    function updateColorFromPicker(h, s, b) {
+      s /= 100;
+      b /= 100;
+      let l = b * (1 - s / 2);
+      let hslSat = 0;
+      if (l > 0 && l < 1) {
+        hslSat = (b - l) / Math.min(l, 1 - l);
+      }
+      
+      hslSat = Math.round(hslSat * 100);
+      l = Math.round(l * 100);
+
+      const hex = hslToHex(h, hslSat, l);
+      const rgb = hslToRgb(h, hslSat, l);
+
+      document.documentElement.style.setProperty('--accent-color', hex);
+      document.documentElement.style.setProperty('--accent-color-rgb', rgb);
+      
+      // Calculate a highly polished soft pastel background color matching the selected hue
+      // We use 14% saturation and 94% lightness for a premium, readable canvas background
+      const bgHex = hslToHex(h, 14, 94);
+      document.documentElement.style.setProperty('--bg-color', bgHex);
+      
+      if (fgColorSwatch) {
+        fgColorSwatch.style.backgroundColor = hex;
+      }
+    }
+
+    function hslToRgb(h, s, l) {
+      s /= 100;
+      l /= 100;
+      const k = n => (n + h / 30) % 12;
+      const a = s * Math.min(l, 1 - l);
+      const f = n => l - a * Math.max(-1, Math.min(k(n) - 3, 9 - k(n), 1));
+      return `${Math.round(255 * f(0))}, ${Math.round(255 * f(8))}, ${Math.round(255 * f(4))}`;
+    }
+
+    function hslToHex(h, s, l) {
+      l /= 100;
+      const a = s * Math.min(l, 1 - l) / 100;
+      const f = n => {
+        const k = (n + h / 30) % 12;
+        const color = l - a * Math.max(Math.min(k - 3, 9 - k, 1), -1);
+        const clampedColor = Math.max(0, Math.min(1, color)); // Clamp prevents negative strings
+        return Math.round(255 * clampedColor).toString(16).padStart(2, '0');
+      };
+      return `#${f(0)}${f(8)}${f(4)}`;
+    }
+
+    // Trigger update from Hue Slider
+    if (hueSlider) {
+      hueSlider.addEventListener('input', () => {
+        currentHue = hueSlider.value;
+        // Update the base hue color of the gradient box
+        gradientPicker.style.setProperty('--hue-color', `hsl(${currentHue}, 100%, 50%)`);
+        updateColorFromPicker(currentHue, currentSaturation, currentBrightness);
+      });
+    }
+
+    // Gradient Picker Mouse Interaction
+    if (gradientPicker) {
+      function handlePickerPointerMove(e) {
+        const rect = gradientPicker.getBoundingClientRect();
+        // Native PointerEvent always maps clientX and clientY correctly across all mouse and touch events
+        const clientX = e.clientX;
+        const clientY = e.clientY;
+        
+        let x = clientX - rect.left;
+        let y = clientY - rect.top;
+        
+        // Clamping inside box
+        x = Math.max(0, Math.min(rect.width, x));
+        y = Math.max(0, Math.min(rect.height, y));
+        
+        // Update pointer visually
+        gradientPointer.style.left = `${(x / rect.width) * 100}%`;
+        gradientPointer.style.top = `${(y / rect.height) * 100}%`;
+        
+        // Saturation & Brightness
+        currentSaturation = Math.round((x / rect.width) * 100);
+        currentBrightness = Math.round((1 - (y / rect.height)) * 100);
+        
+        updateColorFromPicker(currentHue, currentSaturation, currentBrightness);
+      }
+
+      gradientPicker.addEventListener('pointerdown', e => {
+        isDraggingColor = true;
+        handlePickerPointerMove(e);
+        gradientPicker.setPointerCapture(e.pointerId);
+      });
+
+      gradientPicker.addEventListener('pointermove', e => {
+        if (isDraggingColor) {
+          handlePickerPointerMove(e);
+        }
+      });
+
+      gradientPicker.addEventListener('pointerup', e => {
+        if (isDraggingColor) {
+          isDraggingColor = false;
+          gradientPicker.releasePointerCapture(e.pointerId);
+        }
+      });
+    }
+
+    // 4. Right Layers Panel eyeball visibility toggles
+    const layerItems = document.querySelectorAll('.layer-item');
+    layerItems.forEach(item => {
+      const eye = item.querySelector('.layer-eye');
+      const layerId = item.dataset.layer;
+      const targetLayer = document.getElementById(layerId);
+
+      // Layer selection styling
+      item.addEventListener('click', e => {
+        if (e.target.classList.contains('layer-eye')) return;
+        layerItems.forEach(li => li.classList.remove('active-layer'));
+        item.classList.add('active-layer');
+      });
+
+      // Visibility eyeball toggle
+      eye.addEventListener('click', e => {
+        e.stopPropagation();
+        const isVisible = !eye.classList.contains('hidden');
+        if (isVisible) {
+          eye.classList.add('hidden');
+          eye.textContent = '❌';
+          item.classList.add('hidden-layer');
+          if (targetLayer) targetLayer.classList.add('hidden');
+        } else {
+          eye.classList.remove('hidden');
+          eye.textContent = '👁️';
+          item.classList.remove('hidden-layer');
+          if (targetLayer) targetLayer.classList.remove('hidden');
+        }
+      });
+    });
+  });
+  </script>
+  <script>
+    window.addEventListener('DOMContentLoaded', () => {
+      document.querySelectorAll('.work-dropdown-toggle').forEach(toggle => {
+        toggle.addEventListener('click', () => {
+          const parent = toggle.closest('.work-card');
+          const dropdown = parent.querySelector('.work-dropdown-content');
+          toggle.classList.toggle('open');
+          dropdown.classList.toggle('show');
+        });
+      });
+    });
+  </script>
+  <script>
+    // Dynamic data loaded from API
+    let imageData = {};
+    let currentIndex = 0;
+    let currentCategory = [];
+    let currentCategoryKey = '';
+
+    const categoryDisplayNames = {
+      discord: 'Discord Profile Banners',
+      twitter: 'Twitter Headers',
+      youtube: 'YouTube Banners',
+      server: 'Discord Server Banners',
+      logo: 'Logos and PFPs'
+    };
+
+    // Load projects from API
+    async function loadPortfolioProjects() {
+      try {
+        const res = await fetch('/api/projects');
+        const projects = await res.json();
+        const container = document.getElementById('projectLinks');
+        container.innerHTML = projects.map(p =>
+          `<a href="${p.url}" target="_blank" class="project-card-link">
+            <span class="project-card-name">${p.name}</span>
+            <span class="project-card-arrow">→</span>
+          </a>`
+        ).join('');
+      } catch (e) {
+        console.warn('Could not load projects from API, using defaults');
+      }
+    }
+
+    // Load graphics data from API
+    async function loadPortfolioGraphics() {
+      try {
+        const res = await fetch('/api/graphics');
+        imageData = await res.json();
+
+        // Build category pills dynamically
+        const pillsContainer = document.getElementById('categoryPills');
+        const categories = Object.keys(imageData);
+        pillsContainer.innerHTML = categories.map((cat, i) =>
+          `<button class="cat-pill ${i === 0 ? 'active' : ''}" data-category="${cat}">${categoryDisplayNames[cat] || cat.replace(/_/g, ' ')}</button>`
+        ).join('');
+
+        // Bind pill click events
+        pillsContainer.querySelectorAll('.cat-pill').forEach(pill => {
+          pill.addEventListener('click', () => {
+            const category = pill.dataset.category;
+            pillsContainer.querySelectorAll('.cat-pill').forEach(p => p.classList.remove('active'));
+            pill.classList.add('active');
+            selectGraphicsCategory(category);
+          });
+        });
+
+        // Default to first category
+        const firstCat = categories[0];
+        if (firstCat) {
+          selectGraphicsCategory(firstCat);
+        }
+      } catch (e) {
+        console.warn('Could not load graphics from API');
+      }
+    }
+
+    function selectGraphicsCategory(cat) {
+      currentCategoryKey = cat;
+      currentCategory = imageData[cat] || [];
+      currentIndex = 0;
+      document.getElementById('activeCategoryLabel').textContent = categoryDisplayNames[cat] || cat.replace(/_/g, ' ');
+      renderCarousel();
+    }
+
+    function renderCarousel() {
+      const track = document.getElementById('graphics-carousel');
+      track.innerHTML = '';
+
+      currentCategory.forEach((src, index) => {
+        const slide = document.createElement('div');
+        slide.className = 'carousel-slide';
+        if (index === currentIndex) slide.classList.add('active');
+        else if (index === (currentIndex - 1 + currentCategory.length) % currentCategory.length) slide.classList.add('prev');
+        else if (index === (currentIndex + 1) % currentCategory.length) slide.classList.add('next');
+
+        const img = document.createElement('img');
+        img.src = src;
+        img.alt = `Graphic ${index + 1}`;
+        img.loading = 'lazy';
+        slide.appendChild(img);
+        track.appendChild(slide);
+      });
+
+      // Update counter
+      const counter = document.getElementById('carouselCounter');
+      counter.textContent = currentCategory.length ? `${currentIndex + 1} / ${currentCategory.length}` : '0 / 0';
+
+      // Update dots
+      renderDots();
+    }
+
+    function renderDots() {
+      const dotsContainer = document.getElementById('carouselDots');
+      const maxDots = Math.min(currentCategory.length, 10);
+      dotsContainer.innerHTML = '';
+
+      for (let i = 0; i < currentCategory.length; i++) {
+        if (currentCategory.length > 10) {
+          // Show only nearby dots for large sets
+          const dist = Math.min(Math.abs(i - currentIndex), currentCategory.length - Math.abs(i - currentIndex));
+          if (dist > 4) continue;
+        }
+        const dot = document.createElement('span');
+        dot.className = 'dot' + (i === currentIndex ? ' active' : '');
+        dot.addEventListener('click', () => {
+          currentIndex = i;
+          renderCarousel();
+        });
+        dotsContainer.appendChild(dot);
+      }
+    }
+
+    function navigateCarousel(direction) {
+      if (!currentCategory.length) return;
+      if (direction === 'next') {
+        currentIndex = (currentIndex + 1) % currentCategory.length;
+      } else {
+        currentIndex = (currentIndex - 1 + currentCategory.length) % currentCategory.length;
+      }
+      renderCarousel();
+    }
+
+    // Nav buttons
+    document.getElementById('carouselPrev')?.addEventListener('click', () => navigateCarousel('prev'));
+    document.getElementById('carouselNext')?.addEventListener('click', () => navigateCarousel('next'));
+
+    // Scroll-wheel on carousel area
+    const carouselWrapper = document.getElementById('carouselWrapper');
+    let scrollCooldown = false;
+    carouselWrapper?.addEventListener('wheel', (e) => {
+      e.preventDefault();
+      if (scrollCooldown) return;
+      scrollCooldown = true;
+
+      if (e.deltaY > 0 || e.deltaX > 0) {
+        navigateCarousel('next');
+      } else {
+        navigateCarousel('prev');
+      }
+
+      setTimeout(() => { scrollCooldown = false; }, 350);
+    }, { passive: false });
+
+    // Keyboard arrows when carousel is hovered
+    carouselWrapper?.addEventListener('mouseenter', () => {
+      document.addEventListener('keydown', carouselKeyHandler);
+    });
+    carouselWrapper?.addEventListener('mouseleave', () => {
+      document.removeEventListener('keydown', carouselKeyHandler);
+    });
+
+    function carouselKeyHandler(e) {
+      if (e.key === 'ArrowRight') navigateCarousel('next');
+      if (e.key === 'ArrowLeft') navigateCarousel('prev');
+    }
+
+    // Load data on page ready
+    window.addEventListener('DOMContentLoaded', () => {
+      loadPortfolioProjects();
+      loadPortfolioGraphics();
+    });
+  </script>
+  <script>
+  const skillsData = [
+    { name: 'Photoshop', color: '#00c8ff', rgb: '0, 200, 255', src: 'https://img.icons8.com/?size=100&id=NeNPFdj7MzXi&format=png&color=000000' },
+    { name: 'Javascript', color: '#f7df1e', rgb: '247, 223, 30', src: 'https://img.icons8.com/?size=100&id=108784&format=png&color=000000' },
+    { name: 'HTML', color: '#e34f26', rgb: '227, 79, 38', src: 'https://cdn-icons-png.flaticon.com/512/174/174854.png' },
+    { name: 'CSS', color: '#1572b6', rgb: '21, 114, 182', src: 'https://cdn-icons-png.flaticon.com/512/732/732190.png' },
+    { name: 'Python', color: '#3776ab', rgb: '55, 118, 171', src: 'https://img.icons8.com/?size=100&id=13441&format=png&color=000000' },
+    { name: 'React', color: '#61dafb', rgb: '97, 218, 251', src: 'https://img.icons8.com/?size=100&id=asWSSTBrDlTW&format=png&color=000000' },
+    { name: 'Node js', color: '#339933', rgb: '51, 153, 51', src: 'https://img.icons8.com/?size=100&id=hsPbhkOH4FMe&format=png&color=000000' },
+    { name: 'After Effects', color: '#9999ff', rgb: '153, 153, 255', src: 'https://img.icons8.com/?size=100&id=108781&format=png&color=000000' },
+    { name: 'TypeScript', color: '#3178c6', rgb: '49, 120, 198', src: 'https://img.icons8.com/?size=100&id=uJM6fQYqDaZK&format=png&color=000000' },
+    { name: 'Figma', color: '#f24e1e', rgb: '242, 78, 30', src: 'https://img.icons8.com/?size=100&id=zfHRZ6i1Wg0U&format=png&color=000000' },
+    { name: 'Framer', color: '#0055ff', rgb: '0, 85, 255', src: 'https://img.icons8.com/?size=100&id=G7NMjcZM9R01&format=png&color=000000' },
+    { name: 'Discord.js', color: '#5865f2', rgb: '88, 101, 242', src: 'https://img.icons8.com/?size=100&id=ytC17YjDcKHo&format=png&color=000000' },
+    { name: 'Bash', color: '#4eaa25', rgb: '78, 170, 37', src: 'https://img.icons8.com/?size=100&id=9MJf0ngDwS8z&format=png&color=000000' },
+    { name: 'Premiere Pro', color: '#9999ff', rgb: '153, 153, 255', src: 'https://img.icons8.com/?size=100&id=e57Y1CnsOasB&format=png&color=000000' },
+    { name: 'Blender', color: '#f5792a', rgb: '245, 121, 42', src: 'https://img.icons8.com/?size=100&id=65231&format=png&color=000000' },
+    { name: 'SQL', color: '#00758f', rgb: '0, 117, 143', src: 'https://img.icons8.com/?size=100&id=J6KcaRLsTgpZ&format=png&color=000000' },
+    { name: 'MongoDB', color: '#47a248', rgb: '71, 162, 72', src: 'https://img.icons8.com/?size=100&id=bosfpvRzNOG8&format=png&color=000000' },
+    { name: 'MySQL', color: '#4479a1', rgb: '68, 121, 161', src: 'https://img.icons8.com/?size=100&id=UFXRpPFebwa2&format=png&color=000000' },
+    { name: 'Flask', color: '#808080', rgb: '128, 128, 128', src: 'https://img.icons8.com/?size=100&id=MHcMYTljfKOr&format=png&color=000000' },
+    { name: 'Vercel', color: '#ffffff', rgb: '255, 255, 255', src: 'https://img.icons8.com/?size=100&id=2xFS7aynbwiR&format=png&color=000000' },
+    { name: 'GitHub', color: '#787878', rgb: '120, 120, 120', src: 'https://img.icons8.com/?size=100&id=62856&format=png&color=000000' },
+    { name: 'VS Code', color: '#007acc', rgb: '0, 122, 204', src: 'https://img.icons8.com/?size=100&id=9OGIyU8hrxW5&format=png&color=000000' }
+  ];
+
+  const bowl = document.querySelector('.skill-bowl-container');
+  // Defer layout read to avoid reading before GSAP / scroll animations have settled
+  let bowlRect = { width: 800, height: 520, left: 0, top: 0 }; // safe default
+  function refreshBowlRect() {
+    const r = bowl.getBoundingClientRect();
+    if (r.width > 0) bowlRect = r; // only update if actually laid out
+  }
+  // Initial refresh after layout paint
+  requestAnimationFrame(() => { requestAnimationFrame(refreshBowlRect); });
+  // Refresh again when bowl scrolls into view
+  if (window.IntersectionObserver) {
+    new IntersectionObserver((entries) => {
+      if (entries[0].isIntersecting) refreshBowlRect();
+    }, { threshold: 0.1 }).observe(bowl);
+  }
+
+  const radius = 30; // 60px ball size
+
+  // State
+  let isGravityEnabled = false;
+  let activeDragBall = null;
+  let dragOffset = { x: 0, y: 0 };
+  let pointerPos = { x: 0, y: 0 };
+  let lastPointerPos = { x: 0, y: 0 };
+  let pointerVelocity = { x: 0, y: 0 };
+  let mouse = { x: 400, y: 260 };
+  let isMouseInContainer = false;
+
+
+  // Initialize Balls
+  const balls = skillsData.map((skill, index) => {
+    // Create ball element
+    const el = document.createElement('div');
+    el.className = 'ball';
+    el.style.setProperty('--brand-color', skill.color);
+    el.style.setProperty('--brand-color-rgb', skill.rgb);
+
+    const img = document.createElement('img');
+    img.src = skill.src;
+    img.alt = skill.name;
+    img.loading = 'lazy';
+    el.appendChild(img);
+    bowl.appendChild(el);
+
+    // Create shadow element
+    const shadowEl = document.createElement('div');
+    shadowEl.className = 'ball-shadow';
+    bowl.appendChild(shadowEl);
+
+    // Spread them out initially over the entire container
+    const padding = 50;
+    const safeW = 800; // matches bowlRect default — avoids layout-not-ready glitch
+    const safeH = 520;
+    const initialX = padding + Math.random() * (safeW - padding * 2 - radius * 2) + radius;
+    const initialY = padding + Math.random() * (safeH - padding * 2 - radius * 2) + radius;
+
+    const b = {
+      el,
+      shadowEl,
+      name: skill.name,
+      x: initialX,
+      y: initialY,
+      vx: (Math.random() - 0.5) * 6,
+      vy: (Math.random() - 0.5) * 6,
+      radius: radius,
+      isDragging: false
+    };
+
+    // Grab behavior
+    el.addEventListener('pointerdown', e => {
+      e.preventDefault();
+      activeDragBall = b;
+      b.isDragging = true;
+      
+      const rect = bowl.getBoundingClientRect();
+      const clientX = e.clientX;
+      const clientY = e.clientY;
+      const mx = clientX - rect.left;
+      const my = clientY - rect.top;
+      
+      dragOffset.x = mx - b.x;
+      dragOffset.y = my - b.y;
+      
+      b.vx = 0;
+      b.vy = 0;
+      
+      lastPointerPos.x = mx;
+      lastPointerPos.y = my;
+      pointerVelocity.x = 0;
+      pointerVelocity.y = 0;
+      
+      el.releasePointerCapture(e.pointerId);
+    });
+
+    return b;
+  });
+
+  // Track cursor position for attraction/repulsion forces
+  bowl.addEventListener('pointermove', e => {
+    const rect = bowl.getBoundingClientRect();
+    mouse.x = e.clientX - rect.left;
+    mouse.y = e.clientY - rect.top;
+    isMouseInContainer = true;
+  });
+
+  bowl.addEventListener('pointerleave', () => {
+    isMouseInContainer = false;
+  });
+
+  // Global Pointer Events on Window for reliable dragging/flinging
+  window.addEventListener('pointermove', e => {
+    if (activeDragBall) {
+      const rect = bowl.getBoundingClientRect();
+      const mx = e.clientX - rect.left;
+      const my = e.clientY - rect.top;
+
+      // Track cursor drag velocity
+      pointerVelocity.x = mx - lastPointerPos.x;
+      pointerVelocity.y = my - lastPointerPos.y;
+
+      lastPointerPos.x = mx;
+      lastPointerPos.y = my;
+
+      // Constrain inside container while dragging
+      const padding = 20;
+      activeDragBall.x = Math.max(activeDragBall.radius + padding, Math.min(rect.width - activeDragBall.radius - padding, mx - dragOffset.x));
+      activeDragBall.y = Math.max(activeDragBall.radius + padding, Math.min(rect.height - activeDragBall.radius - padding, my - dragOffset.y));
+    }
+  });
+
+  window.addEventListener('pointerup', () => {
+    if (activeDragBall) {
+      activeDragBall.isDragging = false;
+      // Clamp fling speed for safety
+      const maxFling = 22;
+      activeDragBall.vx = Math.max(-maxFling, Math.min(maxFling, pointerVelocity.x * 0.85));
+      activeDragBall.vy = Math.max(-maxFling, Math.min(maxFling, pointerVelocity.y * 0.85));
+      activeDragBall = null;
+    }
+  });
+
+  // UI Control Event Listeners
+  const btnScatter = document.getElementById('btn-scatter');
+
+  btnScatter.addEventListener('click', () => {
+    // Blast balls outwards
+    balls.forEach(b => {
+      if (!b.isDragging) {
+        b.vx = (Math.random() - 0.5) * 32;
+        b.vy = -Math.random() * 22 - 12;
+      }
+    });
+
+    // Quick flash effect on button
+    btnScatter.style.transform = 'scale(0.95)';
+    setTimeout(() => btnScatter.style.transform = '', 100);
+  });
+
+  // Dynamic window resizing boundary check
+  window.addEventListener('resize', () => {
+    refreshBowlRect();
+  });
+
+  // Main Loop
+  function animateBowl() {
+    const width = bowlRect.width;
+    const height = bowlRect.height;
+    const padding = 20;
+
+    balls.forEach((b1, i) => {
+      if (!b1.isDragging) {
+        // 1. Gravity / Drift Force
+        if (isGravityEnabled) {
+          b1.vy += 0.28; // downwards gravity
+        } else {
+          // Zero-G drift towards mouse
+          if (isMouseInContainer) {
+            const dx = mouse.x - b1.x;
+            const dy = mouse.y - b1.y;
+            const dist = Math.hypot(dx, dy);
+            if (dist > 10) {
+              b1.vx += (dx / dist) * 0.08;
+              b1.vy += (dy / dist) * 0.08;
+            }
+          }
+          // Tiny random space wiggle
+          b1.vx += (Math.random() - 0.5) * 0.08;
+          b1.vy += (Math.random() - 0.5) * 0.08;
+        }
+
+        // 2. Cursor Repulsion (Bubble Force) - pushes balls away slightly as mouse moves
+        if (isMouseInContainer && !activeDragBall) {
+          const dxMouse = mouse.x - b1.x;
+          const dyMouse = mouse.y - b1.y;
+          const distMouse = Math.hypot(dxMouse, dyMouse);
+          if (distMouse < 130) {
+            const force = (130 - distMouse) / 130;
+            b1.vx -= (dxMouse / distMouse) * force * 0.45;
+            b1.vy -= (dyMouse / distMouse) * force * 0.45;
+          }
+        }
+
+        // 3. Update Position & Damping
+        b1.x += b1.vx;
+        b1.y += b1.vy;
+
+        // Friction / Damping
+        if (isGravityEnabled) {
+          b1.vx *= 0.985;
+          b1.vy *= 0.985;
+        } else {
+          b1.vx *= 0.965; // higher drag in Zero-G to prevent infinite speed
+          b1.vy *= 0.965;
+        }
+
+        // 4. Boundary Collisions (frosted glass walls)
+        const leftLimit = b1.radius + padding;
+        const rightLimit = width - b1.radius - padding;
+        const topLimit = b1.radius + padding;
+        const bottomLimit = height - b1.radius - padding;
+
+        if (b1.x < leftLimit) {
+          b1.x = leftLimit;
+          b1.vx *= -0.7; // bounce with energy loss
+        } else if (b1.x > rightLimit) {
+          b1.x = rightLimit;
+          b1.vx *= -0.7;
+        }
+
+        if (b1.y < topLimit) {
+          b1.y = topLimit;
+          b1.vy *= -0.7;
+        } else if (b1.y > bottomLimit) {
+          b1.y = bottomLimit;
+          b1.vy *= -0.65; // bounce loss
+          b1.vx *= 0.93; // sliding ground friction
+        }
+      }
+
+      // 5. Circle-to-Circle Elastic Collisions
+      for (let j = i + 1; j < balls.length; j++) {
+        const b2 = balls[j];
+        const dx = b2.x - b1.x;
+        const dy = b2.y - b1.y;
+        const dist = Math.hypot(dx, dy);
+        const minDist = b1.radius + b2.radius;
+
+        if (dist < minDist) {
+          // Resolve overlapping immediately to avoid clipping
+          const overlap = minDist - dist;
+          const nx = dx / dist;
+          const ny = dy / dist;
+
+          const moveX = overlap * nx * 0.5;
+          const moveY = overlap * ny * 0.5;
+
+          if (!b1.isDragging && !b2.isDragging) {
+            b1.x -= moveX;
+            b1.y -= moveY;
+            b2.x += moveX;
+            b2.y += moveY;
+          } else if (b1.isDragging) {
+            b2.x += moveX * 2;
+            b2.y += moveY * 2;
+          } else if (b2.isDragging) {
+            b1.x -= moveX * 2;
+            b1.y -= moveY * 2;
+          }
+
+          // Elastic Collision Response (impulse physics)
+          // Normal & Tangent vectors
+          const tx = -ny;
+          const ty = nx;
+
+          // Project velocities onto normal & tangent vectors
+          const v1n = b1.vx * nx + b1.vy * ny;
+          const v1t = b1.vx * tx + b1.vy * ty;
+          const v2n = b2.vx * nx + b2.vy * ny;
+          const v2t = b2.vx * tx + b2.vy * ty;
+
+          // Impulse bounciness factor
+          const restitution = 0.72;
+
+          // Swap normal velocities with restitution energy loss
+          const v1nNew = (v1n * (1 - restitution) + v2n * (1 + restitution)) * 0.5;
+          const v2nNew = (v2n * (1 - restitution) + v1n * (1 + restitution)) * 0.5;
+
+          // Update velocities
+          if (!b1.isDragging) {
+            b1.vx = v1nNew * nx + v1t * tx;
+            b1.vy = v1nNew * ny + v1t * ty;
+          }
+          if (!b2.isDragging) {
+            b2.vx = v2nNew * nx + v2t * tx;
+            b2.vy = v2nNew * ny + v2t * ty;
+          }
+        }
+      }
+
+      // 6. Update Visual Transforms
+      // Apply coordinates as 3D-friendly translate3d
+      b1.el.style.transform = `translate3d(${b1.x - b1.radius}px, ${b1.y - b1.radius}px, 0)`;
+
+      // Update 3D Floor Shadows
+      const floorY = height - padding - 8;
+      const distToFloor = floorY - b1.y;
+      
+      // Shadow scales and fades away based on height from floor
+      const shadowScale = Math.max(0.1, 1.1 - (distToFloor / 280));
+      const shadowOpacity = Math.max(0, 0.75 - (distToFloor / 240));
+
+      b1.shadowEl.style.transform = `translate3d(${b1.x - 25}px, ${floorY}px, 0) scale(${shadowScale})`;
+      b1.shadowEl.style.opacity = b1.isDragging ? 0.2 : shadowOpacity;
+    });
+
+    requestAnimationFrame(animateBowl);
+  }
+
+  // Run physics
+  animateBowl();
+  </script>
+
+  <script>
+    // Run loader compiler progression immediately (no DOMContentLoaded blocking!)
+    const consoleBody = document.getElementById('loader-console');
+    const progressBar = document.getElementById('loaderProgressBar');
+    const statusText = document.getElementById('loaderStatusText');
+
+    const loaderSteps = [
+      { time: 300, progress: 10, text: "> Booting creative core engine...", status: "Loading Core" },
+      { time: 800, progress: 25, text: "> Loading graphic layers (Layer 0 to Layer 3)... OK", status: "Importing Canvas" },
+      { time: 1400, progress: 40, text: "> Calibrating color slider & spectrums... OK", status: "Calibrating Spectrums", accent: true },
+      { time: 2000, progress: 55, text: "> Spawning Zero-G physics environment... OK", status: "Generating Physics Grid" },
+      { time: 2700, progress: 70, text: "> Compiling typography layouts... OK", status: "Parsing Fonts" },
+      { time: 3300, progress: 85, text: "> Connecting designer-developer bridge... OK", status: "Connecting Nodes", success: true },
+      { time: 4000, progress: 95, text: "> Starting dev server on localhost:3000... OK", status: "Launching Workspace", success: true },
+      { time: 4500, progress: 100, text: "> Compilation successful! Welcome, Axon.", status: "Ready", success: true }
+    ];
+
+    let loaderDismissed = false;
+
+    function dismissLoader() {
+      if (loaderDismissed) return;
+      loaderDismissed = true;
+      const loader = document.getElementById('loader');
+      if (loader) {
+        loader.style.opacity = '0';
+        setTimeout(() => {
+          loader.style.display = 'none';
+        }, 850);
+      }
+    }
+
+    loaderSteps.forEach(step => {
+      setTimeout(() => {
+        if (consoleBody) {
+          const line = document.createElement('div');
+          line.className = 'console-line';
+          if (step.success) line.classList.add('success');
+          if (step.accent) line.classList.add('accent');
+          line.textContent = step.text;
+          consoleBody.appendChild(line);
+          consoleBody.scrollTop = consoleBody.scrollHeight;
+        }
+        if (progressBar) progressBar.style.width = `${step.progress}%`;
+        if (statusText) statusText.textContent = step.status + '...';
+
+        // Automatically trigger fade-out when compilation hits 100%
+        if (step.progress === 100) {
+          setTimeout(dismissLoader, 600); // Small clean delay after "Ready"
+        }
+      }, step.time);
+    });
+
+    // Safety fallback: Dismiss after 5.5 seconds maximum under any network conditions
+    setTimeout(dismissLoader, 5500);
+
+    // Dynamic load window listener as secondary fast-dismiss if load event triggers earlier
+    window.addEventListener('load', () => {
+      setTimeout(dismissLoader, 5000);
+    });
+  </script>
+
+  <script>
+    // Custom Mouse Cursor inertia / trail
+    const cursorDot = document.querySelector('.custom-cursor-dot');
+    const cursorRing = document.querySelector('.custom-cursor-ring');
+    
+    let mouseX = 0, mouseY = 0;
+    let ringX = 0, ringY = 0;
+
+    window.addEventListener('mousemove', e => {
+      mouseX = e.clientX;
+      mouseY = e.clientY;
+      
+      if (cursorDot) {
+        cursorDot.style.left = `${mouseX}px`;
+        cursorDot.style.top = `${mouseY}px`;
+      }
+    });
+
+    // Smooth inertia loop for cursor ring
+    function updateCursorRing() {
+      // Lerp formula: current = current + (target - current) * speed
+      ringX += (mouseX - ringX) * 0.16;
+      ringY += (mouseY - ringY) * 0.16;
+      
+      if (cursorRing) {
+        cursorRing.style.left = `${ringX}px`;
+        cursorRing.style.top = `${ringY}px`;
+      }
+      
+      requestAnimationFrame(updateCursorRing);
+    }
+    updateCursorRing();
+
+    // Attach clickables hover event listeners
+    function updateCursorHoverListeners() {
+      const clickables = document.querySelectorAll('a, button, .tool-btn, .layer-item, .cat-pill, .dropdown-toggle, .swatch, input, textarea, iframe');
+      clickables.forEach(item => {
+        // Prevent duplicate bindings
+        if (item.dataset.cursorBound) return;
+        item.dataset.cursorBound = "true";
+
+        item.addEventListener('mouseenter', () => {
+          if (cursorDot) cursorDot.classList.add('hovered');
+          if (cursorRing) cursorRing.classList.add('hovered');
+        });
+        item.addEventListener('mouseleave', () => {
+          if (cursorDot) cursorDot.classList.remove('hovered');
+          if (cursorRing) cursorRing.classList.remove('hovered');
+        });
+      });
+    }
+    
+    // Bind initially and run occasionally to account for dynamic updates (like dynamic portfolio loads)
+    updateCursorHoverListeners();
+    setInterval(updateCursorHoverListeners, 2000);
+
+    // Reveal-on-Scroll Smart Sticky Navbar
+    let lastScrollTop = 0;
+    const navbar = document.querySelector('.navbar');
+    
+    window.addEventListener('scroll', () => {
+      const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+      
+      if (navbar) {
+        if (scrollTop > lastScrollTop && scrollTop > 100) {
+          // Scrolling down - Hide navbar
+          navbar.classList.add('navbar-hidden');
+        } else {
+          // Scrolling up - Show navbar
+          navbar.classList.remove('navbar-hidden');
+        }
+      }
+      lastScrollTop = scrollTop;
+    });
+  </script>
+
+  <!-- ============================================================ -->
+  <!-- IMMERSIVE SCROLL ENGINE — GSAP ScrollTrigger + Custom Reveals -->
+  <!-- ============================================================ -->
+  <script>
+  (function () {
+
+    // ── UNIFIED ANIMATION SPEC ────────────────────────────────────────
+    // Every scroll reveal uses EXACTLY these values. No exceptions.
+    const REVEAL = {
+      y:        50,          // pixels to rise from
+      duration: 0.75,        // seconds
+      ease:     'power3.out',
+      stagger:  0.12,        // seconds between items in a group
+      start:    'top 85%',   // ScrollTrigger viewport trigger point
+    };
+
+    // ── 0. Scroll Progress Bar ────────────────────────────────────────
+    const progressBar = document.getElementById('scrollProgressBar');
+    function updateScrollProgress() {
+      const scrollTop = window.scrollY;
+      const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+      const pct       = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
+      if (progressBar) progressBar.style.width = pct + '%';
+    }
+    window.addEventListener('scroll', updateScrollProgress, { passive: true });
+
+    // ── 1. Core reveal function — one place, one animation ────────────
+    function revealEl(el, extra = {}) {
+      return gsap.fromTo(el,
+        { y: REVEAL.y, autoAlpha: 0 },
+        {
+          y: 0,
+          autoAlpha: 1,
+          duration:  REVEAL.duration,
+          ease:      REVEAL.ease,
+          ...extra,
+          scrollTrigger: {
+            trigger: el,
+            start:   REVEAL.start,
+            toggleActions: 'play none none reverse',
+            ...(extra.scrollTrigger || {})
+          }
+        }
+      );
+    }
+
+    // Grouped stagger: same animation, applied to a NodeList with stagger
+    function revealGroup(triggerEl, targets, delayOffset = 0) {
+      gsap.fromTo(targets,
+        { y: REVEAL.y, autoAlpha: 0 },
+        {
+          y: 0,
+          autoAlpha: 1,
+          duration:  REVEAL.duration,
+          ease:      REVEAL.ease,
+          stagger:   REVEAL.stagger,
+          delay:     delayOffset,
+          scrollTrigger: {
+            trigger: triggerEl,
+            start:   REVEAL.start,
+            toggleActions: 'play none none reverse'
+          }
+        }
+      );
+    }
+
+    // ── 2. Init (waits for GSAP to be available) ──────────────────────
+    function initScrollAnimations() {
+      if (typeof gsap === 'undefined' || typeof ScrollTrigger === 'undefined') {
+        setTimeout(initScrollAnimations, 100);
+        return;
+      }
+      gsap.registerPlugin(ScrollTrigger);
+
+      // ── Hero parallax (only the studio workspace drifts, not the
+      //    text — keeps it readable throughout the parallax travel) ──
+      const heroSection = document.querySelector('.creative-hero-section');
+      const studioWS    = document.querySelector('.studio-workspace');
+      if (heroSection && studioWS) {
+        gsap.to(studioWS, {
+          y: -40,
+          ease: 'none',
+          scrollTrigger: {
+            trigger: heroSection,
+            start:   'top top',
+            end:     'bottom top',
+            scrub:   1.2
+          }
+        });
+      }
+
+      // ── Navbar entrance (top not y — preserves translateX centering) ─
+      const navbarEl = document.querySelector('.navbar');
+      if (navbarEl) {
+        gsap.fromTo(navbarEl,
+          { top: '-80px', autoAlpha: 0 },
+          { top: '20px',  autoAlpha: 1, duration: 0.9, ease: REVEAL.ease, delay: 0.3 }
+        );
+      }
+
+      // ── Hero content stagger (runs on load, not on scroll) ────────
+      const heroTimeline = gsap.timeline({ delay: 0.6 });
+      heroTimeline
+        .from('.hello-badge',   { y: REVEAL.y, autoAlpha: 0, duration: REVEAL.duration, ease: REVEAL.ease })
+        .from('.canvas-main-title', { y: REVEAL.y, autoAlpha: 0, duration: REVEAL.duration, ease: REVEAL.ease }, '-=0.45')
+        .from('.character-img', { y: REVEAL.y, autoAlpha: 0, duration: REVEAL.duration, ease: REVEAL.ease }, '-=0.5')
+        .from('.floating-subline', { y: REVEAL.y, autoAlpha: 0, stagger: REVEAL.stagger, duration: REVEAL.duration, ease: REVEAL.ease }, '-=0.4')
+        .from('.doodle-developer, .doodle-designer', { y: REVEAL.y, autoAlpha: 0, stagger: REVEAL.stagger, duration: REVEAL.duration, ease: REVEAL.ease }, '-=0.4')
+        .from('.left-toolbar',  { y: REVEAL.y, autoAlpha: 0, duration: REVEAL.duration, ease: REVEAL.ease }, '-=0.6')
+        .from('.right-sidebar', { y: REVEAL.y, autoAlpha: 0, duration: REVEAL.duration, ease: REVEAL.ease }, '<');
+
+      // ── Navbar scroll glow ────────────────────────────────────────
+      const navbar = document.querySelector('.navbar');
+      ScrollTrigger.create({
+        start: 200,
+        onEnter:     () => navbar && navbar.classList.add('navbar-scrolled'),
+        onLeaveBack: () => navbar && navbar.classList.remove('navbar-scrolled')
+      });
+
+      // ── All .scroll-reveal elements — single pass, same animation ─
+      // We handle groups separately below so they stagger correctly.
+      // Individual .scroll-reveal elements (headings, image, description, form)
+      const groupSelectors = [
+        '.about-card',
+        '.timeline-entry',
+        '.work-card-full',
+        '.graphics-card-full',
+        '.contact-form input, .contact-form textarea, .contact-form button',
+        '.tag'
+      ].join(', ');
+
+      document.querySelectorAll('.scroll-reveal').forEach(el => {
+        // Skip elements that are part of a stagger group (handled below)
+        if (el.closest('.about-cards') && el.classList.contains('about-card')) return;
+        if (el.classList.contains('timeline-entry')) return;
+        if (el.classList.contains('work-card-full')) return;
+        if (el.classList.contains('graphics-card-full')) return;
+        if (el.classList.contains('contact-form')) return;
+        revealEl(el);
+      });
+
+      // ── Stagger groups — same animation, ordered timing ───────────
+
+      // About cards (2 cards, 0.12s apart)
+      const aboutCards = document.querySelectorAll('.about-card.scroll-reveal');
+      if (aboutCards.length) revealGroup(aboutCards[0].closest('.about-cards') || aboutCards[0], aboutCards);
+
+      // Timeline entries (6 entries, 0.12s apart)
+      const timelineEntries = document.querySelectorAll('.timeline-entry.scroll-reveal');
+      if (timelineEntries.length) revealGroup(document.querySelector('.timeline') || timelineEntries[0], timelineEntries);
+
+      // Work cards (code + graphics, 0.12s apart)
+      const workCards = document.querySelectorAll('.work-card-full.scroll-reveal, .graphics-card-full.scroll-reveal');
+      if (workCards.length) revealGroup(document.querySelector('.work-stack') || workCards[0], workCards);
+
+      // Contact form — form is the trigger; animate child fields with stagger
+      const contactFormEl = document.querySelector('.contact-form.scroll-reveal');
+      if (contactFormEl) {
+        // Animate the form container itself
+        revealEl(contactFormEl);
+        // Then stagger the fields inside
+        const fields = contactFormEl.querySelectorAll('input:not([type=hidden]), textarea, button');
+        gsap.fromTo(fields,
+          { y: REVEAL.y, autoAlpha: 0 },
+          {
+            y: 0,
+            autoAlpha: 1,
+            duration:  REVEAL.duration,
+            ease:      REVEAL.ease,
+            stagger:   REVEAL.stagger,
+            delay:     0.2, // slight head-start after form itself reveals
+            scrollTrigger: {
+              trigger: contactFormEl,
+              start:   REVEAL.start,
+              toggleActions: 'play none none reverse'
+            }
+          }
+        );
+      }
+
+      // Skill bowl — opacity fade ONLY (no y-transform — physics balls use translate3d)
+      const bowlEl = document.querySelector('.skill-bowl-container');
+      if (bowlEl) {
+        gsap.fromTo(bowlEl,
+          { autoAlpha: 0 },
+          {
+            autoAlpha: 1,
+            duration: REVEAL.duration,
+            ease:     REVEAL.ease,
+            scrollTrigger: {
+              trigger: bowlEl,
+              start:   REVEAL.start,
+              toggleActions: 'play none none reverse'
+            }
+          }
+        );
+      }
+
+      console.log('✅ Unified scroll engine: all reveals use y:50 → 0, 0.75s, power3.out');
+    }
+
+    setTimeout(initScrollAnimations, 200);
+  })();
+  </script>
+
+</body>
+</html>
+
+
