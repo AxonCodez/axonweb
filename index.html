@@ -803,32 +803,58 @@
       logo: 'Logos and PFPs'
     };
 
-    // Load projects from API
+    // Load projects from API with static file fallback for GitHub Pages
     async function loadPortfolioProjects() {
+      let projects;
       try {
         const res = await fetch('/api/projects');
-        const projects = await res.json();
-        const container = document.getElementById('projectLinks');
+        projects = await res.json();
+      } catch (e) {
+        console.warn('Could not load projects from API, trying static file fallback...');
+        try {
+          const res = await fetch('./data/portfolio.json');
+          const data = await res.json();
+          projects = data.projects;
+        } catch (err) {
+          console.error('Failed to load projects completely:', err);
+          return;
+        }
+      }
+
+      const container = document.getElementById('projectLinks');
+      if (container && projects) {
         container.innerHTML = projects.map(p =>
           `<a href="${p.url}" target="_blank" class="project-card-link">
             <span class="project-card-name">${p.name}</span>
             <span class="project-card-arrow">→</span>
           </a>`
         ).join('');
-      } catch (e) {
-        console.warn('Could not load projects from API, using defaults');
       }
     }
 
-    // Load graphics data from API
+    // Load graphics data from API with static file fallback for GitHub Pages
     async function loadPortfolioGraphics() {
       try {
         const res = await fetch('/api/graphics');
         imageData = await res.json();
+      } catch (e) {
+        console.warn('Could not load graphics from API, trying static file fallback...');
+        try {
+          const res = await fetch('./data/portfolio.json');
+          const data = await res.json();
+          imageData = data.graphics;
+        } catch (err) {
+          console.error('Failed to load graphics completely:', err);
+          return;
+        }
+      }
 
-        // Build category pills dynamically
-        const pillsContainer = document.getElementById('categoryPills');
-        const categories = Object.keys(imageData);
+      if (!imageData) return;
+
+      // Build category pills dynamically
+      const pillsContainer = document.getElementById('categoryPills');
+      const categories = Object.keys(imageData);
+      if (pillsContainer && categories.length) {
         pillsContainer.innerHTML = categories.map((cat, i) =>
           `<button class="cat-pill ${i === 0 ? 'active' : ''}" data-category="${cat}">${categoryDisplayNames[cat] || cat.replace(/_/g, ' ')}</button>`
         ).join('');
@@ -848,8 +874,6 @@
         if (firstCat) {
           selectGraphicsCategory(firstCat);
         }
-      } catch (e) {
-        console.warn('Could not load graphics from API');
       }
     }
 
