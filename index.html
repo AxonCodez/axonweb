@@ -803,7 +803,94 @@
       logo: 'Logos and PFPs'
     };
 
-    // Load projects from API with static file fallback for GitHub Pages
+    // Ultimate hardcoded fallback for local offline double-click (file:// CORS blocks fetches)
+    const DEFAULT_PORTFOLIO = {
+      projects: [
+        { id: "1", name: "Relativault", url: "https://github.com/AxonCodez/relativault" },
+        { id: "2", name: "Question Picker", url: "https://github.com/AxonCodez/tool" },
+        { id: "3", name: "FeeDB", url: "https://github.com/AxonCodez/FeeDB" },
+        { id: "4", name: "Knowify", url: "https://knowify.onrender.com" },
+        { id: "5", name: "Portfolio Website", url: "https://github.com/AxonCodez/axonweb" }
+      ],
+      graphics: {
+        discord: [
+          "https://mir-s3-cdn-cf.behance.net/project_modules/max_1200/f1a572167155879.6424473db3dc3.gif",
+          "https://mir-s3-cdn-cf.behance.net/project_modules/max_1200/12783c167155879.646b52f36e28d.png",
+          "https://mir-s3-cdn-cf.behance.net/project_modules/disp_webp/9adf44167155879.64244656e768f.png",
+          "https://mir-s3-cdn-cf.behance.net/project_modules/disp_webp/4c5996167155879.64244656e815f.png",
+          "https://mir-s3-cdn-cf.behance.net/project_modules/disp_webp/9f1989167155879.64244656e5d67.png",
+          "https://mir-s3-cdn-cf.behance.net/project_modules/disp_webp/3f7ad2167155879.64244656e6b91.png",
+          "https://mir-s3-cdn-cf.behance.net/project_modules/disp_webp/ef6d14167155879.64244656e4fad.png"
+        ],
+        twitter: [
+          "https://mir-s3-cdn-cf.behance.net/project_modules/1400/15588c130021965.6177990f6d253.png",
+          "https://mir-s3-cdn-cf.behance.net/project_modules/1400/7b99cd130021965.61784375a5d86.png",
+          "https://mir-s3-cdn-cf.behance.net/project_modules/1400/a61246130021965.618b403e8a04d.png",
+          "https://mir-s3-cdn-cf.behance.net/project_modules/1400/e0d295130021965.618c09a4c2cd5.png",
+          "https://mir-s3-cdn-cf.behance.net/project_modules/1400/021449130021965.61822f4dad892.png",
+          "https://mir-s3-cdn-cf.behance.net/project_modules/1400/48d612130021965.618b9f910cd85.png",
+          "https://mir-s3-cdn-cf.behance.net/project_modules/1400/19ba43130021965.6178249aa658a.png",
+          "https://mir-s3-cdn-cf.behance.net/project_modules/1400/0c195b130021965.618ccddf3392a.png",
+          "https://mir-s3-cdn-cf.behance.net/project_modules/1400/72afe8130021965.64720720e33ee.png",
+          "https://mir-s3-cdn-cf.behance.net/project_modules/1400/a135e7130021965.61b3784fe7fee.png",
+          "https://mir-s3-cdn-cf.behance.net/project_modules/1400/9860b1130021965.64720720e27ca.png",
+          "https://mir-s3-cdn-cf.behance.net/project_modules/1400/9cf6d3130021965.61b3784fe888b.png",
+          "https://mir-s3-cdn-cf.behance.net/project_modules/max_1200/a36875130021965.6177d35f47f0a.png",
+          "https://mir-s3-cdn-cf.behance.net/project_modules/1400/11c56d130021965.64107524b3b00.png",
+          "https://mir-s3-cdn-cf.behance.net/project_modules/1400/26b191130021965.6177990f6bede.png",
+          "https://mir-s3-cdn-cf.behance.net/project_modules/1400/e0d295130021965.618c09a4c2cd5.png",
+          "https://mir-s3-cdn-cf.behance.net/project_modules/1400/a61246130021965.618b403e8a04d.png",
+          "https://mir-s3-cdn-cf.behance.net/project_modules/1400/7b99cd130021965.61784375a5d86.png"
+        ],
+        youtube: [
+          "https://mir-s3-cdn-cf.behance.net/project_modules/1400/3e68de133973091.6432bdd6010f4.png",
+          "https://mir-s3-cdn-cf.behance.net/project_modules/1400/e9dddf133973091.6432bdd5f1c01.png",
+          "https://mir-s3-cdn-cf.behance.net/project_modules/1400/17b1ec133973091.6432bdd5ed4f5.png",
+          "https://mir-s3-cdn-cf.behance.net/project_modules/1400/cc7749133973091.6432bdd5ec29c.png",
+          "https://mir-s3-cdn-cf.behance.net/project_modules/1400/e0bc11133973091.6432bdd603eff.png",
+          "https://mir-s3-cdn-cf.behance.net/project_modules/1400/f2676b133973091.6432bdd5efd73.png",
+          "https://mir-s3-cdn-cf.behance.net/project_modules/1400/50f5b4133973091.6432bdd6021fe.png",
+          "https://mir-s3-cdn-cf.behance.net/project_modules/1400/3735ff133973091.646b538835caa.png",
+          "https://mir-s3-cdn-cf.behance.net/project_modules/1400/d5c9a4133973091.6432bdd5f0c94.png",
+          "https://mir-s3-cdn-cf.behance.net/project_modules/1400/2886ec133973091.6432bdd5ee969.png",
+          "https://mir-s3-cdn-cf.behance.net/project_modules/1400/ac693e133973091.6432bdd5f2df3.png",
+          "https://mir-s3-cdn-cf.behance.net/project_modules/1400/1d7057133973091.6432bdd5f3fe5.png"
+        ],
+        server: [
+          "https://mir-s3-cdn-cf.behance.net/project_modules/1400/c3a238167154267.6424404b32647.png",
+          "https://mir-s3-cdn-cf.behance.net/project_modules/max_1200/9e982a167154267.6424404b2a588.png"
+        ],
+        logo: [
+          "https://mir-s3-cdn-cf.behance.net/project_modules/disp/cd60a0132556577.64244826a787c.gif",
+          "https://mir-s3-cdn-cf.behance.net/project_modules/disp/0f4c36132556577.641076265aa96.png",
+          "https://mir-s3-cdn-cf.behance.net/project_modules/disp/fd9e1a132556577.6410762654796.png",
+          "https://mir-s3-cdn-cf.behance.net/project_modules/disp/188115132556577.647208128a98b.png",
+          "https://mir-s3-cdn-cf.behance.net/project_modules/disp/28a503132556577.641076265cd4d.png",
+          "https://mir-s3-cdn-cf.behance.net/project_modules/disp/502e8f132556577.6472081289b27.png",
+          "https://mir-s3-cdn-cf.behance.net/project_modules/disp/b08ff6132556577.6425a223cb323.png",
+          "https://mir-s3-cdn-cf.behance.net/project_modules/disp/339e0a132556577.6432b4313f20e.png",
+          "https://mir-s3-cdn-cf.behance.net/project_modules/disp/75d545132556577.64107626588ee.png",
+          "https://mir-s3-cdn-cf.behance.net/project_modules/max_1200/28f385132556577.61d0731d8d2d6.png",
+          "https://mir-s3-cdn-cf.behance.net/project_modules/disp/f8b1bc132556577.6410762659a92.png",
+          "https://mir-s3-cdn-cf.behance.net/project_modules/disp/c3d799132556577.64244826a67a7.gif",
+          "https://mir-s3-cdn-cf.behance.net/project_modules/disp/99145a132556577.6432b4313fb09.png",
+          "https://mir-s3-cdn-cf.behance.net/project_modules/disp/2e3f52132556577.641d9846c1da1.png",
+          "https://mir-s3-cdn-cf.behance.net/project_modules/disp/583eb2132556577.641076265dfd9.png",
+          "https://mir-s3-cdn-cf.behance.net/project_modules/disp/ed53e0132556577.641d9846c0ee5.png",
+          "https://mir-s3-cdn-cf.behance.net/project_modules/disp/380585132556577.6410762653557.png",
+          "https://mir-s3-cdn-cf.behance.net/project_modules/disp/91ab2d132556577.641d9846bffa9.png",
+          "https://mir-s3-cdn-cf.behance.net/project_modules/disp/3b977b132556577.6410762656903.png",
+          "https://mir-s3-cdn-cf.behance.net/project_modules/disp/ade674132556577.641076265bae2.png",
+          "https://mir-s3-cdn-cf.behance.net/project_modules/disp/70d53f132556577.641d9846bf058.png",
+          "https://mir-s3-cdn-cf.behance.net/project_modules/disp/a47ee2132556577.64107626557a3.png",
+          "https://mir-s3-cdn-cf.behance.net/project_modules/disp/0f23a5132556577.641d9846c2dad.png",
+          "https://mir-s3-cdn-cf.behance.net/project_modules/max_1200/29c993132556577.61ab5e5b1289d.png",
+          "https://mir-s3-cdn-cf.behance.net/project_modules/disp/db5553132556577.641076265796a.png"
+        ]
+      }
+    };
+
+    // Load projects from API with static file fallback and hardcoded rescue step
     async function loadPortfolioProjects() {
       let projects;
       try {
@@ -816,8 +903,8 @@
           const data = await res.json();
           projects = data.projects;
         } catch (err) {
-          console.error('Failed to load projects completely:', err);
-          return;
+          console.warn('Failed to load static file, using ultimate hardcoded fallback:', err);
+          projects = DEFAULT_PORTFOLIO.projects;
         }
       }
 
@@ -832,7 +919,7 @@
       }
     }
 
-    // Load graphics data from API with static file fallback for GitHub Pages
+    // Load graphics data from API with static file fallback and hardcoded rescue step
     async function loadPortfolioGraphics() {
       try {
         const res = await fetch('/api/graphics');
@@ -844,8 +931,8 @@
           const data = await res.json();
           imageData = data.graphics;
         } catch (err) {
-          console.error('Failed to load graphics completely:', err);
-          return;
+          console.warn('Failed to load static file, using ultimate hardcoded fallback:', err);
+          imageData = DEFAULT_PORTFOLIO.graphics;
         }
       }
 
@@ -985,20 +1072,20 @@
   </script>
   <script>
   const skillsData = [
-    { name: 'Photoshop', color: '#00c8ff', rgb: '0, 200, 255', src: 'https://img.icons8.com/?size=100&id=NeNPFdj7MzXi&format=png&color=000000' },
+    { name: 'Photoshop', color: '#00c8ff', rgb: '0, 200, 255', src: './assets/photoshop.png' },
     { name: 'Javascript', color: '#f7df1e', rgb: '247, 223, 30', src: 'https://img.icons8.com/?size=100&id=108784&format=png&color=000000' },
     { name: 'HTML', color: '#e34f26', rgb: '227, 79, 38', src: 'https://cdn-icons-png.flaticon.com/512/174/174854.png' },
     { name: 'CSS', color: '#1572b6', rgb: '21, 114, 182', src: 'https://cdn-icons-png.flaticon.com/512/732/732190.png' },
     { name: 'Python', color: '#3776ab', rgb: '55, 118, 171', src: 'https://img.icons8.com/?size=100&id=13441&format=png&color=000000' },
     { name: 'React', color: '#61dafb', rgb: '97, 218, 251', src: 'https://img.icons8.com/?size=100&id=asWSSTBrDlTW&format=png&color=000000' },
     { name: 'Node js', color: '#339933', rgb: '51, 153, 51', src: 'https://img.icons8.com/?size=100&id=hsPbhkOH4FMe&format=png&color=000000' },
-    { name: 'After Effects', color: '#9999ff', rgb: '153, 153, 255', src: 'https://img.icons8.com/?size=100&id=108781&format=png&color=000000' },
+    { name: 'After Effects', color: '#9999ff', rgb: '153, 153, 255', src: './assets/aftereffects.png' },
     { name: 'TypeScript', color: '#3178c6', rgb: '49, 120, 198', src: 'https://img.icons8.com/?size=100&id=uJM6fQYqDaZK&format=png&color=000000' },
     { name: 'Figma', color: '#f24e1e', rgb: '242, 78, 30', src: 'https://img.icons8.com/?size=100&id=zfHRZ6i1Wg0U&format=png&color=000000' },
     { name: 'Framer', color: '#0055ff', rgb: '0, 85, 255', src: 'https://img.icons8.com/?size=100&id=G7NMjcZM9R01&format=png&color=000000' },
     { name: 'Discord.js', color: '#5865f2', rgb: '88, 101, 242', src: 'https://img.icons8.com/?size=100&id=ytC17YjDcKHo&format=png&color=000000' },
     { name: 'Bash', color: '#4eaa25', rgb: '78, 170, 37', src: 'https://img.icons8.com/?size=100&id=9MJf0ngDwS8z&format=png&color=000000' },
-    { name: 'Premiere Pro', color: '#9999ff', rgb: '153, 153, 255', src: 'https://img.icons8.com/?size=100&id=e57Y1CnsOasB&format=png&color=000000' },
+    { name: 'Premiere Pro', color: '#9999ff', rgb: '153, 153, 255', src: './assets/premiere.png' },
     { name: 'Blender', color: '#f5792a', rgb: '245, 121, 42', src: 'https://img.icons8.com/?size=100&id=65231&format=png&color=000000' },
     { name: 'SQL', color: '#00758f', rgb: '0, 117, 143', src: 'https://img.icons8.com/?size=100&id=J6KcaRLsTgpZ&format=png&color=000000' },
     { name: 'MongoDB', color: '#47a248', rgb: '71, 162, 72', src: 'https://img.icons8.com/?size=100&id=bosfpvRzNOG8&format=png&color=000000' },
@@ -1006,6 +1093,8 @@
     { name: 'Flask', color: '#808080', rgb: '128, 128, 128', src: 'https://img.icons8.com/?size=100&id=MHcMYTljfKOr&format=png&color=000000' },
     { name: 'Vercel', color: '#ffffff', rgb: '255, 255, 255', src: 'https://img.icons8.com/?size=100&id=2xFS7aynbwiR&format=png&color=000000' },
     { name: 'GitHub', color: '#787878', rgb: '120, 120, 120', src: 'https://img.icons8.com/?size=100&id=62856&format=png&color=000000' },
+    { name: 'C', color: '#00599c', rgb: '0, 89, 156', src: './assets/c.png' },
+    { name: 'C++', color: '#00599c', rgb: '0, 89, 156', src: './assets/cpp.png' },
     { name: 'VS Code', color: '#007acc', rgb: '0, 122, 204', src: 'https://img.icons8.com/?size=100&id=9OGIyU8hrxW5&format=png&color=000000' }
   ];
 
