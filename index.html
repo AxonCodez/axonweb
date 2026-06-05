@@ -143,6 +143,9 @@
           <button class="tool-btn" id="tool-eraser" title="Eraser Tool (E)">
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 20H7L3 16c-1.5-1.5-1.5-4 0-5.5L13 2l9 9-4.5 4.5L20 20z"/></svg>
           </button>
+          <button class="tool-btn" id="tool-terminal" title="Terminal Resume (Cmd+J)">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="4 17 10 11 4 5"></polyline><line x1="12" y1="19" x2="20" y2="19"></line></svg>
+          </button>
         </div>
 
         <!-- Center Active Canvas Frame -->
@@ -452,6 +455,23 @@
     </div>
   </section>
 
+  <!-- Interactive Terminal Resume Modal -->
+  <div class="terminal-modal-overlay" id="terminalModalOverlay">
+    <div class="terminal-modal" id="terminalModal">
+      <div class="terminal-header">
+        <div class="terminal-buttons">
+          <div class="term-btn close-btn" id="closeTerminalBtn"></div>
+          <div class="term-btn min-btn"></div>
+          <div class="term-btn max-btn"></div>
+        </div>
+        <div class="terminal-title">axon@portfolio: ~/resume</div>
+      </div>
+      <div class="terminal-body" id="terminalBody">
+        <!-- Typed text goes here -->
+      </div>
+    </div>
+  </div>
+
   <!-- EmailJS Script -->
   <script src="https://cdn.emailjs.com/dist/email.min.js"></script>
   <script>
@@ -493,6 +513,7 @@
 
   <!-- Bubbles Particle JS -->
   <script>
+    window.myParticlesContainer = null;
     tsParticles.load("tsparticles", {
       background: {
         color: { value: "transparent" }
@@ -500,26 +521,30 @@
       fpsLimit: 60,
       interactivity: {
         events: {
-          onHover: { enable: true, mode: "bubble" },
+          onHover: { enable: true, mode: "trail" },
           resize: true
         },
         modes: {
-          bubble: {
-            distance: 150,
-            size: 8,
-            duration: 2,
-            opacity: 0.8,
-            speed: 3
+          trail: {
+            delay: 0.05,
+            quantity: 4,
+            particles: {
+              color: { value: "#99c7ff" },
+              opacity: { value: 0.8, animation: { enable: true, speed: 1.5, minimumValue: 0, sync: false } },
+              size: { value: 5, random: true, animation: { enable: true, speed: 2, minimumValue: 0.5, sync: false } },
+              links: { enable: false },
+              move: { enable: true, speed: 3, outModes: "destroy" }
+            }
           }
         }
       },
       particles: {
-        color: { value: "#0c2f3c" },
-        opacity: { value: 0.4, random: true },
-        size: { value: 6, random: true },
+        color: { value: "rgba(255, 255, 255, 0.15)" },
+        opacity: { value: 0.3, random: true },
+        size: { value: 3, random: true },
         move: {
           enable: true,
-          speed: 1,
+          speed: 0.8,
           direction: "none",
           outModes: { default: "out" }
         },
@@ -530,6 +555,8 @@
         shape: { type: "circle" }
       },
       detectRetina: true
+    }).then(container => {
+      window.myParticlesContainer = container;
     });
   </script>
     <!-- AOS JS -->
@@ -658,6 +685,10 @@
       document.documentElement.style.setProperty('--accent-color', hex);
       document.documentElement.style.setProperty('--accent-color-rgb', rgb);
       
+      // Lighter shade for particle trails
+      const hexLight = hslToHex(h, hslSat, Math.min(l + 20, 100));
+      document.documentElement.style.setProperty('--accent-color-light', hexLight);
+      
       // Calculate a highly polished soft pastel background color matching the selected hue
       // We use 14% saturation and 94% lightness for a premium, readable canvas background
       const bgHex = hslToHex(h, 14, 94);
@@ -689,7 +720,6 @@
       return `#${f(0)}${f(8)}${f(4)}`;
     }
 
-    // Trigger update from Hue Slider
     if (hueSlider) {
       hueSlider.addEventListener('input', () => {
         currentHue = hueSlider.value;
@@ -697,6 +727,17 @@
         gradientPicker.style.setProperty('--hue-color', `hsl(${currentHue}, 100%, 50%)`);
         updateColorFromPicker(currentHue, currentSaturation, currentBrightness);
       });
+      hueSlider.addEventListener('change', () => {
+        syncParticlesColor();
+      });
+    }
+
+    function syncParticlesColor() {
+      if (window.myParticlesContainer) {
+        const hexLight = getComputedStyle(document.documentElement).getPropertyValue('--accent-color-light').trim();
+        window.myParticlesContainer.options.interactivity.modes.trail.particles.color.value = hexLight;
+        window.myParticlesContainer.refresh();
+      }
     }
 
     // Gradient Picker Mouse Interaction
@@ -741,6 +782,7 @@
         if (isDraggingColor) {
           isDraggingColor = false;
           gradientPicker.releasePointerCapture(e.pointerId);
+          syncParticlesColor();
         }
       });
     }
@@ -1805,6 +1847,159 @@
     // Remove tool-btn titles on mobile/touch to prevent sticky tooltips
     if (window.innerWidth <= 768 || ('ontouchstart' in window)) {
       document.querySelectorAll('.tool-btn').forEach(btn => btn.removeAttribute('title'));
+    }
+
+    // =====================================
+    // TERMINAL RESUME LOGIC
+    // =====================================
+    const termBtn = document.getElementById('tool-terminal');
+    const termOverlay = document.getElementById('terminalModalOverlay');
+    const termClose = document.getElementById('closeTerminalBtn');
+    const termBody = document.getElementById('terminalBody');
+    let termTypingTimeout;
+
+    const resumeLines = [
+      { text: 'axon@portfolio:~$ ', delay: 500, type: 'prompt' },
+      { text: './axon --resume', delay: 100, type: 'command' },
+      { text: 'Loading Axon Profile Data...', delay: 400, type: 'output' },
+      { text: '-----------------------------------------', delay: 100, type: 'output' },
+      { text: 'Name:        Akshay (Axon)', delay: 100, type: 'output' },
+      { text: 'Role:        Full-Stack Developer & UI/UX Designer', delay: 100, type: 'output' },
+      { text: 'Stack:       HTML, CSS, JS, React, Node, WebGL, Adobe Suite', delay: 100, type: 'output' },
+      { text: 'Status:      Ready for freelance & full-time ops.', delay: 100, type: 'output' },
+      { text: '-----------------------------------------', delay: 100, type: 'output' },
+      { text: 'axon@portfolio:~$ ', delay: 200, type: 'prompt' }
+    ];
+
+    function typeTerminal() {
+      termBody.innerHTML = '';
+      let i = 0;
+      
+      function nextLine() {
+        if (i >= resumeLines.length) {
+          termBody.innerHTML += '<span class="term-cursor"></span>';
+          return;
+        }
+        
+        const lineData = resumeLines[i];
+        
+        if (lineData.type === 'prompt') {
+          termBody.innerHTML += `<div><span class="term-command">${lineData.text}</span><span class="term-cursor" id="tempCursor"></span></div>`;
+        } else if (lineData.type === 'command') {
+          const div = termBody.lastElementChild;
+          const tempCursor = document.getElementById('tempCursor');
+          if (tempCursor) tempCursor.remove();
+          
+          let c = 0;
+          function typeChar() {
+            if (c < lineData.text.length) {
+              div.innerHTML += lineData.text.charAt(c);
+              c++;
+              termTypingTimeout = setTimeout(typeChar, 40);
+            } else {
+              div.innerHTML += '<span class="term-cursor" id="tempCursor"></span>';
+              i++;
+              termTypingTimeout = setTimeout(nextLine, lineData.delay);
+            }
+          }
+          typeChar();
+          return;
+        } else {
+          const tempCursor = document.getElementById('tempCursor');
+          if (tempCursor) tempCursor.remove();
+          termBody.innerHTML += `<div class="term-output">${lineData.text}</div>`;
+        }
+        
+        i++;
+        termBody.scrollTop = termBody.scrollHeight;
+        termTypingTimeout = setTimeout(nextLine, lineData.delay);
+      }
+      
+      nextLine();
+    }
+
+    if (termBtn && termOverlay && termClose) {
+      termBtn.addEventListener('click', () => {
+        termOverlay.classList.add('active');
+        clearTimeout(termTypingTimeout);
+        typeTerminal();
+      });
+      termClose.addEventListener('click', () => {
+        termOverlay.classList.remove('active');
+        clearTimeout(termTypingTimeout);
+      });
+      termOverlay.addEventListener('click', (e) => {
+        if (e.target === termOverlay) {
+          termOverlay.classList.remove('active');
+          clearTimeout(termTypingTimeout);
+        }
+      });
+    }
+
+    // =====================================
+    // AUDIO ENGINE (Web Audio API)
+    // =====================================
+    const AudioEngine = (() => {
+      const AudioContext = window.AudioContext || window.webkitAudioContext;
+      let ctx = null;
+      
+      const init = () => {
+        if (!ctx) {
+          ctx = new AudioContext();
+        }
+        if (ctx.state === 'suspended') {
+          ctx.resume();
+        }
+      };
+
+      const playHoverTick = () => {
+        if (!ctx) return;
+        const osc = ctx.createOscillator();
+        const gain = ctx.createGain();
+        osc.type = 'sine';
+        // Softer, deeper tick suitable for frequent hovering
+        osc.frequency.setValueAtTime(800, ctx.currentTime);
+        osc.frequency.exponentialRampToValueAtTime(300, ctx.currentTime + 0.02);
+        gain.gain.setValueAtTime(0.015, ctx.currentTime);
+        gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.02);
+        osc.connect(gain);
+        gain.connect(ctx.destination);
+        osc.start();
+        osc.stop(ctx.currentTime + 0.02);
+      };
+
+      const playClickSnap = () => {
+        if (!ctx) return;
+        const osc = ctx.createOscillator();
+        const gain = ctx.createGain();
+        osc.type = 'triangle';
+        osc.frequency.setValueAtTime(300, ctx.currentTime);
+        osc.frequency.exponentialRampToValueAtTime(40, ctx.currentTime + 0.15);
+        gain.gain.setValueAtTime(0.15, ctx.currentTime);
+        gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.15);
+        osc.connect(gain);
+        gain.connect(ctx.destination);
+        osc.start();
+        osc.stop(ctx.currentTime + 0.15);
+      };
+
+      return { init, playHoverTick, playClickSnap };
+    })();
+
+    // Initialize audio on first user interaction
+    ['click', 'touchstart', 'mousemove'].forEach(evt => {
+      window.addEventListener(evt, () => AudioEngine.init(), { once: true });
+    });
+
+    // Attach sound to ALL interactive hoverable elements
+    document.querySelectorAll('a, button, .nav-link, .tool-btn, .layer-item, .cat-pill, .menu-item, .timeline-entry, .color-swatch-box, .term-btn, .skill-pill, .skill-ball').forEach(el => {
+      el.addEventListener('mouseenter', AudioEngine.playHoverTick);
+    });
+    
+    // Attach snap to buttons
+    const scatterBtn = document.querySelector('.btn-scatter');
+    if (scatterBtn) {
+      scatterBtn.addEventListener('click', AudioEngine.playClickSnap);
     }
   })();
   </script>

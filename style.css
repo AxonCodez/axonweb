@@ -12,6 +12,7 @@
 
 :root {
   --accent-color: #5c9eff;
+  --accent-color-light: #99c7ff;
   --accent-color-rgb: 92, 158, 255;
   --bg-color: #d3f3f3; /* Baby Blue background */
   --panel-bg: rgba(12, 14, 18, 0.9); /* Solid dark frosted glass */
@@ -2454,6 +2455,125 @@ html.lenis, html.lenis body {
 }
 
 /* =====================================
+   TERMINAL RESUME MODAL
+   ===================================== */
+.terminal-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.8);
+  backdrop-filter: blur(10px);
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+}
+
+.terminal-modal-overlay.active {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.terminal-modal {
+  width: 90%;
+  max-width: 800px;
+  height: 80vh;
+  max-height: 600px;
+  background: #111418;
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.6), 0 0 0 1px rgba(255, 255, 255, 0.05) inset;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  transform: scale(0.95) translateY(20px);
+  transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.terminal-modal-overlay.active .terminal-modal {
+  transform: scale(1) translateY(0);
+}
+
+.terminal-header {
+  height: 36px;
+  background: #1e2227;
+  display: flex;
+  align-items: center;
+  padding: 0 16px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  position: relative;
+}
+
+.terminal-buttons {
+  display: flex;
+  gap: 8px;
+}
+
+.term-btn {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: opacity 0.2s;
+}
+
+.term-btn:hover {
+  opacity: 0.8;
+}
+
+.close-btn { background: #ff5f56; }
+.min-btn { background: #ffbd2e; }
+.max-btn { background: #27c93f; }
+
+.terminal-title {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  font-family: 'Fira Code', monospace;
+  font-size: 12px;
+  color: #8c939e;
+}
+
+.terminal-body {
+  flex: 1;
+  padding: 24px;
+  font-family: 'Fira Code', monospace;
+  font-size: 14px;
+  color: #a9b2c3;
+  overflow-y: auto;
+  line-height: 1.6;
+}
+
+.terminal-body .term-command {
+  color: var(--accent-color);
+  font-weight: bold;
+}
+
+.terminal-body .term-output {
+  color: #e6e8eb;
+  margin-bottom: 16px;
+}
+
+.terminal-body .term-cursor {
+  display: inline-block;
+  width: 8px;
+  height: 16px;
+  background: var(--accent-color);
+  animation: termBlink 1s step-end infinite;
+  vertical-align: middle;
+}
+
+@keyframes termBlink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
+/* =====================================
    FOOTER SOCIALS
    ===================================== */
 .footer-socials {
@@ -2461,8 +2581,17 @@ html.lenis, html.lenis body {
   justify-content: center;
   align-items: center;
   gap: 20px;
-  padding: 40px 20px 20px;
-  width: 100%;
+  padding: 16px 32px;
+  width: fit-content;
+  margin: 40px auto 20px;
+  
+  /* Glassmorphic Background (Matches Navbar) */
+  background: rgba(var(--accent-color-rgb), 0.12);
+  border: 1.5px solid rgba(var(--accent-color-rgb), 0.3);
+  border-radius: 60px;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  box-shadow: 0 6px 30px rgba(0, 0, 0, 0.15), 0 0 15px rgba(var(--accent-color-rgb), 0.05);
 }
 
 .social-link {
@@ -2480,8 +2609,9 @@ html.lenis, html.lenis body {
 .social-link img {
   width: 20px;
   height: 20px;
-  filter: invert(1);
-  opacity: 0.7;
+  /* Converts black SVGs to #0c2f3c to match the dark font color of the website */
+  filter: invert(13%) sepia(34%) saturate(1598%) hue-rotate(162deg) brightness(96%) contrast(92%);
+  opacity: 0.9;
   transition: opacity 0.3s ease;
 }
 
