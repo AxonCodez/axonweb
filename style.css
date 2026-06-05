@@ -27,10 +27,18 @@
   text-decoration: none;
 }
 
-body {
-  font-family: sans-serif;
-  background-color: var(--bg-color);
+html, body {
+  margin: 0;
+  padding: 0;
+  width: 100%;
   overflow-x: hidden;
+  position: relative;
+}
+
+body {
+  background-color: var(--bg-color);
+  color: #fff;
+  font-family: 'Inter', sans-serif;
   transition: background-color 0.2s ease-out; /* Smooth dynamic color shifting */
 }
 
@@ -963,6 +971,10 @@ body {
   text-shadow: 0 0 8px rgba(var(--accent-color-rgb), 0.4);
 }
 
+.nav-icon {
+  display: none;
+}
+
 /* === TIMELINE SECTION === */
 .timeline {
   position: relative;
@@ -1305,7 +1317,7 @@ body {
 .carousel-viewport {
   width: 100%;
   max-width: 700px;
-  height: 280px;
+  height: 320px;
   position: relative;
   overflow: hidden;
   border-radius: 16px;
@@ -1356,7 +1368,7 @@ body {
 
 .carousel-slide img {
   max-width: 90%;
-  max-height: 260px;
+  max-height: 220px;
   object-fit: contain;
   border-radius: 12px;
   box-shadow: 0 8px 28px rgba(0, 0, 0, 0.2);
@@ -2212,7 +2224,202 @@ html {
 
 /* ── Smooth scroll behaviour ────────────────────────────────────── */
 * {
-  scroll-behavior: smooth;
+  /* removed scroll-behavior: smooth for Lenis */
+}
+
+/* ── Form field focus glow — integrates with the scroll reveal feel ─ */
+.contact-form input:focus,
+.gradient-picker-area {
+  flex: 1;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 4px;
+  position: relative;
+  cursor: crosshair;
+  background: 
+    linear-gradient(to top, #000 0%, transparent 100%),
+    linear-gradient(to right, #fff 0%, var(--hue-color, #00f5ff) 100%);
+  overflow: hidden;
+  box-shadow: inset 0 2px 6px rgba(0, 0, 0, 0.4);
+  user-select: none;
+}
+
+.gradient-picker-pointer {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  border: 1.5px solid #fff;
+  box-shadow: 0 0 4px #000;
+  position: absolute;
+  top: 70%;
+  left: 15%;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+  transition: top 0.05s ease, left 0.05s ease;
+}
+
+.hue-slider-container {
+  width: 14px;
+  display: flex;
+  justify-content: center;
+  position: relative;
+  flex-shrink: 0;
+}
+
+.hue-slider-input {
+  -webkit-appearance: none;
+  appearance: none;
+  writing-mode: vertical-lr; /* Native vertical range slider direction */
+  width: 12px;
+  height: 100%;
+  background: linear-gradient(to top, #ff0000 0%, #ff00ff 17%, #0000ff 33%, #00ffff 50%, #00ff00 67%, #ffff00 83%, #ff0000 100%);
+  border-radius: 4px;
+  cursor: pointer;
+  border: 1px solid rgba(0, 0, 0, 0.35);
+  outline: none;
+  box-sizing: border-box;
+}
+
+.hue-slider-input::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 16px; /* Horizontal span of thumb */
+  height: 8px; /* Vertical thickness of thumb */
+  border: 1.5px solid #fff;
+  background: #111317;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+  cursor: pointer;
+  border-radius: 2px;
+}
+
+/* === CUSTOM MOUSE CURSOR === */
+@media (pointer: fine) {
+  /* Hide native cursor globally on desktop/laptops */
+  body, a, button, select, input, textarea, [role="button"], .tool-btn, .layer-item, .cat-pill, .dropdown-toggle, .swatch {
+    cursor: none !important;
+  }
+  
+  .custom-cursor-dot {
+    width: 6px;
+    height: 6px;
+    background-color: var(--accent-color);
+    border-radius: 50%;
+    position: fixed;
+    pointer-events: none;
+    z-index: 999999;
+    transform: translate(-50%, -50%);
+    transition: width 0.2s ease, height 0.2s ease, background-color 0.3s;
+  }
+  
+  .custom-cursor-ring {
+    width: 24px;
+    height: 24px;
+    border: 1.5px solid var(--accent-color);
+    border-radius: 50%;
+    position: fixed;
+    pointer-events: none;
+    z-index: 999998;
+    transform: translate(-50%, -50%);
+    transition: width 0.25s ease, height 0.25s ease, border-color 0.3s, background-color 0.25s ease;
+  }
+
+  /* Expanding hover state on clickable items */
+  .custom-cursor-ring.hovered {
+    width: 42px;
+    height: 42px;
+    background-color: rgba(var(--accent-color-rgb), 0.12);
+    border-color: rgba(var(--accent-color-rgb), 0.6);
+    box-shadow: 0 0 15px rgba(var(--accent-color-rgb), 0.25);
+  }
+  
+  
+  .custom-cursor-dot.hovered {
+    width: 0px;
+    height: 0px;
+  }
+}
+
+/* ================================================================
+   IMMERSIVE SCROLL SYSTEM
+   ================================================================ */
+
+/* ── Scroll Progress Bar ─────────────────────────────────────────── */
+.scroll-progress-bar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 3px;
+  width: 0%;
+  background: linear-gradient(90deg, var(--accent-color), rgba(var(--accent-color-rgb), 0.4));
+  z-index: 1000000;
+  border-radius: 0 2px 2px 0;
+  box-shadow: 0 0 10px rgba(var(--accent-color-rgb), 0.6);
+  transition: background 0.3s ease;
+  pointer-events: none;
+}
+
+/* ── Prevent flash-of-invisible on [data-reveal] before JS runs ─── */
+/* GSAP will set opacity:0 itself; this stops the flicker on load */
+@keyframes scrollRevealFallback {
+  from { opacity: 0; transform: translateY(40px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ── Navbar Scrolled State — deeper glow when user scrolls down ──── */
+.navbar.navbar-scrolled {
+  background: rgba(var(--accent-color-rgb), 0.18);
+  border-color: rgba(var(--accent-color-rgb), 0.45);
+  box-shadow:
+    0 8px 36px rgba(0, 0, 0, 0.2),
+    0 0 24px rgba(var(--accent-color-rgb), 0.12);
+}
+
+/* ── Section overflow — must stay visible for sticky elements ───── */
+#about, #work, #contact {
+  overflow: visible;
+}
+
+/* ── All scroll-reveal elements — GPU compositing hint ──────────── */
+.scroll-reveal {
+  will-change: transform, opacity;
+}
+
+/* ── Smooth scroll offset for anchors below the floating navbar ──── */
+html {
+  scroll-padding-top: 100px;
+}
+
+/* ── Subtle hover lift on about-cards for interaction depth ─────── */
+.about-card {
+  will-change: transform;
+}
+
+/* ── Performance hints on animated elements ──────────────────────── */
+/* Note: skill-bowl-container intentionally excluded — will-change
+   creates a stacking context that breaks the physics ball positioning */
+.studio-workspace,
+.about-image img,
+.about-card,
+.work-card-full,
+.graphics-card-full,
+.contact-form {
+  will-change: transform, opacity;
+}
+
+/* ── Section Entrance — handled by GSAP data-reveal attributes ── */
+/* Sections remain fully visible by default; GSAP animates children */
+
+/* ── Hero Canvas — additional depth layer for parallax ───────────── */
+.creative-hero-section {
+  overflow: hidden;
+}
+
+/* ── Timeline entry — ensure opacity starts at 0 via GSAP, not CSS ─ */
+/* The existing .timeline-entry CSS has opacity:0 on .timeline-content
+   so we leave those untouched and only let GSAP handle .timeline-entry */
+
+/* ── Smooth scroll behaviour ────────────────────────────────────── */
+* {
+  /* removed scroll-behavior: smooth for Lenis */
 }
 
 /* ── Form field focus glow — integrates with the scroll reveal feel ─ */
@@ -2222,6 +2429,322 @@ html {
   box-shadow: 0 0 12px rgba(var(--accent-color-rgb), 0.18);
   transition: outline 0.2s ease, box-shadow 0.2s ease;
 }
+/* =====================================
+   LENIS SMOOTH SCROLLING BASE
+   ===================================== */
+html.lenis, html.lenis body {
+  height: auto;
+}
 
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
 
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
 
+.lenis.lenis-stopped {
+  overflow: hidden;
+}
+
+.lenis.lenis-scrolling iframe {
+  pointer-events: none;
+}
+
+/* =====================================
+   FOOTER SOCIALS
+   ===================================== */
+.footer-socials {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+  padding: 40px 20px 20px;
+  width: 100%;
+}
+
+.social-link {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 44px;
+  height: 44px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 50%;
+  transition: transform 0.3s ease, background 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.social-link img {
+  width: 20px;
+  height: 20px;
+  filter: invert(1);
+  opacity: 0.7;
+  transition: opacity 0.3s ease;
+}
+
+.social-link:hover {
+  transform: translateY(-5px);
+  background: rgba(var(--accent-color-rgb), 0.15);
+  border-color: var(--accent-color);
+  box-shadow: 0 5px 15px rgba(var(--accent-color-rgb), 0.2);
+}
+
+.social-link:hover img {
+  opacity: 1;
+}
+
+/* =====================================
+   PARALLAX UTILITIES
+   ===================================== */
+.parallax-bg {
+  /* Class to be picked up by GSAP for background parallax */
+  will-change: transform;
+}
+
+/* ================================================================
+   MOBILE RESPONSIVENESS (MAX-WIDTH: 768PX)
+   ================================================================ */
+@media screen and (max-width: 768px) {
+  /* ── Global Adjustments ── */
+  .section, .about-section, .work-section, .contact-section {
+    padding: 60px 20px !important;
+  }
+  .section-title, .about-heading {
+    font-size: 28px !important;
+  }
+
+  /* ── Loader Mobile Fix ── */
+  #loader .loader-title {
+    font-size: 14px;
+    letter-spacing: 2px;
+  }
+  #loader .console-box {
+    padding: 8px;
+  }
+  #loader .console-body {
+    height: 70px;
+    font-size: 9px;
+  }
+  .loader-icon {
+    width: 60px;
+    height: 60px;
+  }
+
+  /* ── Navigation ── */
+  .navbar {
+    padding: 8px 16px;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+    align-items: center;
+    border-radius: 30px;
+    gap: 15px; /* Override desktop gap of 48px */
+    width: max-content;
+    max-width: 95vw;
+  }
+  .nav-links {
+    gap: 10px; /* smaller gap for icons */
+    width: auto;
+    justify-content: flex-end;
+  }
+  .nav-link {
+    padding: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .nav-text {
+    display: none; /* Hide text on mobile */
+  }
+  .nav-icon {
+    display: block; /* Show icons on mobile */
+    width: 20px;
+    height: 20px;
+  }
+  .logo {
+    font-size: 14px;
+    letter-spacing: 1px;
+  }
+
+  /* ── Hero Section (Photoshop UI) ── */
+  .creative-hero-section {
+    padding-top: 80px;
+    height: auto;
+    min-height: 100vh;
+  }
+  .studio-workspace {
+    flex-direction: column;
+    height: auto;
+    min-height: 70vh;
+    border-radius: 12px;
+    overflow: visible;
+  }
+  .right-sidebar {
+    display: flex !important; /* Show on mobile */
+    flex-direction: row;
+    width: 100%;
+    order: 3; /* Below left-toolbar */
+    border: none;
+    background: transparent;
+    padding: 10px 0;
+    justify-content: center;
+  }
+  .right-sidebar .panel-box:last-child {
+    display: none !important; /* Hide layers panel */
+  }
+  .right-sidebar .panel-box.color-picker-panel {
+    width: 100%;
+    max-width: 250px;
+    border: none;
+    background: rgba(12, 14, 18, 0.4); /* Give back its own subtle background */
+    padding: 10px;
+    margin: 0;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+  }
+  .color-picker-panel .panel-header {
+    font-size: 10px;
+    padding: 4px;
+  }
+  .color-picker-container {
+    height: 40px; /* Optimized smaller height */
+  }
+  .color-swatch-overlap {
+    transform: scale(0.8);
+    transform-origin: left center;
+  }
+  
+  .left-toolbar {
+    flex-direction: row;
+    width: 100%;
+    height: auto;
+    padding: 10px;
+    border-right: none;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    justify-content: space-around;
+    order: 2; /* Below canvas, above color picker */
+  }
+  
+  .right-side-label {
+    display: none !important;
+  }
+  .active-canvas {
+    order: 1; /* Move above the toolbar */
+    border-radius: 12px 12px 0 0;
+    min-height: 50vh;
+  }
+  .menu-bar {
+    display: none; /* Hide desktop top menu */
+  }
+  .canvas-main-title {
+    font-size: 40px !important;
+  }
+  .hello-badge {
+    font-size: 12px;
+    padding: 4px 10px;
+  }
+  .floating-subline {
+    font-size: 14px;
+  }
+  .character-img {
+    max-width: 160px;
+    transform: translateY(20px);
+  }
+
+  /* ── About Section ── */
+  .about-grid {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+  .about-text, .about-image, .about-cards {
+    width: 100%;
+    padding: 0;
+  }
+  .stats-grid {
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+  }
+  .timeline {
+    width: 100%;
+    padding-left: 10px;
+  }
+  .skill-bowl-container {
+    height: 400px;
+    margin-top: 40px;
+  }
+
+  /* ── Work Section ── */
+  .work-stack {
+    width: 100%;
+  }
+  .work-card-full, .graphics-card-full {
+    padding: 24px 20px;
+  }
+  .projects-grid {
+    grid-template-columns: 1fr;
+  }
+  .carousel-viewport {
+    height: 220px;
+  }
+  .carousel-slide img {
+    max-height: 140px;
+  }
+  .work-card-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+  }
+  .category-pills {
+    gap: 6px;
+  }
+  .cat-pill {
+    font-size: 11px;
+    padding: 6px 14px;
+  }
+  .floating-sidebar {
+    bottom: 15px;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+  .sidebar-icons {
+    flex-direction: row;
+  }
+  .sidebar-hidden-icons {
+    flex-direction: row;
+    bottom: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    margin-bottom: 15px;
+    margin-left: 0;
+  }
+  .floating-sidebar:hover .sidebar-hidden-icons {
+    transform: translate(-50%, -10px) !important;
+  }
+
+  /* ── Contact Section ── */
+  .contact-form {
+    padding: 30px 20px;
+  }
+  .contact-form button {
+    width: 100%;
+  }
+
+  /* Disable custom cursor entirely on mobile/touch */
+  .custom-cursor-dot, .custom-cursor-ring {
+    display: none !important;
+  }
+}
+
+/* Very Small Screens (Phones) */
+@media screen and (max-width: 480px) {
+  .canvas-main-title {
+    font-size: 32px !important;
+  }
+  .character-img {
+    max-width: 130px;
+  }
+  .stats-grid {
+    grid-template-columns: 1fr;
+  }
+}
