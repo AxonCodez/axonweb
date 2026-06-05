@@ -1086,9 +1086,10 @@ body {
 /* Logo */
 .navbar .logo {
   font-family: 'AkiraExpanded-SuperBold', sans-serif;
-  font-size: 20px;
+  font-size: 14px;
   color: #0a2540;
   cursor: pointer;
+  letter-spacing: 1px;
 }
 
 /* Nav Links */
@@ -2563,8 +2564,9 @@ html.lenis, html.lenis body {
     height: 20px;
   }
   .logo {
-    font-size: 14px;
-    letter-spacing: 1px;
+    font-family: 'AkiraExpanded-SuperBold', sans-serif;
+    font-size: 10px;
+    letter-spacing: 0.5px;
   }
 
   /* ── Hero Section (Photoshop UI) ── */
@@ -2595,23 +2597,24 @@ html.lenis, html.lenis body {
   }
   .right-sidebar .panel-box.color-picker-panel {
     width: 100%;
-    max-width: 250px;
+    max-width: 300px;
     border: none;
     background: rgba(12, 14, 18, 0.4); /* Give back its own subtle background */
-    padding: 10px;
+    padding: 16px;
     margin: 0;
-    border-radius: 10px;
+    border-radius: 12px;
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
   }
   .color-picker-panel .panel-header {
-    font-size: 10px;
-    padding: 4px;
+    font-size: 12px;
+    padding: 6px;
+    margin-bottom: 8px;
   }
   .color-picker-container {
-    height: 40px; /* Optimized smaller height */
+    height: 60px; /* Bigger height */
   }
   .color-swatch-overlap {
-    transform: scale(0.8);
+    transform: scale(1.1);
     transform-origin: left center;
   }
   

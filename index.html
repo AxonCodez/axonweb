@@ -1801,6 +1801,11 @@
         }
       });
     });
+
+    // Remove tool-btn titles on mobile/touch to prevent sticky tooltips
+    if (window.innerWidth <= 768 || ('ontouchstart' in window)) {
+      document.querySelectorAll('.tool-btn').forEach(btn => btn.removeAttribute('title'));
+    }
   })();
   </script>
 
