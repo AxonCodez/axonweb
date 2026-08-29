@@ -105,11 +105,42 @@
       "https://mir-s3-cdn-cf.behance.net/project_modules/disp/a47ee2132556577.64107626557a3.png",
       "https://mir-s3-cdn-cf.behance.net/project_modules/disp/0f23a5132556577.641d9846c2dad.png",
       "https://mir-s3-cdn-cf.behance.net/project_modules/max_1200/29c993132556577.61ab5e5b1289d.png",
-      "https://mir-s3-cdn-cf.behance.net/project_modules/disp/db5553132556577.641076265796a.png"
+      "https://mir-s3-cdn-cf.behance.net/project_modules/disp/db5553132556577.641076265796a.png",
+      "uploads/graphics/logo_zara.png",
+      "uploads/graphics/logo_pink_lock.png",
+      "uploads/graphics/logo_tnwe_safe.png",
+      "uploads/graphics/logo_verizon.png",
+      "uploads/graphics/logo_halloween_apple.jpg"
     ],
     "instagram_posts": [
       "/uploads/graphics/1776230675490-117601633.png",
-      "/uploads/graphics/1776230686159-911726174.png"
+      "/uploads/graphics/1776230686159-911726174.png",
+      "uploads/graphics/sunkissed.jpg",
+      "uploads/graphics/wild_whispers.jpg"
+    ],
+    "posters": [
+      "uploads/graphics/poster_ronaldo.jpg",
+      "uploads/graphics/poster_mbappe.jpg",
+      "uploads/graphics/poster_messi_yamal.jpg",
+      "uploads/graphics/poster_neymar_faith.jpg",
+      "uploads/graphics/poster_neymar_lastdance.jpg",
+      "uploads/graphics/poster_no_tobacco.jpg",
+      "uploads/graphics/poster_spiderman_eye.jpg",
+      "uploads/graphics/poster_spiderman_ninjas.jpg",
+      "uploads/graphics/poster_spiderman_both.jpg",
+      "uploads/graphics/poster_kimera_evo.jpg"
+    ],
+    "merchandise": [
+      "uploads/graphics/merch_cap.jpg",
+      "uploads/graphics/merch_polo_tshirt.jpg",
+      "uploads/graphics/merch_roundneck_tshirt.jpg",
+      "uploads/graphics/merch_hoodie.jpg",
+      "uploads/graphics/merch_varsity_jacket.jpg"
+    ],
+    "other_work": [
+      "uploads/graphics/seismosolve.png",
+      "uploads/graphics/splash_ops.png",
+      "uploads/graphics/smart_infratech.jpg"
     ]
   },
   "adminPassword": "axon2025"
